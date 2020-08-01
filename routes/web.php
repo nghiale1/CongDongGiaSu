@@ -14,3 +14,24 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::view('/a', 'admin.pages.index');
+Route::view('/b', 'client.layouts.layout');
+
+Route::group(['prefix' => 'gia-su'], function () {
+    
+});
+Route::group(['prefix' => 'phu-huynh'], function () {
+    
+});
+Route::group(['prefix' => 'ban-tin'], function () {
+    
+});
+Route::group(['prefix' => 'hoc-sinh'], function () {
+    
+});
+Route::group(['prefix' => 'lop-hoc'], function () {
+    
+});
+Route::group(['prefix' => 'thong-ke'], function () {
+    
+});
