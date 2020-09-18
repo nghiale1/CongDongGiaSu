@@ -1,7 +1,7 @@
 <section class="w3l-bootstrap-header">
     <nav class="navbar navbar-expand-lg navbar-light py-lg-2 py-2">
         <div class="container">
-            <a class="navbar-brand" href=""><span class="fa fa-pencil-square-o "></span> Mastery</a>
+
             <!-- if logo is image enable this   
       <a class="navbar-brand" href="#">
           <img src="image-path" alt="Your logo" title="Your logo" style="height:35px;" />
@@ -13,26 +13,76 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mx-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="">Home</a>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle rounded-0 " type="button"
+                            id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Bản tin
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                    </div>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle rounded-0 " type="button"
+                            id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Lớp học
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                    </div>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle rounded-0 " type="button"
+                            id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Phụ huynh
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                    </div>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle rounded-0 " type="button"
+                            id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Gia sư
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item " href="#">Action</a>
+                            <a class="dropdown-item " href="#">Another action</a>
+                            <a class="dropdown-item " href="#">Something else here</a>
+                        </div>
+                    </div>
+                    <li class="">
+                        <a class="btn btn-secondary rounded-0" href="">Giới thiệu</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="">Services</a>
+                    <li class="">
+                        <a class="btn btn-secondary rounded-0" href="">Tuyển dụng</a>
                     </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="">Contact</a>
+                    <li class="">
+                        <a class="btn btn-secondary rounded-0" href="">Liên hệ</a>
                     </li>
+                    {{-- <li class="">
+                        <a class="btn btn-secondary rounded-0" href="">Đăng nhập</a>
+                    </li> --}}
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle rounded-0" type="button"
+                            id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Tài khoản
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                    </div>
                 </ul>
-                <form action="" class="form-inline position-relative my-2 my-lg-0">
-                    <input class="form-control search" type="search" placeholder="Search here..." aria-label="Search"
-                        required="">
-                    <button class="btn btn-search position-absolute" type="submit"><span class="fa fa-search"
-                            aria-hidden="true"></span></button>
-                </form>
+
             </div>
         </div>
     </nav>

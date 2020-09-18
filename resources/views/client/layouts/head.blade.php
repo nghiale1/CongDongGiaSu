@@ -11,3 +11,4 @@
 <!-- Template CSS -->
 <link rel="stylesheet" href="{{asset('client/assets/css/style-starter.css')}}">
 <link rel="stylesheet" href="{{asset('client/assets/vendor/OwlCarousel2-2.3.4/assets/owl.carousel.min.css')}}">
+<link rel="stylesheet" href="{{asset('client/assets/vendor/datepicker.css')}}">

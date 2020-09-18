@@ -4,15 +4,14 @@
         <div class="container">
             <div class="d-grid grid-col-4 footer-top-29">
                 <div class="footer-list-29 footer-1">
-                    <h6 class="footer-title-29">Contact Us</h6>
+                    <h6 class="footer-title-29">Liên hệ</h6>
                     <ul>
                         <li>
-                            <p><span class="fa fa-map-marker"></span> Estate Business, #32841 block, #221DRS Real estate
-                                business building, UK.</p>
+                            <p><span class="fa fa-map-marker"></span> khu II Đại học Cần Thơ.</p>
                         </li>
-                        <li><a href="tel:+7-800-999-800"><span class="fa fa-phone"></span> +(21)-255-999-8888</a></li>
+                        <li><a href="tel:+7-800-999-800"><span class="fa fa-phone"></span> 082-690-3960</a></li>
                         <li><a href="mailto:corporate-mail@support.com" class="mail"><span
-                                    class="fa fa-envelope-open-o"></span> corporate-mail@support.com</a></li>
+                                    class="fa fa-envelope-open-o"></span> nghiab1605229@student.ctu.edu.vn</a></li>
                     </ul>
                     <div class="main-social-footer-29">
                         <a href="#facebook" class="facebook"><span class="fa fa-facebook"></span></a>
@@ -24,9 +23,9 @@
                 </div>
                 <div class="footer-list-29 footer-2">
                     <ul>
-                        <h6 class="footer-title-29">Featured Links</h6>
-                        <li><a href="">Graduation</a></li>
-                        <li><a href="">Admissions</a></li>
+                        <h6 class="footer-title-29">Dịch vụ</h6>
+                        <li><a href="">Giới thiệu</a></li>
+                        <li><a href="">Liên hệ</a></li>
                         <li><a href="">Book Store</a></li>
                         <li><a href="">International</a></li>
                         <li><a href="">Courses</a></li>

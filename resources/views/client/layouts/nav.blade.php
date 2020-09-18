@@ -4,14 +4,28 @@
         <div class="container">
             <header class="row top-menu-top">
                 <div class="accounts col-md-9 col-6">
-                    <li class="top_li"><span class="fa fa-phone"></span><a href="tel:+142 5897555">+142 5897555</a>
+                    <li class="top_li">
+
+                        <a class="navbar-brand" href="">
+                            <span class="fa fa-pencil-square-o "></span> Cộng Đồng Gia Sư
+                        </a>
                     </li>
-                    <li class="top_li1"><span class="fa fa-envelope-o"></span> <a
-                            href="mailto:education-mail@support.com" class="mail"> info@example.com</a> </li>
+                    <li class="top_li1">
+                        <div class="" id="">
+
+
+                            <form action="" class="form-inline position-relative my-2 my-lg-0">
+                                <input class="form-control search" type="search" placeholder="Tìm kiếm..."
+                                    aria-label="Search" required="">
+                                <button class="btn btn-search position-absolute" type="submit" s><span
+                                        class="fa fa-search" aria-hidden="true"></span></button>
+                            </form>
+                        </div>
+                    </li>
                 </div>
-                <div class="social-top col-md-3 col-6">
+                {{-- <div class="social-top col-md-3 col-6">
                     <a href="" class="btn btn-secondary btn-theme4">Apply Now</a>
-                </div>
+                </div> --}}
             </header>
         </div>
     </div>

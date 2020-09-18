@@ -3,21 +3,20 @@
 
 <head>
     @include('client.layouts.head')
+    @include('client.layouts.css')
     @stack('css')
 </head>
 
 <body>
-    @include('client.layouts.nav')
-    @include('client.layouts.header')
-    @include('client.layouts.home')
-    @include('client.layouts.feature')
-    @include('client.layouts.about')
-    @include('client.layouts.course')
-    @include('client.layouts.form12')
-    @include('client.layouts.specifications')
-    @include('client.layouts.testimonials')
-    @include('client.layouts.news')
-    @include('client.layouts.footer')
+    <div id="app">
+
+        @include('client.layouts.nav')
+        @include('client.layouts.header')
+        @include('client.layouts.breadcrum')
+        @yield('page')
+
+        @include('client.layouts.footer')
+    </div>
     @include('client.layouts.script')
     @stack('script')
 </body>

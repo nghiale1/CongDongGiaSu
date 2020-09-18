@@ -15,6 +15,8 @@
 
 <script src="{{asset('client/assets/vendor/OwlCarousel2-2.3.4/owl.carousel.min.js')}}"></script>
 <script src="{{asset('client/assets/vendor/jquery.smooth-scroll.min.js')}}"></script>
+<script src="{{asset('client/assets/vendor/vue.min.js')}}"></script>
+{{-- <script src="{{asset('client/assets/vendor/vue.js')}}"></script> --}}
 
 <!-- script for -->
 <script>
@@ -50,3 +52,16 @@
     })
 </script>
 <!-- //script -->
+
+<script>
+  Vue.component('red-star', {
+  template: '<span style="color: red">*</span>',
+});
+  
+</script>
+
+<script>
+  var app=new Vue({
+      el:'#app'
+  });
+</script>

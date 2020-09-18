@@ -14,7 +14,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
+        'guard' => 'tutor',
         'passwords' => 'users',
     ],
 
@@ -46,6 +46,14 @@ return [
             'provider' => 'users',
             'hash' => false,
         ],
+        'tutor' => [
+            'driver' => 'session',
+            'provider' => 'tutor',
+        ],
+        'tutor-api' => [
+            'driver' => 'token',
+            'provider' => 'tutor',
+        ],
     ],
 
     /*
@@ -71,10 +79,10 @@ return [
             'model' => App\User::class,
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'tutor' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\GiaSu::class,
+        ],
     ],
 
     /*
@@ -98,6 +106,12 @@ return [
             'table' => 'password_resets',
             'expire' => 60,
         ],
+        'tutor' => [
+            'provider' => 'tutor',
+            'table' => 'password_resets',
+            'expire' => 60,
+        ],
+
     ],
 
 ];
