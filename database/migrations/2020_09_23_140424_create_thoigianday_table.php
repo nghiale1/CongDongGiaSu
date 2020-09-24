@@ -13,10 +13,13 @@ class CreateThoigiandayTable extends Migration
      */
     public function up()
     {
-        Schema::create('thoigianday', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('thoigianday')) {
+            Schema::create('thoigianday', function (Blueprint $table) {
+                $table->increments('tgd_id');
+                $table->string('tgd_ten');
+                $table->string('tgd_ghichu')->nullable();
+            });
+        }
     }
 
     /**
@@ -26,6 +29,6 @@ class CreateThoigiandayTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('thoigianday');
+        // Schema::dropIfExists('thoigianday');
     }
 }

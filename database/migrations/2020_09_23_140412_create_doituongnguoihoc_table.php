@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateGiasuTable extends Migration
+class CreateDoituongnguoihocTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class CreateGiasuTable extends Migration
      */
     public function up()
     {
-        Schema::create('giasu', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('doituongnguoihoc')) {
+            Schema::create('doituongnguoihoc', function (Blueprint $table) {
+                $table->increments('dtnh_id');
+                $table->string('dtnh_ten');
+            });
+        }
     }
 
     /**
@@ -26,6 +28,6 @@ class CreateGiasuTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('giasu');
+        // Schema::dropIfExists('doituongnguoihoc');
     }
 }

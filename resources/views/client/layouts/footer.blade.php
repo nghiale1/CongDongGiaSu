@@ -26,34 +26,29 @@
                         <h6 class="footer-title-29">Dịch vụ</h6>
                         <li><a href="">Giới thiệu</a></li>
                         <li><a href="">Liên hệ</a></li>
-                        <li><a href="">Book Store</a></li>
-                        <li><a href="">International</a></li>
-                        <li><a href="">Courses</a></li>
                     </ul>
                 </div>
                 <div class="footer-list-29 footer-3">
-
-                    <h6 class="footer-title-29">Newsletter </h6>
-                    <form action="#" class="subscribe" method="post">
-                        <input type="email" name="email" placeholder="Email" required="">
-                        <button><span class="fa fa-envelope-o"></span></button>
-                    </form>
-                    <p>Subscribe and get our weekly newsletter</p>
-                    <p>We'll never share your email address</p>
-
+                    <ul>
+                        <h6 class="footer-title-29">Học viên</h6>
+                        <li><a href="">Tìm gia sư</a></li>
+                        <li><a href="">Gia sư gần bạn</a></li>
+                        <li><a href="">Gia sư tiêu biểu</a></li>
+                        <li><a href="">Học phí</a></li>
+                    </ul>
                 </div>
                 <div class="footer-list-29 footer-4">
                     <ul>
-                        <h6 class="footer-title-29">Quick Links</h6>
-                        <li><a href="">Home</a></li>
-                        <li><a href="">About</a></li>
-                        <li><a href="">Services</a></li>
-                        <li><a href="#"> Blog</a></li>
-                        <li><a href="">Contact</a></li>
+                        <h6 class="footer-title-29">Gia sư</h6>
+                        <li><a href="">Đăng ký làm gia sư</a></li>
+                        <li><a href="">Hướng dẫn nhận lớp</a></li>
+                        <li><a href="">Lớp mới cần gia sư</a></li>
+                        <li><a href="">Hợp đồng gia sư</a></li>
                     </ul>
                 </div>
+
             </div>
-            <div class="d-grid grid-col-2 bottom-copies">
+            {{-- <div class="d-grid grid-col-2 bottom-copies">
                 <p class="copy-footer-29">© 2020 Mastery. All rights reserved | Designed by <a
                         href="https://w3layouts.com">W3layouts</a></p>
                 <ul class="list-btm-29">
@@ -61,7 +56,7 @@
                     <li><a href="#link">Terms of service</a></li>
 
                 </ul>
-            </div>
+            </div> --}}
         </div>
     </div>
     <!-- move top -->

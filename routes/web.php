@@ -18,6 +18,7 @@ Route::view('/contact', 'client.pages.contact');
 Route::view('/dang-nhap', 'client.pages.account.login');
 Route::view('/dang-ky', 'client.pages.account.register');
 Route::view('/trang-ca-nhan', 'client.pages.account.profile');
+Route::view('/danh-sach', 'client.pages.list_class');
 Route::group(['prefix' => ''], function () {
     Route::view('/', 'client.pages.index');
     Route::view('/tim-lop', 'client.pages.post');
