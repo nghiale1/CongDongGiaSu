@@ -57,6 +57,9 @@
   Vue.component('red-star', {
   template: '<span style="color: red">*</span>',
 });
+  Vue.component('green-tick', {
+  template: '<img src="/client/svg/greenTick.svg" alt="" class="green-tick">',
+});
   
 </script>
 

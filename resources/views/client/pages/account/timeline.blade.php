@@ -5,7 +5,10 @@
         <div class="col col-xl-3 order-xl-1 col-lg-6 order-lg-2 col-md-6 col-sm-6 col-12">
             <div class="ui-block">
                 <div class="ui-block-title">
-                    <h6 class="title">Profile Intro</h6>
+                    <h6 class="title">Giới thiệu </h6>
+                    <span>
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                    </span>
                 </div>
                 <div class="ui-block-content">
 
@@ -78,7 +81,7 @@
         <div class="col col-xl-3 order-xl-3 col-lg-6 order-lg-3 col-md-6 col-sm-6 col-12">
             <div class="ui-block">
                 <div class="ui-block-title">
-                    <h6 class="title">Last Videos</h6>
+                    <h6 class="title">Video giới thiệu</h6>
                 </div>
                 <div class="ui-block-content">
 
