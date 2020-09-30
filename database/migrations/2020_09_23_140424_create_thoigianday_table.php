@@ -16,7 +16,7 @@ class CreateThoigiandayTable extends Migration
         if (!Schema::hasTable('thoigianday')) {
             Schema::create('thoigianday', function (Blueprint $table) {
                 $table->increments('tgd_id');
-                $table->string('tgd_ten');
+                $table->string('tgd_ten')->index();
                 $table->string('tgd_ghichu')->nullable();
             });
         }

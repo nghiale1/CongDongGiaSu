@@ -104,7 +104,7 @@ Giới thiệu
 
                 <div class="row">
                     <div class="col-md-3">
-                        <img src="client/img/Lien3.jpg" alt="" class="avatar">
+                        <img src="{{asset('client/img/Lien3.jpg')}}" alt="" class="avatar">
                     </div>
                     <div class="col-md-9 baseline">
                         <h4 class="inline">Ngọc Liên</h4>

@@ -30,7 +30,7 @@
                                 <div class="row pl-3 pr-3 ">
                                     <div class="col-md-2 p-0 border-account">
 
-                                        <img src="{{asset('client/img/Nghia2.jpg')}}" alt=""
+                                        <img src="{{asset('client/svg/teacher_female.svg')}}" alt=""
                                             class="avatar avatar-account">
                                     </div>
                                     <div class="col-md-10 ">

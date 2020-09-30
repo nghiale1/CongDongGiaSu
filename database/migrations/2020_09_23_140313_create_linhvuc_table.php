@@ -16,7 +16,7 @@ class CreateLinhvucTable extends Migration
         if (!Schema::hasTable('linhvuc')) {
             Schema::create('linhvuc', function (Blueprint $table) {
                 $table->increments('lv_id');
-                $table->string('lv_ten');
+                $table->string('lv_ten')->index();
             });
         }
     }

@@ -16,7 +16,7 @@ class CreateDoituongnguoihocTable extends Migration
         if (!Schema::hasTable('doituongnguoihoc')) {
             Schema::create('doituongnguoihoc', function (Blueprint $table) {
                 $table->increments('dtnh_id');
-                $table->string('dtnh_ten');
+                $table->string('dtnh_ten')->index();
             });
         }
     }
