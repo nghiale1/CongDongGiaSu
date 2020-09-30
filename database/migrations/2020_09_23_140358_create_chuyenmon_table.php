@@ -17,7 +17,7 @@ class CreateChuyenmonTable extends Migration
             Schema::create('chuyenmon', function (Blueprint $table) {
                 $table->increments('cm_id');
                 $table->string('cm_ten');
-                $table->integer('lv_id')->unsigned()->index();
+                $table->integer('lv_id')->nullable()->default(null)->unsigned()->index();
 
                 $table->foreign('lv_id')->references('lv_id')->on('linhvuc')->onDelete('cascade');
             });

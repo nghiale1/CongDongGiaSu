@@ -27,8 +27,8 @@ Route::group(['prefix' => ''], function () {
     Route::view('/tim-lop', 'client.pages.find_class');
     Route::view('/dang-ky-gia-su', 'client.pages.register_tutor');
     Route::group(['prefix' => '/hop-dong'], function () {
-        Route::view('/mau-gia-su', 'client.pages.contract_model');
-        Route::view('/lam-gia-su', 'client.pages.contract');
+        Route::view('/mau-gia-su', 'client.pages.model_contract');
+        Route::view('/thue-gia-su', 'client.pages.contract');
     });
 });
 Route::group(['prefix' => 'dashboard'], function () {
@@ -46,3 +46,4 @@ Route::group(['prefix' => 'dashboard'], function () {
     Route::group(['prefix' => 'thong-ke'], function () {
     });
 });
+Route::get('/get_subject', 'DomController@getSubject')->name('getSubject');

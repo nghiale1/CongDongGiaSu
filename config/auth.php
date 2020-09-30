@@ -14,7 +14,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'tutor',
+        'guard' => 'giasu',
         'passwords' => 'users',
     ],
 
@@ -46,13 +46,21 @@ return [
             'provider' => 'users',
             'hash' => false,
         ],
-        'tutor' => [
+        'giasu' => [
             'driver' => 'session',
-            'provider' => 'tutor',
+            'provider' => 'giasu',
         ],
-        'tutor-api' => [
+        'giasu-api' => [
             'driver' => 'token',
-            'provider' => 'tutor',
+            'provider' => 'giasu',
+        ],
+        'hocvien' => [
+            'driver' => 'session',
+            'provider' => 'hocvien',
+        ],
+        'hocvien-api' => [
+            'driver' => 'token',
+            'provider' => 'hocvien',
         ],
     ],
 
@@ -79,9 +87,13 @@ return [
             'model' => App\User::class,
         ],
 
-        'tutor' => [
+        'giasu' => [
             'driver' => 'eloquent',
-            'model' => App\Models\GiaSu::class,
+            'model' => App\Models\Giasu::class,
+        ],
+        'hocvien' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Hocvien::class,
         ],
     ],
 
@@ -106,8 +118,13 @@ return [
             'table' => 'password_resets',
             'expire' => 60,
         ],
-        'tutor' => [
-            'provider' => 'tutor',
+        'giasu' => [
+            'provider' => 'giasu',
+            'table' => 'password_resets',
+            'expire' => 60,
+        ],
+        'hocvien' => [
+            'provider' => 'hocvien',
             'table' => 'password_resets',
             'expire' => 60,
         ],

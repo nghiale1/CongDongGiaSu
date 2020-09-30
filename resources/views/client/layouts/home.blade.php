@@ -9,8 +9,16 @@
                         <div class="banner-info">
                             <div class="container">
                                 <div class="banner-info-bg mx-auto text-center">
-                                    <h5>Vì thế hệ tương lai!</h5>
-                                    <a class="btn btn-secondary btn-theme2 mt-md-5 mt-4" href="">Xem thêm</a>
+                                    <form class="form-inline position-relative my-2 my-lg-0" style="    width: 83%;">
+                                        <input class="form-control search" type="search" placeholder="Nhập môn học"
+                                            aria-label="Search" required="">
+                                        <button class="btn btn-search position-absolute" type="submit" s><span
+                                                class="fa fa-search" aria-hidden="true"></span></button>
+                                    </form>
+
+
+                                    {{-- <h5>Vì thế hệ tương lai!</h5>
+                                    <a class="btn btn-secondary btn-theme2 mt-md-5 mt-4" href="">Xem thêm</a> --}}
                                 </div>
 
                             </div>

@@ -1,0 +1,83 @@
+.profile-image img {
+    border-radius: 50%;
+    max-width: 100%;
+    height: auto;
+}
+
+.hours-tutoring {
+    font-size: 14px;
+}
+
+.rate {
+    font-size: 20px;
+}
+
+.tutor-card-stats td {
+    padding: 5px 0 !important;
+}
+
+.border {
+    border: 1px solid #c4c1c1;
+}
+
+.profile-image {
+    margin-left: 30px;
+}
+
+.avatar {
+    padding-right: 0px;
+
+}
+
+.tutor {
+    margin-top: 20px !important;
+    margin-bottom: 20px !important;
+}
+
+.tutor p {
+    font-size: 14px;
+}
+
+.text-blue {
+    color: #017acd;
+    font-size: 19px;
+}
+
+.text-gray {
+    color: #746f6e;
+}
+
+.name {
+    font-size: 15px;
+
+}
+
+.hour {
+    font-size: 14px;
+
+}
+
+label {
+    font-size: 14px;
+}
+
+.weeksday label {
+    margin: 1px;
+}
+
+.opensan {
+    font-family: "Open Sans", Tahoma, Geneva, Sans-Serif;
+}
+
+.teached {
+    background-color: #32cf3a;
+    padding: 0 4px 1px 4px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    margin-right: 3px;
+}
+
+.title {
+    font-weight: 500;
+}

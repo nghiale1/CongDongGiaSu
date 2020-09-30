@@ -3,7 +3,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 <link rel="shortcut icon" type="image/x-icon" href="{{asset('Image/teacher.svg')}}" />
-<title>Cộng đồng gia sư | @yield('head')</title>
+<title>@yield('head')</title>
 <!-- web fonts -->
 <link href="//fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800,900&display=swap"
     rel="stylesheet">
@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="{{asset('client/assets/vendor/OwlCarousel2-2.3.4/assets/owl.carousel.min.css')}}">
 <link rel="stylesheet" href="{{asset('client/assets/vendor/datepicker.css')}}">
 <link rel="stylesheet" href="{{asset('client/assets/vendor/font-awesome-4.7.0/css/font-awesome.min.css')}}">
+
 <style>
     @font-face {
         font-family: "Source Sans Pro";
@@ -45,7 +46,8 @@
     }
 
     body {
-        font-family: Verdana, Geneva, sans-serif !important;
+        /* font-family: Verdana, Geneva, sans-serif !important; */
+        font-family: "Open Sans", Tahoma, Geneva, Sans-Serif;
     }
 
     p {
@@ -114,5 +116,69 @@
 
     .flex {
         display: flex;
+    }
+
+    a.navbar-brand {
+        color: #ffffff;
+    }
+
+    .navbar-brand span {
+        color: var(--opposite-color);
+    }
+
+    .accounts {
+        cursor: pointer;
+        color: #ffffff;
+        font-size: 16px;
+    }
+
+    .dropdown-item {
+        padding: 0;
+    }
+
+    .avatar {
+        width: 100%;
+    }
+
+    .avatar-account {
+        width: 100%;
+        min-width: 100%;
+        min-height: 100%;
+
+
+    }
+
+    .account-profile {
+        white-space: normal;
+
+
+    }
+
+
+
+    .dropdown-account {
+        left: unset;
+        right: -125%;
+        width: 330px;
+    }
+
+
+    .dropdown-icon {
+
+        color: #606770;
+        display: inline-block;
+        width: 15px;
+    }
+
+    .background-hover a:hover {
+        /* background-color: red; */
+        border-radius: 8px;
+    }
+
+    .border-account {
+        width: 50px;
+        height: 50px;
+        overflow: hidden;
+        border-radius: 50%;
     }
 </style>
