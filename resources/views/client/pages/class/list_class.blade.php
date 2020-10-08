@@ -6,7 +6,10 @@ Cộng đồng gia sư | Danh sách lớp
 Danh sách lớp
 @endsection
 @push('css')
-<link rel="stylesheet" href="{{asset('client/list_class/style.css')}}">
+<style>
+    @include('client.pages.class.list-css');
+</style>
+{{-- <link rel="stylesheet" href="{{asset('client/list_class/style.css')}}"> --}}
 {{-- <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'>
 <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,700,600'>
 <link rel='stylesheet' href='https://pennypixels.pennymacusa.com/css/1_4_1/pp.css'>
@@ -150,7 +153,7 @@ Danh sách lớp
             <div class="flex">
                 <div class=" mt-auto mb-auto mr-auto">
                     <h5 class="light-header" style="">
-                        <strong>667 web tutors</strong> fit your choices
+                        <strong>{{count($tutor)}} kết quả</strong> phù hợp với bạn
                     </h5>
                 </div>
                 <form class="hide " method="get" action="">
@@ -178,33 +181,26 @@ Danh sách lớp
 
             <br>
 
+            @foreach ($tutor as $item)
 
             <div class="border white">
-                <a href="" class="tutor-card">
+                <a href="{{route('course.intro',$item->gs_id)}}" class="tutor-card">
                     <div class="tutor">
 
                         <div class="row">
                             <div class="col-md-2 avatar">
 
                                 <div class="profile-image ">
-                                    <img src="https://dj1hlxw0wr920.cloudfront.net/userfiles/wyzfiles/ad7d5bff-f685-4e5f-9d23-1a36957c43cc.jpg"
-                                        alt="Jonathan S.'s Photo">
+                                    <img src="{{asset($item->gs_hinhdaidien)}}" alt="{{$item->gs_hoten}}">
                                 </div>
                             </div>
                             <div class="col-md-7">
-                                <h5 class="name">Jonathan S.</h5>
-                                <h4 class="text-blue ">An experienced C# Programmer with a passion
-                                    for
-                                    teaching.</h4>
+                                <h5 class="name">{{$item->gs_hoten}}</h5>
+                                <h4 class="text-blue ">{{$item->gs_motangan}}</h4>
+                                <br>
                                 <p class="text-gray ">
-                                    In the past, I completed two certifications in <b>Web</b> Design. My first
-                                    certification
-                                    is
-                                    the HTML5 and CSS3 Specialist. My second certification is in User Interface Design.
-                                    Both
-                                    of
-                                    these...
-                                    <span class="text-blue text-nowrap">read more</span>
+                                    {{$item->descrip}}
+                                    <span class="text-nowrap" style="color: #017acd">xem thêm</span>
                                 </p>
                             </div>
                             <div class="col-md-3" style="border-left: 1px solid #d8d6d6;">
@@ -215,7 +211,7 @@ Danh sách lớp
 
                                                 <h5>
 
-                                                    $55<span class="hour">/hour</span>
+                                                    {{$item->gs_mucluong}}<span class="hour"> buổi</span>
                                                 </h5>
                                             </div>
                                         </td>
@@ -274,101 +270,8 @@ Danh sách lớp
                     </div>
                 </a>
             </div>
-            <div class="border white">
-                <a href="" class="tutor-card">
-                    <div class="tutor">
+            @endforeach
 
-                        <div class="row">
-                            <div class="col-md-2 avatar">
-
-                                <div class="profile-image ">
-                                    <img src="https://dj1hlxw0wr920.cloudfront.net/userfiles/wyzfiles/ad7d5bff-f685-4e5f-9d23-1a36957c43cc.jpg"
-                                        alt="Jonathan S.'s Photo">
-                                </div>
-                            </div>
-                            <div class="col-md-7">
-                                <h5 class="name">Jonathan S.</h5>
-                                <h4 class="text-blue ">An experienced C# Programmer with a passion
-                                    for
-                                    teaching.</h4>
-                                <p class="text-gray ">
-                                    In the past, I completed two certifications in <b>Web</b> Design. My first
-                                    certification
-                                    is
-                                    the HTML5 and CSS3 Specialist. My second certification is in User Interface Design.
-                                    Both
-                                    of
-                                    these...
-                                    <span class="text-blue text-nowrap">read more</span>
-                                </p>
-                            </div>
-                            <div class="col-md-3" style="border-left: 1px solid #d8d6d6;">
-                                <table class="table table-borderless tutor-card-stats">
-                                    <tr>
-                                        <td>
-                                            <div class="rate">
-
-                                                <h5>
-
-                                                    $55<span class="hour">/hour</span>
-                                                </h5>
-                                            </div>
-                                        </td>
-                                    <tr>
-
-                                        <td>
-                                            <div class="review" style="    font-size: 14px;">
-                                                <span class="star-white">
-
-                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
-                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
-                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
-                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
-                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
-                                                    <span class="star-yellow" style="width:50%">
-                                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                                    </span>
-                                                </span>
-                                            </div>
-                                            <span class="review_text" style="font-size: 14px">
-
-                                                <strong>5.0</strong>
-                                                <span class="text-gray">(255)</span>
-                                            </span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="">
-                                            <span class="teached">10</span>
-
-                                            <span class="teached-class">
-
-                                                lớp đã dạy
-                                            </span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="">
-                                            <i class="fa fa-map-marker" aria-hidden="true" style="color: #32cf3a"></i>
-
-                                            <span>
-                                                <b>
-
-                                                    <span class="address">Hiệp Bình Chánh, Thủ Đức</span>
-                                                </b>
-                                            </span>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
         </div>
     </div>
 </div>

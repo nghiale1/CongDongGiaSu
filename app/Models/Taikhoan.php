@@ -8,6 +8,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
  * Class Taikhoan
@@ -24,7 +25,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @package App\Models
  */
-class Taikhoan extends Model
+class Taikhoan extends Authenticatable
 {
 	protected $table = 'taikhoan';
 	protected $primaryKey = 'tk_id';

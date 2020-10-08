@@ -1,4 +1,7 @@
 @extends('client.layouts.layout')
+@section('head')
+James Spiegel
+@endsection
 @section('breadcrum')
 Giới thiệu
 @endsection
@@ -28,6 +31,13 @@ Giới thiệu
     }
 
     @include('client.pages.account.profile-css');
+
+    author-thumb img {
+        border-radius: 100%;
+        overflow: hidden;
+        display: block;
+        width: 100%;
+    }
 </style>
 
 @endpush
@@ -49,9 +59,9 @@ Giới thiệu
                         <div class="row">
                             <div class="col col-lg-5 col-md-5 col-sm-12 col-12">
                                 <ul class="profile-menu">
-                                    <li>
+                                    {{-- <li>
                                         <a href="02-ProfilePage.html" class="active">Dòng thời gian</a>
-                                    </li>
+                                    </li> --}}
                                     <li>
                                         <a href="05-ProfilePage-About.html">Cá nhân</a>
                                     </li>
@@ -88,9 +98,9 @@ Giới thiệu
                             </div>
                             <div class="col col-lg-5 ml-auto col-md-5 col-sm-12 col-12">
                                 <ul class="profile-menu">
-                                    <li>
+                                    {{-- <li>
                                         <a href="07-ProfilePage-Photos.html">Hình ảnh</a>
-                                    </li>
+                                    </li> --}}
                                     <li>
                                         <a href="09-ProfilePage-Videos.html">Lớp dạy</a>
                                     </li>

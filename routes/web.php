@@ -15,13 +15,33 @@
 Route::view('/a', 'admin.pages.index');
 Route::view('/about', 'client.pages.about');
 Route::view('/contact', 'client.pages.contact');
-Route::view('/dang-nhap', 'client.pages.account.login');
-Route::view('/dang-ky', 'client.pages.account.register');
+
+Route::view('/dang-nhap', 'client.pages.account.login')->name('account.login_view');
+Route::post('/xu-ly-dang-nhap', 'AccountController@login')->name('account.login');
+Route::get('/dang-xuat', 'AccountController@logout')->name('account.logout');
+Route::view('/dang-ky', 'client.pages.account.register')->name('account.register');
+Route::post('/xet-dang-ky', 'AccountController@signup')->name('account.signup');
+
+
+// tìm lớp
+//ajax linh vuc
+Route::get('/lay-linh-vuc', 'SearchController@get_linhvuc')->name('search.get_linhvuc');
+//chuyên môn
+Route::get('/buoc-1/chuyen-mon',  'SearchController@step1')->name('search.step1');
+Route::get('/buoc-2/doi-tuong-nguoi-hoc',  'SearchController@step2')->name('search.step2');
+//đối tượng
+Route::get('/buoc-3/thoi-gian-day',  'SearchController@step3')->name('search.step3');
+Route::get('/tim-khoa-hoc',  'SearchController@match')->name('search.match');
+
+// Route::get('/khoa-hoc/', 'SearchController@result')->name('search.result');
+
 Route::view('/trang-ca-nhan', 'client.pages.account.profile');
 Route::view('/trang-ca-nhan2', 'client.pages.account.profile2');
-Route::view('/danh-sach', 'client.pages.list_class');
+
+Route::get('/khoa-hoc/{id}', 'PageController@course')->name('course.intro');
+
 Route::group(['prefix' => ''], function () {
-    Route::view('/', 'client.pages.index');
+    Route::get('/', 'PageController@index')->name('home');
     Route::view('/tim-lop', 'client.pages.post');
     Route::view('/tim-gia-su', 'client.pages.find_tutor');
     Route::view('/tim-lop', 'client.pages.find_class');

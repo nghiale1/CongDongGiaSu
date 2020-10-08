@@ -24,6 +24,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $l_sobuoi
  * @property string $l_diachi
  * @property int $gs_id
+ * @property int $cm_id
+ * @property int $dtnh_id
  * 
  * @property Giasu $giasu
  * @property Collection|Hopdong[] $hopdongs
@@ -42,7 +44,9 @@ class Lop extends Model
 		'l_hocphi' => 'int',
 		'l_soluong' => 'int',
 		'l_sobuoi' => 'int',
-		'gs_id' => 'int'
+		'gs_id' => 'int',
+		'cm_id' => 'int',
+		'dtnh_id' => 'int'
 	];
 
 	protected $dates = [
@@ -60,7 +64,9 @@ class Lop extends Model
 		'l_ngayketthuc',
 		'l_sobuoi',
 		'l_diachi',
-		'gs_id'
+		'gs_id',
+		'cm_id',
+		'dtnh_id'
 	];
 
 	public function giasu()

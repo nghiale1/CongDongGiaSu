@@ -1,7 +1,18 @@
 @push('css')
 <style>
+    .frame-avatar-review {
+
+        width: 90px;
+        height: 90px;
+        overflow: hidden;
+        border-radius: 90px;
+    }
+
     .avatar-review {
-        border-radius: 100%;
+
+        width: 100%;
+        min-width: 100%;
+        min-height: 100%;
     }
 
     .student-name {
@@ -116,8 +127,11 @@
 <hr>
 <div class="comment">
     <div class="row">
-        <div class="col-md-2">
-            <img src="client/img/Lien3.jpg" alt="" class="avatar avatar-review">
+        <div class="col-md-2 ">
+            <div class="frame-avatar-review">
+
+                <img src="client/img/Nghia2.jpg" alt="" class="avatar-review">
+            </div>
         </div>
         <div class="col-md-10">
             <div class="review">

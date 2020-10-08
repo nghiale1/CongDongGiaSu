@@ -209,6 +209,13 @@
         height: 516px;
         overflow-y: auto;
     }
+
+    .chat {
+        position: fixed;
+        width: 450px;
+        left: 63%;
+        bottom: 0;
+    }
 </style>
 @endpush
 <div class="mesgs">

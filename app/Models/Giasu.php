@@ -33,6 +33,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Collection|Chitietlichday[] $chitietlichdays
  * @property Collection|Lop[] $lops
  * @property Collection|Truonghoc[] $truonghocs
+ * @property Collection|Yeuthich[] $yeuthiches
  *
  * @package App\Models
  */
@@ -90,5 +91,10 @@ class Giasu extends Model
 	public function truonghocs()
 	{
 		return $this->hasMany(Truonghoc::class, 'gs_id');
+	}
+
+	public function yeuthiches()
+	{
+		return $this->hasMany(Yeuthich::class, 'gs_id');
 	}
 }

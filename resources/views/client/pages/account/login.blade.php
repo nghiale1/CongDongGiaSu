@@ -7,7 +7,7 @@
 
 <head>
     <link rel="shortcut icon" type="image/x-icon" href="{{asset('Image/teacher.svg')}}" />
-    <title>Cộng đồng gia sư | Đăng nhậ</title>
+    <title>Cộng đồng gia sư | Đăng nhập</title>
     <!--Made with love by Mutiullah Samim -->
 
     <!--Bootsrap 4 CDN-->
@@ -132,27 +132,31 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <form>
+                    <form action="{{route('account.login')}}" method="post">
+                        @csrf
                         <div class="input-group form-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                             </div>
-                            <input type="text" class="form-control" placeholder="Tên đăng nhập">
+                            <input type="text" name="username" class="form-control" placeholder="Tên đăng nhập">
 
                         </div>
                         <div class="input-group form-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-key"></i></span>
                             </div>
-                            <input type="password" class="form-control" placeholder="Mật khẩu">
+                            <input type="password" name="password" class="form-control" placeholder="Mật khẩu">
                         </div>
                         <div class="row align-items-center remember d-inline">
-                            <input type="checkbox">Ghi nhớ
+                            <input type="checkbox" name="remember">Ghi nhớ
                         </div>
                         <div class="form-group d-inline">
-                            <input type="submit" value="Đăng nhập" class="btn float-right login_btn">
+                            <input type="submit" value="Đăng nhập" class="btn float-right login_btn" id="signin">
                         </div>
                     </form>
+                    <div class="alert alert-danger" id="error" role="alert">
+
+                    </div>
                 </div>
                 <div class="card-footer">
                     <div class="d-flex justify-content-center links">
@@ -165,6 +169,47 @@
             </div>
         </div>
     </div>
+    <script>
+        $(document).ready(function () {
+                $('#error').hide();
+                $('#signin').click(function (e) {
+                    
+                    e.preventDefault();
+                    var username = $("input[name='username']").val();
+                    var password = $("input[name='password']").val();
+                    var remember = $("input[name='remember']").val();
+                    
+                   
+                    $.ajax({
+                    type: "POST",
+                    url: "{!! route('account.login') !!}",
+                    headers: {
+                        'X-CSRF-TOKEN': $('input[name="_token"]').val()
+                    },
+                    data: {
+                        username : username,
+                        password : password,
+                        remember : remember
+                    },
+                    success: function (response) {
+
+                        window.location = "{{ route('home') }}"
+    },
+    error: function(e) {
+    if(username=='' || password==''){
+    $('#error').text("Chưa điền tài khoản và mật khẩu");
+    $('#error').show();
+    }
+    else{
+    console.log(e);
+    $('#error').text(e.responseJSON);
+    $('#error').show();
+    }
+    }
+    });
+    });
+    });
+    </script>
 </body>
 
 </html>

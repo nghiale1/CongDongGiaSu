@@ -1,3 +1,14 @@
+@push('css')
+<style>
+    .icon-play {
+        width: 50%;
+        position: absolute;
+        padding-top: auto;
+        right: 22%;
+        top: 22%;
+    }
+</style>
+@endpush
 <div class="container">
 
     <div class="row">
@@ -91,9 +102,7 @@
                         <li>
                             <a href="https://vimeo.com/ondemand/viewfromabluemoon4k/147865858"
                                 class="play-video play-video--small">
-                                <svg class="olymp-play-icon">
-                                    <use xlink:href="#olymp-play-icon"></use>
-                                </svg>
+                                <img src="olympushtml/app/svg-icons/play.svg" alt="" class="icon-play">
                             </a>
                             <img loading="lazy" src="olympushtml/app/img/video8.jpg" alt="video">
                             <div class="video-content">
@@ -103,11 +112,9 @@
                             <div class="overlay"></div>
                         </li>
                         <li>
-                            <a href="https://youtube.com/watch?v=excVFQ2TWig" class="play-video play-video--small">
-                                <img src="olympushtml/app/svg-icons/play.svg" alt="" class="">
-                                {{-- <svg class="olymp-play-icon">
-                                    <use xlink:href="olympushtml/app/svg-icons/play.svg"></use>
-                                </svg> --}}
+                            <a href="" class="play-video play-video--small">
+                                <img src="olympushtml/app/svg-icons/play.svg" alt="" class="icon-play">
+
                             </a>
                             <img loading="lazy" src="olympushtml/app/img/video7.jpg" alt="video">
                             <div class="video-content">

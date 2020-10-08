@@ -24,6 +24,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Taikhoan $taikhoan
  * @property Collection|Hopdong[] $hopdongs
  * @property Collection|Thumuchv[] $thumuchvs
+ * @property Collection|Yeuthich[] $yeuthiches
  *
  * @package App\Models
  */
@@ -60,5 +61,10 @@ class Hocvien extends Model
 	public function thumuchvs()
 	{
 		return $this->hasMany(Thumuchv::class, 'hv_id');
+	}
+
+	public function yeuthiches()
+	{
+		return $this->hasMany(Yeuthich::class, 'hv_id');
 	}
 }

@@ -14,7 +14,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'giasu',
+        'guard' => 'taikhoan',
         'passwords' => 'users',
     ],
 
@@ -46,22 +46,14 @@ return [
             'provider' => 'users',
             'hash' => false,
         ],
-        'giasu' => [
+        'taikhoan' => [
             'driver' => 'session',
-            'provider' => 'giasu',
+            'provider' => 'taikhoan',
         ],
-        'giasu-api' => [
+        'taikhoan-api' => [
             'driver' => 'token',
-            'provider' => 'giasu',
-        ],
-        'hocvien' => [
-            'driver' => 'session',
-            'provider' => 'hocvien',
-        ],
-        'hocvien-api' => [
-            'driver' => 'token',
-            'provider' => 'hocvien',
-        ],
+            'provider' => 'taikhoan',
+        ]
     ],
 
     /*
@@ -87,14 +79,10 @@ return [
             'model' => App\User::class,
         ],
 
-        'giasu' => [
+        'taikhoan' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Giasu::class,
-        ],
-        'hocvien' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\Hocvien::class,
-        ],
+            'model' => App\Models\Taikhoan::class,
+        ]
     ],
 
     /*
@@ -118,16 +106,11 @@ return [
             'table' => 'password_resets',
             'expire' => 60,
         ],
-        'giasu' => [
-            'provider' => 'giasu',
+        'taikhoan' => [
+            'provider' => 'taikhoan',
             'table' => 'password_resets',
             'expire' => 60,
-        ],
-        'hocvien' => [
-            'provider' => 'hocvien',
-            'table' => 'password_resets',
-            'expire' => 60,
-        ],
+        ]
 
     ],
 

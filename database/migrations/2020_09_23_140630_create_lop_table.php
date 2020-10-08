@@ -26,8 +26,12 @@ class CreateLopTable extends Migration
                 $table->integer('l_sobuoi')->unsigned()->index();
                 $table->string('l_diachi');
                 $table->bigInteger('gs_id')->unsigned()->index();
+                $table->integer('cm_id')->unsigned()->index();
+                $table->integer('dtnh_id')->unsigned()->index();
 
                 $table->foreign('gs_id')->references('gs_id')->on('giasu')->onDelete('cascade');
+                $table->foreign('cm_id')->references('cm_id')->on('chuyenmon')->onDelete('cascade');
+                $table->foreign('dtnh_id')->references('dtnh_id')->on('doituongnguoihoc')->onDelete('cascade');
             });
         }
     }

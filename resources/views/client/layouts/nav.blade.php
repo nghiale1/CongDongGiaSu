@@ -7,7 +7,7 @@
                     aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <a class="navbar-brand" href="">
+                <a class="navbar-brand" href="{{route('home')}}">
                     <span class="fa fa-pencil-square-o "></span> Cộng Đồng Gia Sư
                 </a>
 
@@ -21,6 +21,7 @@
                                     aria-hidden="true"></span></button>
                         </form>
                     </ul>
+                    @if (\Auth::check())
                     <li class="btn-group my-2 my-lg-0 accounts">
                         <a class=" dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false"> Nghĩa <i class="fa fa-caret-down" aria-hidden="true"></i>
@@ -69,6 +70,18 @@
                             </a>
                         </div>
                     </li>
+                    @else
+                    <a class="" href="" style="color: white">
+                        Đăng nhập
+                    </a>
+                    &nbsp;
+                    &nbsp;
+                    &nbsp;
+                    <a class="" href="{{route('account.register')}}" style="color: white">
+                        Đăng ký
+                    </a>
+                    @endif
+
 
                 </div>
             </nav>
