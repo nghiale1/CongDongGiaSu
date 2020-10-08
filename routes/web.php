@@ -35,8 +35,8 @@ Route::get('/tim-khoa-hoc',  'SearchController@match')->name('search.match');
 
 // Route::get('/khoa-hoc/', 'SearchController@result')->name('search.result');
 
-Route::view('/trang-ca-nhan', 'client.pages.account.profile');
-Route::view('/trang-ca-nhan2', 'client.pages.account.profile2');
+Route::view('/trang-ca-nhan', 'client.pages.account.student.profile');
+Route::view('/trang-ca-nhan2', 'client.pages.account.tutor.profile');
 
 Route::get('/khoa-hoc/{id}', 'PageController@course')->name('course.intro');
 

@@ -30,7 +30,7 @@ Giới thiệu
         fill: red;
     }
 
-    @include('client.pages.account.profile-css');
+    @include('client.pages.account.student.profile-css');
 
     author-thumb img {
         border-radius: 100%;
@@ -126,8 +126,8 @@ Giới thiệu
         </div>
     </div>
 </div>
-{{-- @include('client.pages.account.about') --}}
-@include('client.pages.account.timeline')
+{{-- @include('client.pages.account.student.about') --}}
+@include('client.pages.account.student.timeline')
 
 @endsection
 

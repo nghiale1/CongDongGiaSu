@@ -32,6 +32,40 @@
         background-color: #f5f4f7;
         color: #542eff;
     }
+
+    .edit {
+        color: #542eff;
+        background-color: transparent;
+        border: 0;
+        padding: 5px 10px;
+    }
+
+    .edit:hover {
+        background-color: #0000000d;
+        border-radius: 0.25rem;
+    }
+
+    .tare-edit {
+        width: 100%;
+        height: auto;
+        overflow-y: auto;
+        resize: none;
+        background-color: #f0f2f5;
+        border: 1px solid #ccd0d5;
+        border-radius: 6px;
+        font-size: 15px;
+        padding: 8px;
+    }
+
+    .btn-update {
+        display: inline-block;
+        background-color: #f0f2f5;
+        border: 0;
+        padding: 7px 12px;
+        margin-right: 5px;
+        border-radius: 0.25rem;
+        font-size: 15px;
+    }
 </style>
 @endpush
 <div class="col-md-3 frame-avatar">
@@ -40,9 +74,10 @@
 <div class="col-md-9 baseline">
     <h4 class="inline">Minh Nghĩa</h4>
     {{-- <span class="h5" style="float: right;">40.000/giờ</span> --}}
-    <h5 class="font-weight-light">
+    <h5 class="font-weight-light inp-intro">
         An Experienced Student and Teacher of the English Language
     </h5>
+    <button class="edit" data-for="inp-intro">Chỉnh sửa</button>
     <p>
         <div class="review">
             <span class="star-white">
@@ -85,6 +120,7 @@
                     <b>
 
                         <span class="address">Hiệp Bình Chánh, Thủ Đức</span>
+                        <button class="edit" data-for="address">Chỉnh sửa</button>
                     </b>
                 </p>
             </td>
@@ -99,8 +135,8 @@
 
 </div>
 <div class="col-md-12 intro">
-    <h5>Giới thiệu</h5>
-    <p>
+    <h5>Giới thiệu</h5><button class="edit" data-for="inp-des">Chỉnh sửa</button>
+    <p class="inp-des">
         I graduated summa cum laude from the University of North Carolina at Chapel Hill with a B.A.
         in Comparative Literature and Anthropology, class of 2019. I also had the privilege of
         attending Duke University through the Robertson Scholars Leadership Program, a highly
@@ -118,3 +154,23 @@
         elementary school to college, or simply to learn the language itself!
     </p>
 </div>
+@push('script')
+<script>
+    $(document).ready(function () {
+            $('.edit').click(function (e) { 
+                e.preventDefault();
+                var obj=$(this).attr('data-for');
+                var value=$('.'+obj).text();
+                var height=$('.'+obj).height();
+                var data='<textarea  placeholder="Mô tả về bạn"  class="tare-edit" style="height:'+(height+25)+'px">'+value.trim()+'</textarea>';
+                var btn='<button class="btn-update">Hủy</button><button class="btn-update">Lưu</button>'
+                $('.'+obj).html(data);
+                $(this).remove();
+                $('.'+obj).append(btn);
+                // $(selector).html(htmlString);
+                // alert(value);
+                
+            });
+        });
+</script>
+@endpush

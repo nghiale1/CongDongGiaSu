@@ -38,34 +38,37 @@
 <script src="{{asset('tinymce/js/tinymce/tinymce.min.js')}}"></script>
 <script src="{{asset('tinymce/langs/vi.js')}}"></script>
 <script>
-  tinymce.init({
-      selector:'.tiny',
-      language: 'vi',
-      branding: false,
-      height: 400,
-      plugins: '  paste importcss searchreplace autolink autosave save directionality  visualblocks visualchars fullscreen image link media   table charmap hr pagebreak nonbreaking  toc insertdatetime advlist lists wordcount imagetools textpattern noneditable  charmap quickbars emoticons',
-      imagetools_cors_hosts: ['picsum.photos'],
-      menubar: 'file edit view insert format tools table help',
-      toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media template link anchor codesample | ltr rtl',
-      toolbar_sticky: true,
-      autosave_ask_before_unload: true,
-      autosave_interval: "30s",
-      autosave_prefix: "{path}{query}-{id}-",
-      autosave_restore_when_empty: false,
-      autosave_retention: "2m",
-      image_advtab: true,
-      image_caption: true,
-      quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote quickimage quicktable',
-      noneditable_noneditable_class: "mceNonEditable",
-      toolbar_mode: 'sliding',
-      contextmenu: "link image imagetools table",
-      });
-  // $('.tiny').tinymce({
-  //     theme : 'advanced',
-  //     plugins : 'autoresize',
-  //     width: '100%',
-  //     height: 400,
-  //     autoresize_min_height: 400,
-  //     autoresize_max_height: 800,
-  // });
+  $(document).ready(function () {
+    
+    tinymce.init({
+        selector:'.tiny',
+        language: 'vi',
+        branding: false,
+        height: 400,
+        plugins: '  paste importcss searchreplace autolink autosave save directionality  visualblocks visualchars fullscreen image link media   table charmap hr pagebreak nonbreaking  toc insertdatetime advlist lists wordcount imagetools textpattern noneditable  charmap quickbars emoticons',
+        imagetools_cors_hosts: ['picsum.photos'],
+        menubar: 'file edit view insert format tools table help',
+        toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media template link anchor codesample | ltr rtl',
+        toolbar_sticky: true,
+        autosave_ask_before_unload: true,
+        autosave_interval: "30s",
+        autosave_prefix: "{path}{query}-{id}-",
+        autosave_restore_when_empty: false,
+        autosave_retention: "2m",
+        image_advtab: true,
+        image_caption: true,
+        quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote quickimage quicktable',
+        noneditable_noneditable_class: "mceNonEditable",
+        toolbar_mode: 'sliding',
+        contextmenu: "link image imagetools table",
+        });
+    // $('.tiny').tinymce({
+    //     theme : 'advanced',
+    //     plugins : 'autoresize',
+    //     width: '100%',
+    //     height: 400,
+    //     autoresize_min_height: 400,
+    //     autoresize_max_height: 800,
+    // });
+  });
 </script>

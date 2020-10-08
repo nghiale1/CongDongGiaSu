@@ -88,7 +88,7 @@ Giới thiệu
             <div class="white pad20">
 
                 <div class="row">
-                    @include('client.pages.account.info')
+                    @include('client.pages.account.tutor.info')
                     <div class="col-md-12">
                         <hr>
                         <div class="row">
@@ -111,6 +111,7 @@ Giới thiệu
                                     in an
                                     engaging and enjoya...
                                 </p>
+                                <button class="edit" data-for="bio">Chỉnh sửa</button>
                             </div>
                         </div>
                         <hr>
@@ -136,12 +137,12 @@ Giới thiệu
                         </div>
                         <hr>
 
-                        @include('client.pages.account.schedule')
+                        @include('client.pages.account.tutor.schedule')
                         <hr>
 
-                        @include('client.pages.account.subject')
+                        @include('client.pages.account.tutor.subject')
                         <hr>
-                        @include('client.pages.account.rating')
+                        @include('client.pages.account.tutor.rating')
 
 
                     </div>
@@ -153,7 +154,7 @@ Giới thiệu
         {{-- <div class="col1" style="    width: 2%;"></div> --}}
         <div class="col-md-4">
             <div class="white pad20 chat">
-                @include('client.pages.account.chat')
+                @include('client.pages.account.tutor.chat')
 
             </div>
         </div>
