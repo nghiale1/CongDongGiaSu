@@ -1,12 +1,13 @@
 <!-- Required meta tags -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+<meta name="csrf-token" content="{{ csrf_token() }}" />
 <link rel="shortcut icon" type="image/x-icon" href="{{asset('Image/teacher.svg')}}" />
 <title>@yield('head')</title>
 <!-- web fonts -->
-<link href="//fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800,900&display=swap"
-    rel="stylesheet">
+{{-- <link href="//fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800,900&display=swap"
+    rel="stylesheet"> --}}
+<link rel="stylesheet" href="{{asset('client/assets/css/css.css')}}">
 <!-- //web fonts -->
 <!-- Template CSS -->
 <link rel="stylesheet" href="{{asset('client/assets/css/style-starter.css')}}">

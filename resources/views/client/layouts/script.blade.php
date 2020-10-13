@@ -8,7 +8,8 @@
 <script src="{{asset('client/assets/js/jquery-3.5.1.js')}}"></script>
 {{-- <script src="{{asset('client/assets/js/jquery-3.5.1.slim.js')}}"></script> --}}
 <script src="{{asset('client/assets/vendor/bootstrap-4.5.0/js/bootstrap.min.js')}}"></script>
-<script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
+{{-- <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script> --}}
+<script src="{{asset('client/assets/js/popper.js')}}"></script>
 
 <!-- Template JavaScript -->
 {{-- <script src="{{asset('client/assets/js/all.js')}}"></script> --}}
@@ -27,7 +28,7 @@
   template: '<span style="color: red">*</span>',
 });
   Vue.component('green-tick', {
-  template: '<img src="/client/svg/greenTick.svg" alt="" class="green-tick">',
+  template: '<img src="{{asset("/client/svg/greenTick.svg")}}" alt="" class="green-tick">',
 });
 </script>
 <script>
