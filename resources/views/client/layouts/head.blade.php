@@ -16,10 +16,10 @@
 <link rel="stylesheet" href="{{asset('client/assets/vendor/font-awesome-4.7.0/css/font-awesome.min.css')}}">
 
 <style>
-    @font-face {
+    /* @font-face {
         font-family: "Source Sans Pro";
         src: url("client/font/Source_Sans_Pro/SourceSansPro-Regular.ttf");
-    }
+    } */
 
     @font-face {
         font-family: "Verdana";

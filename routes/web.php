@@ -38,6 +38,7 @@ Route::get('/tim-khoa-hoc',  'SearchController@match')->name('search.match');
 Route::view('/trang-ca-nhan', 'client.pages.account.student.profile');
 Route::view('/trang-ca-nhan2', 'client.pages.account.tutor.profile');
 
+Route::get('/gia-su/{id}', 'PageController@tutor')->name('tutor.profile');
 Route::get('/khoa-hoc/{id}', 'PageController@course')->name('course.intro');
 
 Route::group(['prefix' => ''], function () {
@@ -66,4 +67,10 @@ Route::group(['prefix' => 'dashboard'], function () {
     Route::group(['prefix' => 'thong-ke'], function () {
     });
 });
+
 Route::get('/get_subject', 'DomController@getSubject')->name('getSubject');
+Route::post('/changeStatusSchedule', 'TutorController@changeStatusSchedule')->name('changeStatusSchedule');
+Route::post('/changeIntro', 'TutorController@changeIntro')->name('changeIntro');
+Route::post('/changeAddress', 'TutorController@changeAddress')->name('changeAddress');
+Route::get('/profiles/getSuggestCities', 'TutorController@getSuggestCities');
+Route::get("auto-complete", "GoogleController@index");
