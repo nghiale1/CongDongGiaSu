@@ -1,0 +1,96 @@
+.inline {
+    display: inline;
+}
+
+
+
+.btn-grey {
+    background-color: #f5f4f7;
+    color: #542eff;
+}
+
+.pad20 {
+    padding: 20px;
+}
+
+
+.school-name {
+    font-weight: 600;
+    line-height: 1.58;
+    font-size: 16px;
+    display: inline;
+}
+
+.address {
+    font-size: 14px;
+
+}
+
+.baseline {
+    line-height: 1.6;
+}
+
+.baseline-icon {
+    width: 20px;
+}
+
+.teached-class {
+    line-height: 1.58;
+    font-size: 14px;
+    font-weight: normal;
+    font-family: "Open Sans", Tahoma, Geneva, Sans-Serif;
+    color: #746f6e;
+}
+
+.bio {
+    line-height: normal;
+    font-size: 1rem;
+    font-weight: 400;
+    font-family: "Source Sans Pro", sans-serif;
+    color: #363232;
+}
+
+.intro {
+    /* background-color: #f5f4f7; */
+}
+
+.intro p {
+    font-family: "Source Sans Pro", sans-serif;
+    /* font-size: 17px; */
+    font-size: 1rem;
+    line-height: 20px;
+    line-height: 1.25rem;
+    color: #303336;
+    font-weight: 400;
+    line-height: 1.38;
+}
+
+.chat {
+    position: fixed;
+    width: 450px;
+    left: 63%;
+}
+
+.form-ctl {
+    /* width: 100%; */
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.btn-edit{
+    border-color:transparent;
+    color: #542eff;
+}
+
+.btn-edit:hover {
+    background-color: #0000000d;
+    color: #542eff;
+    border-radius: 0.25rem;
+}

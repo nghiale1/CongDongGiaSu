@@ -184,7 +184,7 @@ Danh sách lớp
             @foreach ($tutor as $item)
 
             <div class="border white">
-                <a href="{{route('course.intro',$item->gs_id)}}" class="tutor-card">
+                <a href="{{route('tutor.profile',$item->gs_id)}}" class="tutor-card">
                     <div class="tutor">
 
                         <div class="row">

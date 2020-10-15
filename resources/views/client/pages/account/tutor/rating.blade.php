@@ -130,7 +130,7 @@
         <div class="col-md-2 ">
             <div class="frame-avatar-review">
 
-                <img src="client/img/Nghia2.jpg" alt="" class="avatar-review">
+                <img src="{{asset('client/svg/teacher_male.svg')}}" alt="" class="avatar-review">
             </div>
         </div>
         <div class="col-md-10">

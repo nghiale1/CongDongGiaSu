@@ -1,91 +1,6 @@
 @push('css')
 <style>
-    a.save {
-        color: #542eff;
-    }
-
-    a.save:hover {
-        background-color: rgb(253 200 0);
-    }
-
-    .teached {
-        background-color: #32cf3a;
-        padding: 0 4px 1px 4px;
-        color: #fff;
-        font-size: 14px;
-        font-weight: 600;
-        margin-right: 3px;
-    }
-
-    .frame-avatar {
-        width: 150px;
-        height: 150px;
-        overflow: hidden;
-    }
-
-    .avatar {
-        min-width: 100%;
-        min-height: 100%;
-    }
-
-    .btn-grey {
-        background-color: #f5f4f7;
-        color: #542eff;
-    }
-
-    .edit {
-        color: #542eff;
-        background-color: transparent;
-        border: 0;
-        padding: 5px 10px;
-    }
-
-    .edit:hover {
-        background-color: #0000000d;
-        border-radius: 0.25rem;
-    }
-
-    .edit-address {
-        color: #542eff;
-        background-color: transparent;
-        border: 0;
-        padding: 5px 10px;
-    }
-
-    .edit-address:hover {
-        background-color: #0000000d;
-        border-radius: 0.25rem;
-    }
-
-    .tare-edit {
-        width: 100%;
-        height: auto;
-        overflow-y: auto;
-        resize: none;
-        background-color: #f0f2f5;
-        border: 1px solid #ccd0d5;
-        border-radius: 6px;
-        font-size: 15px;
-        padding: 8px;
-    }
-
-    .btn-update {
-        display: inline-block;
-        background-color: #f0f2f5;
-        border: 0;
-        padding: 7px 12px;
-        margin-right: 5px;
-        border-radius: 0.25rem;
-        font-size: 15px;
-    }
-
-    .hide {
-        display: none;
-    }
-
-    /* .show {
-        display: block;
-    } */
+    @include('client.pages.account.tutor.info-css');
 </style>
 @endpush
 <div class="col-md-3 frame-avatar">
@@ -94,10 +9,10 @@
 <div class="col-md-9 baseline">
     <h4 class="inline">{!!$tutor->gs_hoten!!}</h4>
     {{-- <span class="h5" style="float: right;">40.000/giờ</span> --}}
-    <h5 class="font-weight-light inp-intro">
+    <h5 class="font-weight-light inp-des">
         {!!$tutor->gs_motangan!!}
     </h5>
-    <button class="edit" data-for="inp-intro">Chỉnh sửa</button>
+    <button class="edit" data-for="inp-des" data-text="Thêm mô tả ngắn về bạn" data-position="des">Chỉnh sửa</button>
     <p>
         <div class="review">
             <span class="star-white">
@@ -162,10 +77,10 @@
 </div>
 <div class="col-md-12 intro">
     <h5>Giới thiệu</h5>
-    <p class="inp-des">
+    <p class="inp-intro">
         {!!$tutor->gs_gioithieu!!}
     </p>
-    <button class="edit" data-for="inp-des" data-text="Thêm mô tả về bạn" data-position="intro">Chỉnh
+    <button class="edit" data-for="inp-intro" data-text="Thêm thông tin giới thiệu về bạn" data-position="intro">Chỉnh
         sửa</button>
 </div>
 @push('script')
@@ -202,6 +117,30 @@
                     $.ajax({
                         type: "post",
                         url: "{!!route('changeIntro')!!}",
+                        data: {data:data},
+                        success: function (response) {
+                            console.log(response);
+                            let dataNew=data;
+                            $(elem).show();
+                            $('.'+obj).html(dataNew);
+                        },
+                        error:function (e) {
+                            console.log(e);
+                        }
+                    });
+                });
+                $('.save-des').click(function (e) { 
+                    e.preventDefault();
+                    var data=$('.tare-des').val();
+                    // alert(data);
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+                    $.ajax({
+                        type: "post",
+                        url: "{!!route('changeDes')!!}",
                         data: {data:data},
                         success: function (response) {
                             console.log(response);
@@ -272,7 +211,6 @@
                         }
                     });
                 });
-                
             });
     });
 </script>

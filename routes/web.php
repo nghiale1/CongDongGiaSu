@@ -71,6 +71,19 @@ Route::group(['prefix' => 'dashboard'], function () {
 Route::get('/get_subject', 'DomController@getSubject')->name('getSubject');
 Route::post('/changeStatusSchedule', 'TutorController@changeStatusSchedule')->name('changeStatusSchedule');
 Route::post('/changeIntro', 'TutorController@changeIntro')->name('changeIntro');
+Route::post('/changeDes', 'TutorController@changeDes')->name('changeDes');
 Route::post('/changeAddress', 'TutorController@changeAddress')->name('changeAddress');
+Route::post('/addSchool', 'TutorController@addSchool')->name('addSchool');
+Route::post('/changeSchool', 'TutorController@changeSchool')->name('changeSchool');
+Route::post('/removeSchool', 'TutorController@removeSchool')->name('removeSchool');
+
+Route::post('/addDegree', 'TutorController@addDegree')->name('addDegree');
+Route::post('/changeDegree', 'TutorController@changeDegree')->name('changeDegree');
+Route::post('/removeDegree', 'TutorController@removeDegree')->name('removeDegree');
+
+Route::post('/addSubject', 'TutorController@addSubject')->name('addSubject');
+
+
+
 Route::get('/profiles/getSuggestCities', 'TutorController@getSuggestCities');
 Route::get("auto-complete", "GoogleController@index");
