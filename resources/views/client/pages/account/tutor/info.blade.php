@@ -37,7 +37,7 @@
     <table>
         <tr>
             <td class="text-center">
-                <span class="teached">10</span>
+                <span class="teached">{{$tutor->solop}}</span>
             </td>
             <td>
                 <p class="teached-class">
@@ -47,7 +47,7 @@
             </td>
         </tr>
         <tr>
-            <td class="text-center">
+            <td class="text-center align-top">
                 <i class="fa fa-map-marker" aria-hidden="true" style="color: #32cf3a"></i>
             </td>
             <td>

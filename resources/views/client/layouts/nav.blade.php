@@ -27,47 +27,55 @@
                             aria-expanded="false"> Nghĩa <i class="fa fa-caret-down" aria-hidden="true"></i>
                         </a>
                         <div class="dropdown-menu dropdown-account background-hover" style="padding: 15px">
-                            <a class="dropdown-item h-auto " href="">
-                                <div class="row pl-3 pr-3 ">
-                                    <div class="col-md-2 p-0 border-account">
+                            @if (\Auth::user()->hasRole('GiaSu'))
 
-                                        <img src="{{asset('client/svg/teacher_female.svg')}}" alt=""
-                                            class="avatar avatar-account">
-                                    </div>
-                                    <div class="col-md-10 ">
-                                        <div class="account-profile">
+                            <a class="dropdown-item h-auto "
+                                href="{{route('tutor.profile',\Auth::user()->giasus[0]->gs_id)}}">
+                                @else
+                                <a class="dropdown-item h-auto " href="">
 
-                                            <b>
-                                                <p>
+                                    @endif
+                                    <div class="row pl-3 pr-3 ">
+                                        <div class="col-md-2 p-0 border-account">
 
-                                                    Lê Thị Ngọc LiênLiên Lê Thị Ngọc LiênLiên
-                                                </p>
-                                            </b>
-                                            <p>Xem trang cá nhân</p>
+                                            <img src="{{asset('client/svg/teacher_female.svg')}}" alt=""
+                                                class="avatar avatar-account">
+                                        </div>
+                                        <div class="col-md-10 ">
+                                            <div class="account-profile">
+
+                                                <b>
+                                                    <p>
+
+                                                        Lê Thị Ngọc LiênLiên Lê Thị Ngọc LiênLiên
+                                                    </p>
+                                                </b>
+                                                <p>Xem trang cá nhân</p>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </a>
-                            <hr>
-                            <a class="dropdown-item pb-1" href="">
-                                <div class="dropdown-icon">
-                                    <i class="fa fa-folder-open" aria-hidden="true"></i>
-                                </div>
-                                Quản lý tài liệu
-                            </a>
-                            <a class="dropdown-item pb-1" href="">
-                                <div class="dropdown-icon">
+                                </a>
+                                <hr>
+                                <a class="dropdown-item pb-1"
+                                    href="{{route('document.tutor.index',\Auth::user()->giasus[0]->gs_id)}}">
+                                    <div class="dropdown-icon">
+                                        <i class="fa fa-folder-open" aria-hidden="true"></i>
+                                    </div>
+                                    Quản lý tài liệu
+                                </a>
+                                <a class="dropdown-item pb-1" href="">
+                                    <div class="dropdown-icon">
 
-                                    <i class="fa fa-graduation-cap" aria-hidden="true"></i>
-                                </div>
-                                Lớp dạy
-                            </a>
-                            <a class="dropdown-item pb-1" href="">
-                                <div class="dropdown-icon">
-                                    <i class="fa fa-sign-out" aria-hidden="true"></i>
-                                </div>
-                                Đăng xuất
-                            </a>
+                                        <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+                                    </div>
+                                    Lớp dạy
+                                </a>
+                                <a class="dropdown-item pb-1" href="{{route('account.logout')}}">
+                                    <div class="dropdown-icon">
+                                        <i class="fa fa-sign-out" aria-hidden="true"></i>
+                                    </div>
+                                    Đăng xuất
+                                </a>
                         </div>
                     </li>
                     @else

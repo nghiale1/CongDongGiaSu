@@ -24,6 +24,7 @@ class PageController extends Controller
     public function tutor($id)
     {
         $tutor=Giasu::where('gs_id',$id)->first();
+        $tutor->solop=\DB::table('lop')->where('gs_id',$tutor->gs_id)->count();
         $school=Truonghoc::where('gs_id',$id)->get();
         $degree=Bangcap::where('gs_id',$id)->get();
 

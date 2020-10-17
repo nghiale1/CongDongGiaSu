@@ -41,6 +41,14 @@ Route::view('/trang-ca-nhan2', 'client.pages.account.tutor.profile');
 Route::get('/gia-su/{id}', 'PageController@tutor')->name('tutor.profile');
 Route::get('/khoa-hoc/{id}', 'PageController@course')->name('course.intro');
 
+Route::group(['prefix' => '/tai-lieu-gia-su'], function () {
+    Route::get('/thu-muc/{slug}', 'DocumentTutorController@into')->name('document.tutor.into');
+    Route::get('/{id}/', 'DocumentTutorController@index')->name('document.tutor.index');
+    Route::post('/tao-thu-muc', 'DocumentTutorController@createFolder')->name('document.tutor.createFolder');
+    Route::post('/upload-tai-lieu', 'DocumentTutorController@upload')->name('document.tutor.upload');
+});
+
+
 Route::group(['prefix' => ''], function () {
     Route::get('/', 'PageController@index')->name('home');
     Route::view('/tim-lop', 'client.pages.post');

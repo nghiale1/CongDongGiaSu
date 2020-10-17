@@ -57,4 +57,14 @@ class Taikhoan extends Authenticatable
 	{
 		return $this->hasMany(Phanhoi::class, 'tk_id');
 	}
+	public function hasRole($role)
+    {
+        $roles = $this->tk_quyen;
+
+        if ($roles == $role) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
