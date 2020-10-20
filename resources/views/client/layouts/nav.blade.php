@@ -21,64 +21,115 @@
                                     aria-hidden="true"></span></button>
                         </form>
                     </ul>
-                    @if (\Auth::check())
+                    <?php if (\Auth::check()): ?>
+                    <?php if (\Auth::user()->hasRole('GiaSu')): ?>
                     <li class="btn-group my-2 my-lg-0 accounts">
                         <a class=" dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false"> Nghĩa <i class="fa fa-caret-down" aria-hidden="true"></i>
                         </a>
                         <div class="dropdown-menu dropdown-account background-hover" style="padding: 15px">
-                            @if (\Auth::user()->hasRole('GiaSu'))
 
                             <a class="dropdown-item h-auto "
                                 href="{{route('tutor.profile',\Auth::user()->giasus[0]->gs_id)}}">
-                                @else
-                                <a class="dropdown-item h-auto " href="">
 
-                                    @endif
-                                    <div class="row pl-3 pr-3 ">
-                                        <div class="col-md-2 p-0 border-account">
+                                <div class="row pl-3 pr-3 ">
+                                    <div class="col-md-2 p-0 border-account">
 
-                                            <img src="{{asset('client/svg/teacher_female.svg')}}" alt=""
-                                                class="avatar avatar-account">
-                                        </div>
-                                        <div class="col-md-10 ">
-                                            <div class="account-profile">
+                                        <img src="{{asset('client/svg/teacher_female.svg')}}" alt=""
+                                            class="avatar avatar-account">
+                                    </div>
+                                    <div class="col-md-10 ">
+                                        <div class="account-profile">
 
-                                                <b>
-                                                    <p>
+                                            <b>
+                                                <p>
 
-                                                        Lê Thị Ngọc LiênLiên Lê Thị Ngọc LiênLiên
-                                                    </p>
-                                                </b>
-                                                <p>Xem trang cá nhân</p>
-                                            </div>
+                                                    Lê Thị Ngọc LiênLiên Lê Thị Ngọc LiênLiên
+                                                </p>
+                                            </b>
+                                            <p>Xem trang cá nhân</p>
                                         </div>
                                     </div>
-                                </a>
-                                <hr>
-                                <a class="dropdown-item pb-1"
-                                    href="{{route('document.tutor.index',\Auth::user()->giasus[0]->gs_id)}}">
-                                    <div class="dropdown-icon">
-                                        <i class="fa fa-folder-open" aria-hidden="true"></i>
-                                    </div>
-                                    Quản lý tài liệu
-                                </a>
-                                <a class="dropdown-item pb-1" href="">
-                                    <div class="dropdown-icon">
+                                </div>
+                            </a>
+                            <hr>
+                            <a class="dropdown-item pb-1"
+                                href="{{route('document.tutor.index',\Auth::user()->giasus[0]->gs_id)}}">
+                                <div class="dropdown-icon">
+                                    <i class="fa fa-folder-open" aria-hidden="true"></i>
+                                </div>
+                                Quản lý tài liệu
+                            </a>
+                            <a class="dropdown-item pb-1" href="">
+                                <div class="dropdown-icon">
 
-                                        <i class="fa fa-graduation-cap" aria-hidden="true"></i>
-                                    </div>
-                                    Lớp dạy
-                                </a>
-                                <a class="dropdown-item pb-1" href="{{route('account.logout')}}">
-                                    <div class="dropdown-icon">
-                                        <i class="fa fa-sign-out" aria-hidden="true"></i>
-                                    </div>
-                                    Đăng xuất
-                                </a>
+                                    <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+                                </div>
+                                Lớp dạy
+                            </a>
+                            <a class="dropdown-item pb-1" href="{{route('account.logout')}}">
+                                <div class="dropdown-icon">
+                                    <i class="fa fa-sign-out" aria-hidden="true"></i>
+                                </div>
+                                Đăng xuất
+                            </a>
                         </div>
                     </li>
-                    @else
+                    <?php else: ?>
+                    <li class="btn-group my-2 my-lg-0 accounts">
+                        <a class=" dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false"> Nghĩa <i class="fa fa-caret-down" aria-hidden="true"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-account background-hover" style="padding: 15px">
+
+                            <a class="dropdown-item h-auto "
+                                href="{{route('student.profile',\Auth::user()->hocviens[0]->hv_id)}}">
+
+                                <div class="row pl-3 pr-3 ">
+                                    <div class="col-md-2 p-0 border-account">
+
+                                        <img src="{{asset('client/svg/teacher_female.svg')}}" alt=""
+                                            class="avatar avatar-account">
+                                    </div>
+                                    <div class="col-md-10 ">
+                                        <div class="account-profile">
+
+                                            <b>
+                                                <p>
+
+                                                    Lê Thị Ngọc LiênLiên Lê Thị Ngọc LiênLiên
+                                                </p>
+                                            </b>
+                                            <p>Xem trang cá nhân</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                            <hr>
+                            <a class="dropdown-item pb-1"
+                                href="{{route('document.tutor.index',\Auth::user()->hocviens[0]->hv_id)}}">
+                                <div class="dropdown-icon">
+                                    <i class="fa fa-folder-open" aria-hidden="true"></i>
+                                </div>
+                                Quản lý tài liệu
+                            </a>
+                            <a class="dropdown-item pb-1" href="">
+                                <div class="dropdown-icon">
+
+                                    <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+                                </div>
+                                Lớp dạy
+                            </a>
+                            <a class="dropdown-item pb-1" href="{{route('account.logout')}}">
+                                <div class="dropdown-icon">
+                                    <i class="fa fa-sign-out" aria-hidden="true"></i>
+                                </div>
+                                Đăng xuất
+                            </a>
+                        </div>
+                    </li>
+                    <?php endif ?>
+                    <?php else: ?>
                     <a class="" href="" style="color: white">
                         Đăng nhập
                     </a>
@@ -88,7 +139,7 @@
                     <a class="" href="{{route('account.register')}}" style="color: white">
                         Đăng ký
                     </a>
-                    @endif
+                    <?php endif ?>
 
 
                 </div>

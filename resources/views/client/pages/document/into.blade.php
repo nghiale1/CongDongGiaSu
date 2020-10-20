@@ -6,13 +6,29 @@ Cộng đồng gia sư
 {{ $findFolder->tmgs_ten }}
 @endsection
 @push('css')
+<style>
+    a.down {
+        position: absolute;
+        top: 22%;
+        right: 10%;
+        z-index: 2;
+    }
 
+    .modal {
+        z-index: 9999;
+    }
+</style>
 @endpush
 
 @section('page')
 <br>
 <div class="container">
-
+    @if($error = Session::get('error'))
+    <div class="alert alert-danger" role="alert">
+        <p>{{$error}}</p>
+        <p class="mb-0"></p>
+    </div>
+    @endif
     <div class="row">
         <p style="border-top: 2px solid blue;"></p>
 
@@ -24,27 +40,17 @@ Cộng đồng gia sư
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal2">
                 Tạo thư mục
             </button>
-
+            <br>
+            <br>
         </div>
     </div>
-    <div class="row">
 
-        <div class="col-md-12" style="padding-left: 0px;">
-            <div class="col-md-12">
-                <h2>Các thư mục</h2>
-            </div>
+
+    <div class="col-md-12" style="padding-left: 0px;">
+        <div class="row">
             @if (count($folder) > 0)
             @foreach ($folder as $item)
-            <div class="col-md-3">
-                <div class="folder">
-                    <a href="{{route('document.tutor.into',$item->tmgs_slug)}}" class="btn btn-outline-dark mt-1 mb-1"
-                        style="width: 100%;" id="right-click" data-id="{{ $item->tmgs_id   }}">
-                        <h5 style="font-size: 12px;padding:5px; ">
-                            <i class="fa fa-folder" aria-hidden="true"></i> {{ $item->tmgs_ten }}
-                        </h5>
-                    </a>
-                </div>
-            </div>
+            @include('client.pages.document.folder')
             @endforeach
             @else
             <div class="col-md-3">
@@ -57,12 +63,13 @@ Cộng đồng gia sư
             <br>
 
             <div class="col-md-12">
-                <h2>Các tập tin</h2>
+                <hr>
             </div>
             @if (count($file) != null)
             @foreach ($file as $item)
             <div class="col-md-3">
-                <a href="{{asset($item->ttgs_duongdan)}}" class="btn btn-success file" style="width: 100%;" download>
+                <a href="{{asset($item->ttgs_duongdan)}}" class="btn btn-outline-info file" style="width: 100%;"
+                    download>
                     <h5 style="font-size: 10px;">
                         <i class="fa fa-folder" aria-hidden="true"></i> {{$item->ttgs_ten}}
                     </h5>
@@ -97,7 +104,10 @@ Cộng đồng gia sư
                             <input type="text" value="{{ $findFolder->tmgs_id }}" name="fo_id">
                             <input type="text" value="{{ $findFolder->tmgs_duongdan }}" name="fo_dir">
                             <div class="file-loading">
-                                <input id="input-res-1" name="file[]" type="file" multiple data-min-file-count="2">
+                                <label class="Tải file" for="input-res-1">
+                                </label>
+                                <input id="input-res-1" name="file[]" type="file" multiple data-min-file-count="2"
+                                    style="display: none">
                             </div>
                         </div>
                         <div class="form-group">
@@ -150,4 +160,11 @@ Cộng đồng gia sư
 
 @push('script')
 @include('client.pages.document.script')
+<script>
+    (function($) {
+    $('input[type="file"]').bind('change', function() {
+      $("#img_text").html($('input[type="file"]').val());
+    });
+  })
+</script>
 @endpush

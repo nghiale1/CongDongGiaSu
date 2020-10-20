@@ -84,6 +84,8 @@
 }
 
 .top-header-author .author-thumb img {
+    max-width: 100%;
+    max-height: 100%;
     border-radius: 0;
     display: block;
     background-size: cover;
@@ -321,4 +323,51 @@ article, aside, figcaption, figure, footer, header, hgroup, legend, main, nav, s
     width: 18px;
     height: 22px;
     margin-right: -2px;
+}
+.tare-edit {
+    width: 100%;
+    height: auto;
+    overflow-y: auto;
+    resize: none;
+    background-color: #f0f2f5;
+    border: 1px solid #ccd0d5;
+    border-radius: 6px;
+    font-size: 15px;
+    padding: 8px;
+}
+.btn-edit{
+    border-color:transparent;
+    color: #542eff;
+}
+
+.btn-edit:hover {
+    background-color: #0000000d;
+    color: #542eff;
+    border-radius: 0.25rem;
+}
+.edit {
+    color: #542eff;
+    background-color: transparent;
+    border: 0;
+    padding: 5px 10px;
+}
+
+.edit:hover {
+    background-color: #0000000d;
+    border-radius: 0.25rem;
+}
+.btn-update {
+    display: inline-block;
+    background-color: #f0f2f5;
+    border: 0;
+    padding: 7px 12px;
+    margin-right: 5px;
+    border-radius: 0.25rem;
+    font-size: 15px;
+}
+.btn-update:hover{
+    color: #542eff;
+}
+.hide{
+    display: none;
 }

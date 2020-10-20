@@ -35,17 +35,27 @@ Route::get('/tim-khoa-hoc',  'SearchController@match')->name('search.match');
 
 // Route::get('/khoa-hoc/', 'SearchController@result')->name('search.result');
 
-Route::view('/trang-ca-nhan', 'client.pages.account.student.profile');
+Route::get('/trang-ca-nhan/{id}', 'StudentController@profile')->name('student.profile');
 Route::view('/trang-ca-nhan2', 'client.pages.account.tutor.profile');
+
+
+
+// update info student
+Route::post('/cap-nhat-uoc-muon', 'StudentController@updateWish')->name('updateWish');
+Route::post('/cap-nhat-ngay-sinh', 'StudentController@updateBirth')->name('updateBirth');
+Route::post('/cap-nhat-trinh-do', 'StudentController@updateLevel')->name('updateLevel');
+Route::post('/cap-nhat-hoc-luc', 'StudentController@updatePower')->name('updatePower');
+Route::post('/cap-nhat-truong-hoc', 'StudentController@updateSchool')->name('updateSchool');
 
 Route::get('/gia-su/{id}', 'PageController@tutor')->name('tutor.profile');
 Route::get('/khoa-hoc/{id}', 'PageController@course')->name('course.intro');
 
 Route::group(['prefix' => '/tai-lieu-gia-su'], function () {
+    Route::get('/tài-lieu/{id}', 'DocumentTutorController@index')->name('document.tutor.index');
     Route::get('/thu-muc/{slug}', 'DocumentTutorController@into')->name('document.tutor.into');
-    Route::get('/{id}/', 'DocumentTutorController@index')->name('document.tutor.index');
     Route::post('/tao-thu-muc', 'DocumentTutorController@createFolder')->name('document.tutor.createFolder');
     Route::post('/upload-tai-lieu', 'DocumentTutorController@upload')->name('document.tutor.upload');
+    Route::get('/nen/{id}',  'DocumentTutorController@zip')->name('document.tutor.zip');
 });
 
 

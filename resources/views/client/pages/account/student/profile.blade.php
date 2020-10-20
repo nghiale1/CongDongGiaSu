@@ -1,6 +1,6 @@
 @extends('client.layouts.layout')
 @section('head')
-James Spiegel
+{{$student->hv_hoten}}
 @endsection
 @section('breadcrum')
 Giới thiệu
@@ -48,20 +48,16 @@ Giới thiệu
     <div class="row">
         <div class="col col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="ui-block">
-
+                <input type="hidden" id="id" value="{{\Auth::user()->hocviens[0]->hv_id}}">
                 <div class="top-header">
                     <div class="top-header-thumb">
-                        <img loading="lazy" src="hand-read-board-underwater-blackboard-training-797673-pxhere.com.jpg"
-                            alt="">
+                        <img loading="lazy" src="{{asset($student->hv_hinhnen)}}" alt="">
                     </div>
 
                     <div class="profile-section">
                         <div class="row">
                             <div class="col col-lg-5 col-md-5 col-sm-12 col-12">
                                 <ul class="profile-menu">
-                                    {{-- <li>
-                                        <a href="02-ProfilePage.html" class="active">Dòng thời gian</a>
-                                    </li> --}}
                                     <li>
                                         <a href="05-ProfilePage-About.html">Cá nhân</a>
                                     </li>
@@ -112,13 +108,12 @@ Giới thiệu
                         </div>
                     </div>
                     <div class="top-header-author">
-                        <a href="02-ProfilePage.html" class="author-thumb">
-                            <img loading="lazy"
-                                src="hand-read-board-underwater-blackboard-training-797673-pxhere.com.jpg" alt="author">
+                        <a href="#" class="author-thumb">
+                            <img loading="lazy" src="{{asset($student->hv_hinhdaidien)}}" alt="{{$student->hv_hoten}}">
                         </a>
                         <div class="author-content">
-                            <a href="02-ProfilePage.html" class="h4 author-name">James Spiegel</a>
-                            <div class="country">San Francisco, CA</div>
+                            <a href="#" class="h4 author-name">{{$student->hv_hoten}}</a>
+                            {{-- <div class="country">San Francisco, CA</div> --}}
                         </div>
                     </div>
                 </div>
@@ -126,11 +121,43 @@ Giới thiệu
         </div>
     </div>
 </div>
-{{-- @include('client.pages.account.student.about') --}}
-@include('client.pages.account.student.timeline')
+@include('client.pages.account.student.about')
+{{-- @include('client.pages.account.student.timeline') --}}
 
 @endsection
 
 @push('script')
+<script>
+    $(document).ready(function () {
+            $('.edit').click(function (e) { 
+                const id=$('#id').val();
+                e.preventDefault();
+                // lấy đối tượng
+                var obj=$(this).attr('data-for');//thẻ p
+                var placeForm=$(this).attr('data-r');
+                //lấy dữ liệu
+                var placeholder=$(this).attr('data-text');
+                var value=$('.'+obj).text();
+                var height=$('.'+obj).height();
+                let form='';
+                $('.'+obj).addClass('hide');
+                $(this).addClass('hide');
+                $('.'+placeForm).removeClass('hide');
+                var elem= $(this);
+                // alert(elem);
 
+                $('.close-'+placeForm).click(function (e) { 
+                    // e.preventDefault();
+                    $('.'+obj).removeClass('hide');
+                    $(elem).removeClass('hide');
+                    // alert(123);
+                    $('.'+placeForm).addClass('hide');
+                    console.log(e);
+                    
+                });
+                
+                
+            });
+        });
+</script>
 @endpush

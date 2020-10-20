@@ -8,6 +8,14 @@ Gia sư / Tài liệu gia sư
 @endsection
 @push('css')
 @include('client.layouts.upload')
+<style>
+    a.down {
+        position: absolute;
+        top: 22 %;
+        right: 10%;
+        z-index: 9999;
+    }
+</style>
 @endpush
 
 @section('page')
@@ -26,16 +34,7 @@ Gia sư / Tài liệu gia sư
         </div>
         @foreach ($doc as $item)
 
-        <div class="col-md-3">
-            <div class="folder">
-                <a href="{{route('document.tutor.into',$item->tmgs_slug)}}" class="btn btn-outline-dark mt-1 mb-1"
-                    style="width: 100%;" id="right-click" data-id="{{ $item->tmgs_id   }}">
-                    <h5 style="font-size: 12px;padding:5px; ">
-                        <i class="fa fa-folder" aria-hidden="true"></i> {{ $item->tmgs_ten }}
-                    </h5>
-                </a>
-            </div>
-        </div>
+        @include('client.pages.document.folder')
         @endforeach
     </div>
 </div>
