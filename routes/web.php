@@ -38,7 +38,7 @@ Route::get('/tim-khoa-hoc',  'SearchController@match')->name('search.match');
 Route::get('/trang-ca-nhan/{id}', 'StudentController@profile')->name('student.profile');
 Route::view('/trang-ca-nhan2', 'client.pages.account.tutor.profile');
 
-
+Route::post('/danh-gia', 'StudentController@rating')->name('rating');
 
 // update info student
 Route::post('/cap-nhat-uoc-muon', 'StudentController@updateWish')->name('updateWish');
@@ -47,8 +47,10 @@ Route::post('/cap-nhat-trinh-do', 'StudentController@updateLevel')->name('update
 Route::post('/cap-nhat-hoc-luc', 'StudentController@updatePower')->name('updatePower');
 Route::post('/cap-nhat-truong-hoc', 'StudentController@updateSchool')->name('updateSchool');
 
-Route::get('/gia-su/{id}', 'PageController@tutor')->name('tutor.profile');
+Route::get('/gia-su/them-khoa-hoc', 'TutorController@addClass')->name('tutor.addClass');
+Route::post('/gia-su/them-khoa-hoc', 'TutorController@addClassStore')->name('tutor.addClassStore');
 Route::get('/khoa-hoc/{id}', 'PageController@course')->name('course.intro');
+Route::get('/gia-su/{id}', 'PageController@tutor')->name('tutor.profile');
 
 Route::group(['prefix' => '/tai-lieu-gia-su'], function () {
     Route::get('/tài-lieu/{id}', 'DocumentTutorController@index')->name('document.tutor.index');

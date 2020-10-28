@@ -34,6 +34,8 @@ Giới thiệu
 
                         @include('client.pages.account.tutor.subject')
                         <hr>
+                        @include('client.pages.account.tutor.map')
+                        <hr>
                         @include('client.pages.account.tutor.rating')
 
 
@@ -46,7 +48,7 @@ Giới thiệu
         {{-- <div class="col1" style="    width: 2%;"></div> --}}
         <div class="col-md-4">
             <div class="white pad20 chat">
-                @include('client.pages.account.tutor.chat')
+                {{-- @include('client.pages.account.tutor.chat') --}}
 
             </div>
         </div>
@@ -56,10 +58,10 @@ Giới thiệu
 @endsection
 
 @push('script')
-<script
+{{-- <script
     src="https://maps.google.com/maps/api/js?key=AIzaSyDxTV3a6oL6vAaRookXxpiJhynuUpSccjY&amp;libraries=places&amp;callback=initAutocomplete"
     type="text/javascript">
-</script>
+</script> --}}
 <script>
     $(document).ready(function() {
 $("#lat_area").addClass("d-none");
@@ -67,21 +69,21 @@ $("#long_area").addClass("d-none");
 });
 </script>
 <script>
-    $(document).ready(function () {
+    // $(document).ready(function () {
     
-    google.maps.event.addDomListener(window, 'load', initialize);
-  function initialize() {
-  var input = document.getElementById('autocomplete');
-  var autocomplete = new google.maps.places.Autocomplete(input);
-  autocomplete.addListener('place_changed', function() {
-  var place = autocomplete.getPlace();
-  $('#latitude').val(place.geometry['location'].lat());
-  $('#longitude').val(place.geometry['location'].lng());
-  // --------- show lat and long ---------------
-  $("#lat_area").removeClass("d-none");
-  $("#long_area").removeClass("d-none");
-  });
-  }
-  });
+    //     google.maps.event.addDomListener(window, 'load', initialize);
+    //     function initialize() {
+    //         var input = document.getElementById('autocomplete');
+    //         var autocomplete = new google.maps.places.Autocomplete(input);
+    //         autocomplete.addListener('place_changed', function() {
+    //             var place = autocomplete.getPlace();
+    //             $('#latitude').val(place.geometry['location'].lat());
+    //             $('#longitude').val(place.geometry['location'].lng());
+    //             // --------- show lat and long ---------------
+    //             $("#lat_area").removeClass("d-none");
+    //             $("#long_area").removeClass("d-none");
+    //         });
+    //     }
+    // });
 </script>
 @endpush

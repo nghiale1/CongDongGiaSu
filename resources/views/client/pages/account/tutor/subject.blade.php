@@ -26,7 +26,7 @@
                 <button type="button" class="btn btn-edit" data-toggle="modal" data-target="#addSubject">
                     Thêm
                 </button>
-
+                <br>
                 <!-- Modal -->
                 <div class="modal fade" id="addSubject" tabindex="-1" role="dialog" aria-labelledby="addPlaceLabel"
                     aria-hidden="true">
@@ -67,6 +67,9 @@
                         </div>
                     </div>
                 </div>
+
+
+
             </div>
         </div>
     </div>

@@ -14,8 +14,8 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mx-auto">
                     <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle rounded-0 " type="button"
-                            id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button class="btn btn-warning dropdown-toggle rounded-0 " type="button" id="dropdownMenuButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Bản tin
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -25,8 +25,8 @@
                         </div>
                     </div>
                     <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle rounded-0 " type="button"
-                            id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button class="btn btn-warning dropdown-toggle rounded-0 " type="button" id="dropdownMenuButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Lớp học
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -36,8 +36,8 @@
                         </div>
                     </div>
                     <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle rounded-0 " type="button"
-                            id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button class="btn btn-warning dropdown-toggle rounded-0 " type="button" id="dropdownMenuButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Phụ huynh
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -47,8 +47,8 @@
                         </div>
                     </div>
                     <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle rounded-0 " type="button"
-                            id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button class="btn btn-warning dropdown-toggle rounded-0 " type="button" id="dropdownMenuButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Gia sư
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -58,21 +58,21 @@
                         </div>
                     </div>
                     <li class="">
-                        <a class="btn btn-secondary rounded-0" href="">Giới thiệu</a>
+                        <a class="btn btn-warning rounded-0" href="">Giới thiệu</a>
                     </li>
                     <li class="">
-                        <a class="btn btn-secondary rounded-0" href="">Tuyển dụng</a>
+                        <a class="btn btn-warning rounded-0" href="">Tuyển dụng</a>
                     </li>
 
                     <li class="">
-                        <a class="btn btn-secondary rounded-0" href="">Liên hệ</a>
+                        <a class="btn btn-warning rounded-0" href="">Liên hệ</a>
                     </li>
                     {{-- <li class="">
-                        <a class="btn btn-secondary rounded-0" href="">Đăng nhập</a>
+                        <a class="btn btn-warning rounded-0" href="">Đăng nhập</a>
                     </li> --}}
                     <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle rounded-0" type="button"
-                            id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button class="btn btn-warning dropdown-toggle rounded-0" type="button" id="dropdownMenuButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Tài khoản
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -82,7 +82,7 @@
                         </div>
                     </div>
                 </ul>
-
+                x
             </div>
         </div>
     </nav>

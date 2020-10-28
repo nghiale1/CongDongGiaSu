@@ -57,4 +57,8 @@ class StudentController extends Controller
         ]);
         return redirect()->route('student.profile',$id);
     }
+    public function rating(Request $request)
+    {
+        dd($request);
+    }
 }

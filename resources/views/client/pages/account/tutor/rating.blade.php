@@ -58,6 +58,49 @@
         word-break: break-word;
         white-space: pre-line;
     }
+
+    #rating {
+        border: none;
+        /* float: left; */
+        display: inline-block;
+        position: relative;
+        top: 15px;
+    }
+
+    #rating>input {
+        display: none;
+    }
+
+    #rating>label:before {
+        margin: 5px;
+        font-size: 1.25em;
+        font-family: FontAwesome;
+        display: inline-block;
+        content: "\f005";
+    }
+
+    #rating>.half:before {
+        content: "\f089";
+        position: absolute;
+    }
+
+    #rating>label {
+        color: #ddd;
+        float: right;
+    }
+
+    #rating>input:checked~label,
+    #rating:not(:checked)>label:hover,
+    #rating:not(:checked)>label:hover~label {
+        color: #FFD700;
+    }
+
+    #rating>input:checked+label:hover,
+    #rating>input:checked~label:hover,
+    #rating>label:hover~input:checked~label,
+    #rating>input:checked~label:hover~label {
+        color: #FFED85;
+    }
 </style>
 @endpush
 <div class="row">
@@ -160,4 +203,44 @@
                 this subject -Thank you</p>
         </div>
     </div>
+    <br>
+    {{-- bình luận --}}
+    <form method="post" action="{{route('rating')}}">
+        @csrf
+        <div class="row">
+
+            <div class="col-md-1">
+
+                <img src="{{asset('client/svg/teacher_male.svg')}}" alt="author" class="avatar-review">
+            </div>
+            <div class="col-md-11 pl-0">
+                <div id="rating">
+                    <input type="radio" id="star5" name="rating" value="5" required />
+                    <label class="full" for="star5"></label>
+
+                    <input type="radio" id="star4" name="rating" value="4" required />
+                    <label class="full" for="star4"></label>
+
+                    <input type="radio" id="star3" name="rating" value="3" required />
+                    <label class="full" for="star3"></label>
+
+                    <input type="radio" id="star2" name="rating" value="2" required />
+                    <label class="full" for="star2"></label>
+
+                    <input type="radio" id="star1" name="rating" value="1" required />
+                    <label class="full" for="star1"></label>
+                </div>
+                <div class="form-group with-icon-right is-empty">
+                    <textarea class="form-control" placeholder="" name="content"></textarea>
+
+                </div>
+
+            </div>
+            <div class="ml-auto">
+
+                <button class="btn btn-md-2 btn-primary" type="submit">Bình luận</button>
+            </div>
+
+        </div>
+    </form>
 </div>

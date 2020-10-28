@@ -16,7 +16,7 @@
             </thead>
             <tbody class="text-center">
                 <tr>
-                    <td class="text-left"><img src="/client/svg/morning.svg" alt=""> Sáng</td>
+                    <td class="text-left"><img src="{{asset('/client/svg/morning.svg')}}" alt=""> Sáng</td>
                     @for($i=0;$i<7;$i++) @if($tutor->chitietlichdays[$i]->ctld_trangthai=='Ranh')
 
                         <td class="square" data-type="free" data-id="{{$i}}">
@@ -33,7 +33,7 @@
 
                 </tr>
                 <tr>
-                    <td class="text-left"><img src="/client/svg/afternoon.svg" alt="">Chiều</td>
+                    <td class="text-left"><img src="{{asset('/client/svg/afternoon.svg')}}" alt="">Chiều</td>
                     @for($i=7;$i<14;$i++) @if($tutor->chitietlichdays[$i]->ctld_trangthai=='Ranh')
 
                         <td class="square" data-type="free" data-id="{{$i}}">
@@ -50,7 +50,7 @@
 
                 </tr>
                 <tr>
-                    <td class="text-left"><img src="/client/svg/evening.svg" alt="">Tối</td>
+                    <td class="text-left"><img src="{{asset('/client/svg/evening.svg')}}" alt="">Tối</td>
                     @for($i=14;$i<21;$i++)@if($tutor->chitietlichdays[$i]->ctld_trangthai=='Ranh')
 
                         <td class="square" data-type="free" data-id="{{$i}}">
@@ -88,6 +88,12 @@
                 $(this).addClass('busy');
                 $(this).html('');
             }
+
+
+
+
+
+
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

@@ -37,8 +37,12 @@ class PageController extends Controller
         $subject=Chuyenmon::leftjoin('linhvuc','linhvuc.lv_id','chuyenmon.lv_id')->
         orderby('lv_ten','ASC')->get();
         $obj=Doituongnguoihoc::get();
+
+
+
+        $loca=\json_encode(\DB::table('giasu')->get());
         // dd($tutor->chitietlichdays);
-        return view('client.pages.account.tutor.profile',compact('tutor','school','degree','subject','obj','mySubject'));
+        return view('client.pages.account.tutor.profile',compact('tutor','school','degree','subject','obj','mySubject','loca'));
 
     }
 }

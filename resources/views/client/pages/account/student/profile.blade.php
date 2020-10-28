@@ -48,7 +48,8 @@ Giới thiệu
     <div class="row">
         <div class="col col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="ui-block">
-                <input type="hidden" id="id" value="{{\Auth::user()->hocviens[0]->hv_id}}">
+                {{-- {{dd(Request::segment(2))}} --}}
+                <input type="hidden" id="id" value="{{Request::segment(2)}}">
                 <div class="top-header">
                     <div class="top-header-thumb">
                         <img loading="lazy" src="{{asset($student->hv_hinhnen)}}" alt="">
@@ -59,10 +60,10 @@ Giới thiệu
                             <div class="col col-lg-5 col-md-5 col-sm-12 col-12">
                                 <ul class="profile-menu">
                                     <li>
-                                        <a href="05-ProfilePage-About.html">Cá nhân</a>
+                                        <a href="05-ProfilePage-About.html">Tin nhắn</a>
                                     </li>
                                     <li>
-                                        <a href="06-ProfilePage.html">Học vấn</a>
+                                        <a href="06-ProfilePage.html">Gia sư yêu thích</a>
                                     </li>
                                 </ul>
                             </div>
@@ -70,22 +71,22 @@ Giới thiệu
                                 <a href="#" class="btn btn-control bg-blue" style="padding: 0!important;">
                                     <div class="svg" style="background-color: #38a9ff;">
 
-                                        <img src="\client\svg\chat.svg" alt="">
+                                        <img src="{{asset('\client\svg\chat.svg')}}" alt="">
                                     </div>
                                 </a>
 
                                 <a href="#" class="btn btn-control bg-purple" style="padding: 0!important;">
                                     <div class="svg" style="background-color: #f7c68b;">
 
-                                        <img src="\client\svg\heart_full.svg" alt="">
+                                        <img src="{{asset('\client\svg\heart_full.svg')}}" alt="">
                                         {{-- <img src="\client\svg\heart.svg" alt=""> --}}
                                     </div>
                                 </a>
 
                                 <a href="#" class="btn btn-control bg-purple" style="padding: 0!important;">
-                                    <div class="svg" style="background-color: #fdc800;">
+                                    <div class="svg" style="background-color: #969696;">
 
-                                        <img src="\client\svg\rating.svg" alt="">
+                                        <img src="{{asset('\client\svg\location.svg')}}" alt="">
                                         {{-- <img src="\client\svg\heart.svg" alt=""> --}}
                                     </div>
                                 </a>
@@ -94,14 +95,11 @@ Giới thiệu
                             </div>
                             <div class="col col-lg-5 ml-auto col-md-5 col-sm-12 col-12">
                                 <ul class="profile-menu">
-                                    {{-- <li>
-                                        <a href="07-ProfilePage-Photos.html">Hình ảnh</a>
-                                    </li> --}}
                                     <li>
-                                        <a href="09-ProfilePage-Videos.html">Lớp dạy</a>
+                                        <a href="07-ProfilePage-Photos.html">Gia sư gần bạn</a>
                                     </li>
                                     <li>
-                                        <a href="09-ProfilePage-Videos.html">Đánh giá</a>
+                                        <a href="09-ProfilePage-Videos.html">Khóa học</a>
                                     </li>
                                 </ul>
                             </div>
@@ -122,6 +120,7 @@ Giới thiệu
     </div>
 </div>
 @include('client.pages.account.student.about')
+@include('client.pages.account.student.suggestion')
 {{-- @include('client.pages.account.student.timeline') --}}
 
 @endsection

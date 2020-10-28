@@ -44,7 +44,7 @@
                                             <b>
                                                 <p>
 
-                                                    Lê Thị Ngọc LiênLiên Lê Thị Ngọc LiênLiên
+                                                    {{\Auth::user()->giasus[0]->gs_hoten}}
                                                 </p>
                                             </b>
                                             <p>Xem trang cá nhân</p>
@@ -97,7 +97,7 @@
                                             <b>
                                                 <p>
 
-                                                    Lê Thị Ngọc LiênLiên Lê Thị Ngọc LiênLiên
+                                                    {{\Auth::user()->hocviens[0]->hv_hoten}}
                                                 </p>
                                             </b>
                                             <p>Xem trang cá nhân</p>

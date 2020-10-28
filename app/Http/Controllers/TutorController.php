@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Giasu;
 
 class TutorController extends Controller
 {
@@ -169,14 +170,14 @@ class TutorController extends Controller
             public_path('/client/img/'.$id), //nơi cần lưu
             $name_file,
         );
+        $link='/client/img/'.$name_file;
         $getID=\DB::table('bangcap')->insertGetId([
             'gs_id'=>$id,
             'bc_tenbangcap'=>$request->bc_tenbangcap,
             'bc_ngaycap'=>$request->bc_ngaycap,
-            'bc_hinhanh'=>$name_file,
+            'bc_hinhanh'=>$link,
             'bc_trangthai'=>'chuaXacThuc',
         ]);
-       $link='/client/img/'.$id.'/'.$name_file;
        return response()
        ->json(['link' => $link,'id'=>$getID]);
     }
@@ -205,5 +206,60 @@ class TutorController extends Controller
             }
        }
        return \redirect()->route('tutor.profile',\Auth::user()->giasus[0]->gs_id);
+    }
+    public function addClass(Request $request)
+    {
+        $id=\Auth::user()->giasus[0]->gs_id;
+        $tutor=Giasu::where('gs_id',$id)->first();
+        $doituong=Giasu::join('chitietchuyenmon','chitietchuyenmon.gs_id','giasu.gs_id')
+        ->join('chuyenmon','chuyenmon.cm_id','chitietchuyenmon.cm_id')
+        ->join('doituongnguoihoc','doituongnguoihoc.dtnh_id','chitietchuyenmon.dtnh_id')
+        ->where('giasu.gs_id',$id)->get();
+        // dd($doituong);
+        return view('client.pages.account.tutor.class',compact('tutor','doituong'));
+    }
+    public function addClassStore(Request $request)
+    {
+        dd($request );
+        DB::beginTransaction();
+        try {
+
+            $id=\Auth::user()->giasus[0]->gs_id;
+            $id_class=\DB::table('lop')->insertGetId([
+            'l_mota'=>$request->l_mota,
+            'l_ten'=>$request->l_ten,
+            'l_gioithieu'=>$request->l_gioithieu,
+            'l_hocphi'=>$request->l_hocphi,
+            'l_soluong'=>$request->l_soluong,
+            'l_ngaybatdau'=>$request->l_ngaybatdau,
+            'l_ngayketthuc'=>$request->l_ngayketthuc,
+            'l_sobuoi'=>$request->l_sobuoi,
+            'l_diachi'=>$request->l_diachi,
+            'gs_id'=>$id,
+            'ctcm_id'=>$request->ctcm,
+        ]);
+        foreach ($request->lich as $key => $value) {
+            \DB::table('loptgd')->insert([
+                'l_id'=>$id_class,
+                'tgd_id'=>$value,
+                ]);
+            }
+        foreach ($request->lich as $key => $value) {
+            \DB::table('chitietlichday')
+            ->where('tgd_id',$value)
+            ->where('gs_id',$id)
+            ->update([
+                'ctld_trangthai'=>'Ban'
+                ]);
+        }
+        
+            \DB::commit();
+        }catch (\Exception $e) {
+            \DB::rollback();
+            throw $e;
+        }catch (\Throwable $e) {
+            \DB::rollback();
+            throw $e;
+        }
     }
 }
