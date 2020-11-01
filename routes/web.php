@@ -52,6 +52,11 @@ Route::post('/gia-su/them-khoa-hoc', 'TutorController@addClassStore')->name('tut
 Route::get('/khoa-hoc/{id}', 'PageController@course')->name('course.intro');
 Route::get('/gia-su/{id}', 'PageController@tutor')->name('tutor.profile');
 
+Route::post('/cap-nhat-ten-khoa-hoc','TutorController@updateCourseName')->name('updateCourseName');
+Route::post('/cap-nhat-mo-ta-khoa-hoc','TutorController@updateCourseDescription')->name('updateCourseDescription');
+Route::post('/cap-nhat-gioi-thieu-khoa-hoc','TutorController@updateCourseIntro')->name('updateCourseIntro');
+Route::post('/them-video','TutorController@uploadVideo')->name('uploadVideo');
+
 Route::group(['prefix' => '/tai-lieu-gia-su'], function () {
     Route::get('/tài-lieu/{id}', 'DocumentTutorController@index')->name('document.tutor.index');
     Route::get('/thu-muc/{slug}', 'DocumentTutorController@into')->name('document.tutor.into');

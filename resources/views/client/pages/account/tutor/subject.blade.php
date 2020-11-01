@@ -24,8 +24,13 @@
             <div class="col">
                 <!-- Button trigger modal -->
                 <button type="button" class="btn btn-edit" data-toggle="modal" data-target="#addSubject">
-                    Thêm
+                    Thêm môn dạy
                 </button>
+                &nbsp;
+                &nbsp;
+                &nbsp;
+                &nbsp;
+                <a href="{{route('tutor.addClass')}}" class="btn btn-edit">Thêm khoá học</a>
                 <br>
                 <!-- Modal -->
                 <div class="modal fade" id="addSubject" tabindex="-1" role="dialog" aria-labelledby="addPlaceLabel"

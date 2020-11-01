@@ -78,7 +78,6 @@ class Lop extends Model
 	{
 		return $this->hasMany(Hopdong::class, 'l_id');
 	}
-
 	public function loptgds()
 	{
 		return $this->hasMany(Loptgd::class, 'l_id');

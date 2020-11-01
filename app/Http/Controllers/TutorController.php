@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Giasu;
+use DB;
+use GetId3;
 
 class TutorController extends Controller
 {
@@ -220,7 +222,7 @@ class TutorController extends Controller
     }
     public function addClassStore(Request $request)
     {
-        dd($request );
+        // dd($request );
         DB::beginTransaction();
         try {
 
@@ -254,6 +256,111 @@ class TutorController extends Controller
         }
         
             \DB::commit();
+            return redirect()->route('tutor.profile',$id);
+        }catch (\Exception $e) {
+            \DB::rollback();
+            throw $e;
+        }catch (\Throwable $e) {
+            \DB::rollback();
+            throw $e;
+        }
+    }
+    public function updateCourseName(Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            \DB::table('lop')
+            ->where('l_id',$request->id)
+            ->update([
+                'l_ten'=>$request->data
+            ]);
+            \DB::commit();
+            return redirect()->route('course.intro',$request->id);
+        }catch (\Exception $e) {
+            \DB::rollback();
+            throw $e;
+        }catch (\Throwable $e) {
+            \DB::rollback();
+            throw $e;
+        }
+    }
+    public function updateCourseDescription(Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            \DB::table('lop')
+            ->where('l_id',$request->id)
+            ->update([
+                'l_mota'=>$request->data
+            ]);
+            \DB::commit();
+            return redirect()->route('course.intro',$request->id);
+        }catch (\Exception $e) {
+            \DB::rollback();
+            throw $e;
+        }catch (\Throwable $e) {
+            \DB::rollback();
+            throw $e;
+        }
+    }
+    public function updateCourseIntro(Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            \DB::table('lop')
+            ->where('l_id',$request->id)
+            ->update([
+                'l_gioithieu'=>$request->data
+            ]);
+            \DB::commit();
+            return redirect()->route('course.intro',$request->id);
+        }catch (\Exception $e) {
+            \DB::rollback();
+            throw $e;
+        }catch (\Throwable $e) {
+            \DB::rollback();
+            throw $e;
+        }
+    }
+    public function uploadVideo(Request $request)
+    {
+
+
+        
+
+
+        // dd($request);
+        DB::beginTransaction();
+        try {
+            $gs=\DB::table('giasu')
+            ->join('lop','lop.gs_id','giasu.gs_id')
+            ->join('chuong','chuong.l_id','lop.l_id')
+            ->where('c_id',$request->lesson)
+            ->first();
+            if ($request->hasFile('file')) {
+                //lưu file
+                $name=$request->file('file')->getClientOriginalName();
+                $type=$request->file('file')->getClientOriginalExtension();
+                // dd($request->file)
+                // dd($name);
+                $path='/video/'.$gs->gs_id.'/'.$request->lesson.'/';
+                $request->file('file')->move(
+                    public_path($path), //nơi cần lưu
+                    $name);
+                    $getID3 = new \getID3;
+                    // dd(realpath(public_path(($path.''.$name))));
+                    $duration=$getID3->analyze(realpath(public_path($path.''.$name)))['playtime_string'];
+
+                    \DB::table('video')->insert([
+                        'v_duongdan'=>'/video/'.$gs->gs_id.'/'.$request->lesson.'/'.$name,
+                        'v_ten'=>$name,
+                        'v_dodai'=>$duration,
+                        'v_theloai'=>$type,
+                        'c_id'=>$request->lesson
+                    ]);
+            }
+            \DB::commit();
+            return redirect()->route('course.intro',$request->lesson);
         }catch (\Exception $e) {
             \DB::rollback();
             throw $e;

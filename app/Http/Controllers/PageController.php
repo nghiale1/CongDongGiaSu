@@ -18,8 +18,25 @@ class PageController extends Controller
     }
     public function course($id)
     {
-        // $lop=Lop::find($id)->load('giasu');
-        return view('client.pages.account.tutor.intro',compact('lop'));
+        $lop=Lop::join('giasu','giasu.gs_id','lop.gs_id')
+        ->where('l_id',$id)->first();
+        $countHV=Lop::join('hopdong','hopdong.l_id','lop.l_id')
+        ->where('lop.l_id',$id)
+        ->count();
+        $tutor=Giasu::where('gs_id',$lop->gs_id)->first();
+
+        $lesson=\DB::table('chuong')
+        ->where('chuong.l_id',$lop->l_id)
+        ->get();
+        foreach($lesson as $item){
+            $video=\DB::table('video')
+            ->where('video.c_id',$item->c_id)
+            ->get();
+            $item->video=$video;
+        }
+// dd($lesson);
+
+        return view('client.pages.class.intro',compact('lop','tutor','countHV','lesson'));
     }
     public function tutor($id)
     {
@@ -37,12 +54,25 @@ class PageController extends Controller
         $subject=Chuyenmon::leftjoin('linhvuc','linhvuc.lv_id','chuyenmon.lv_id')->
         orderby('lv_ten','ASC')->get();
         $obj=Doituongnguoihoc::get();
-
+        
+        $schedule=\DB::table('thoigianday')
+        ->join('chitietlichday','chitietlichday.tgd_id','thoigianday.tgd_id')
+        ->where('chitietlichday.gs_id',$tutor->gs_id)
+        ->get();
+        foreach ($schedule as $key => $value) {
+            $lop=\DB::table('loptgd')
+            ->join('lop','lop.l_id','loptgd.l_id')
+            ->where('loptgd.tgd_id',$value->tgd_id)
+            ->where('lop.gs_id',$tutor->gs_id)
+            ->get();
+            $value->lop=$lop;
+        }
+        // dd($schedule);
 
 
         $loca=\json_encode(\DB::table('giasu')->get());
         // dd($tutor->chitietlichdays);
-        return view('client.pages.account.tutor.profile',compact('tutor','school','degree','subject','obj','mySubject','loca'));
+        return view('client.pages.account.tutor.profile',compact('tutor','school','degree','subject','obj','mySubject','loca','schedule'));
 
     }
 }
