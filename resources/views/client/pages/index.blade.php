@@ -29,10 +29,17 @@ Cộng đồng gia sư
                         <div class="banner-info">
                             <div class="container">
                                 <div class="banner-info-bg mx-auto text-center">
-                                    <form class="form-inline position-relative my-2 my-lg-0"
-                                        style="width: 83%;text-align:center" method="get"
-                                        action="{{route('search.step1')}}">
+                                    <form class="position-relative my-2 my-lg-0" style="width: 83%;text-align:center"
+                                        method="get" action="{{route('search.step1')}}">
                                         {{-- @csrf --}}
+                                        {{-- <select class="selectpicker form-control" data-live-search="true" name="search"
+                                            placeholder="Nhập môn học" data-width="100%">
+                                            @foreach ($linhvuc as $item)
+
+                                            <option data-tokens="{{$item->lv_id}}" value="{{$item->lv_ten}}">
+                                        {{$item->lv_ten}}</option>
+                                        @endforeach
+                                        </select> --}}
                                         <input class="form-control search" list="browsers" name="search"
                                             placeholder="Nhập môn học" aria-label="Search" required=""
                                             autocomplete="off" id="searchSubject" style="height: 45px;">
@@ -113,6 +120,10 @@ Cộng đồng gia sư
 @endsection
 
 @push('script')
+<link rel="stylesheet" href="{{asset('bootstrap-select-1.13.14/css/bootstrap-select.min.css')}}">
+<script src="{{asset('bootstrap-select-1.13.14/js/bootstrap-select.min.js')}}"></script>
+<script src="{{asset('bootstrap-select-1.13.14/js/i18n/defaults-vi_VN.min.js')}}"></script>
+
 <script>
     $(document).ready(function () {
         
@@ -166,4 +177,5 @@ Cộng đồng gia sư
         })
       })
 </script>
+
 @endpush

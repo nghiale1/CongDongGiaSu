@@ -28,15 +28,91 @@ class PageController extends Controller
         $lesson=\DB::table('chuong')
         ->where('chuong.l_id',$lop->l_id)
         ->get();
+        $temp=0;
+        $minute=0;
+        $second=0;
         foreach($lesson as $item){
             $video=\DB::table('video')
             ->where('video.c_id',$item->c_id)
             ->get();
             $item->video=$video;
-        }
-// dd($lesson);
 
-        return view('client.pages.class.intro',compact('lop','tutor','countHV','lesson'));
+
+
+            foreach ($video as $key => $value) {
+                $arr=(explode(':', $value->v_dodai));
+                    $second+=(int)$arr[0]*60;
+                    $second+=(int)$arr[1];
+
+
+
+
+            }
+
+
+            $temp+=count($video);
+        }
+        $countVideo=$temp;
+        $minute=round($second/60,0,PHP_ROUND_HALF_DOWN);
+        $second=$second%60;
+
+        $suggestion=$this->suggestionClass($id,$tutor->gs_id);
+        // dd($suggestion);
+        // dd($minute);
+        return view('client.pages.class.intro',compact('lop','tutor','countHV','lesson','minute','second','countVideo','suggestion'));
+    }
+    public function suggestionClass($id,$gs_id)
+    {
+        $class=\DB::table('lop')
+        ->where('lop.gs_id',$gs_id)
+        ->where('lop.l_id','!=',$id)
+        ->orderBy('lop.l_ngaybatdau','desc')
+        ->get()
+        ->take(4);
+        foreach ($class as $key => $value) {
+            $hv=\DB::table('hopdong')
+            ->where('hopdong.l_id',$value->l_id)
+            ->get();
+            $value->slhv=count($hv);
+            $value->thoigian=$this->getDuration($value->l_id);
+        }
+        // dd($class);
+        return $class;
+    }
+    public function getDuration($l_id)
+    {
+        $lesson=\DB::table('chuong')
+        ->where('chuong.l_id',$l_id)
+        ->get();
+        $temp=0;
+        $minute=0;
+        $second=0;
+        foreach($lesson as $item){
+            $video=\DB::table('video')
+            ->where('video.c_id',$item->c_id)
+            ->get();
+            $item->video=$video;
+
+
+
+            foreach ($video as $key => $value) {
+                $arr=(explode(':', $value->v_dodai));
+                    $second+=(int)$arr[0]*60;
+                    $second+=(int)$arr[1];
+
+
+
+
+            }
+
+
+            $temp+=count($video);
+        }
+        $countVideo=$temp;
+        $minute=round($second/60,0,PHP_ROUND_HALF_DOWN);
+        $second=$second%60;
+        $time=$minute.':'.$second;
+        return $time;
     }
     public function tutor($id)
     {
@@ -67,7 +143,7 @@ class PageController extends Controller
             ->get();
             $value->lop=$lop;
         }
-        // dd($schedule);
+        
 
 
         $loca=\json_encode(\DB::table('giasu')->get());

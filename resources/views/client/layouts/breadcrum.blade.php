@@ -1,7 +1,7 @@
 <section class="w3l-about-breadcrum">
-    <div class="breadcrum-bg">
+    <div class="breadcrum-bg" style="background-color: #fdc800;">
         <div class="container py-lg-3">
-            <p><a href="">Trang chủ</a> &nbsp; / &nbsp; @yield('breadcrum')</p>
+            <p style="color:black"><a href="">Trang chủ</a> &nbsp; / &nbsp; @yield('breadcrum')</p>
 
 
         </div>

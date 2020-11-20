@@ -34,7 +34,7 @@ Giới thiệu
 
                         @include('client.pages.account.tutor.subject')
                         <hr>
-                        @include('client.pages.account.tutor.map')
+                        {{-- @include('client.pages.account.tutor.map') --}}
                         <hr>
                         @include('client.pages.account.tutor.rating')
 

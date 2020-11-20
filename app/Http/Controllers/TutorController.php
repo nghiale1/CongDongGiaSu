@@ -225,21 +225,33 @@ class TutorController extends Controller
         // dd($request );
         DB::beginTransaction();
         try {
+            if ($request->hasFile('avatar')) {
 
-            $id=\Auth::user()->giasus[0]->gs_id;
-            $id_class=\DB::table('lop')->insertGetId([
-            'l_mota'=>$request->l_mota,
-            'l_ten'=>$request->l_ten,
-            'l_gioithieu'=>$request->l_gioithieu,
-            'l_hocphi'=>$request->l_hocphi,
-            'l_soluong'=>$request->l_soluong,
-            'l_ngaybatdau'=>$request->l_ngaybatdau,
-            'l_ngayketthuc'=>$request->l_ngayketthuc,
-            'l_sobuoi'=>$request->l_sobuoi,
-            'l_diachi'=>$request->l_diachi,
-            'gs_id'=>$id,
-            'ctcm_id'=>$request->ctcm,
-        ]);
+                $id=\Auth::user()->giasus[0]->gs_id;
+
+                //lưu file
+                $file=$request->file('avatar')->getClientOriginalName();
+                $type_file = \File::extension($file);
+                $name_file=$file.'.'.$type_file;
+                $request->file('avatar')->move(
+                public_path('/clien/img/class/'.$request->type.'/'), //nơi cần lưu
+                $name_file);
+
+                $id_class=\DB::table('lop')->insertGetId([
+                    'l_mota'=>$request->l_mota,
+                    'l_ten'=>$request->l_ten,
+                    'l_gioithieu'=>$request->l_gioithieu,
+                    'l_hocphi'=>$request->l_hocphi,
+                    'l_soluong'=>$request->l_soluong,
+                    'l_ngaybatdau'=>$request->l_ngaybatdau,
+                    'l_ngayketthuc'=>$request->l_ngayketthuc,
+                    'l_sobuoi'=>$request->l_sobuoi,
+                    'l_diachi'=>$request->l_diachi,
+                    'l_daidien'=>'client/img/class/'.$request->type.'/'.$name_file,
+                    'gs_id'=>$id,
+                    'ctcm_id'=>$request->ctcm,
+                ]);
+            }
         foreach ($request->lich as $key => $value) {
             \DB::table('loptgd')->insert([
                 'l_id'=>$id_class,

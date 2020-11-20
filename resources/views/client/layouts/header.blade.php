@@ -13,17 +13,7 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mx-auto">
-                    <div class="dropdown">
-                        <button class="btn btn-warning dropdown-toggle rounded-0 " type="button" id="dropdownMenuButton"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Bản tin
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
-                    </div>
+
                     <div class="dropdown">
                         <button class="btn btn-warning dropdown-toggle rounded-0 " type="button" id="dropdownMenuButton"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -67,22 +57,9 @@
                     <li class="">
                         <a class="btn btn-warning rounded-0" href="">Liên hệ</a>
                     </li>
-                    {{-- <li class="">
-                        <a class="btn btn-warning rounded-0" href="">Đăng nhập</a>
-                    </li> --}}
-                    <div class="dropdown">
-                        <button class="btn btn-warning dropdown-toggle rounded-0" type="button" id="dropdownMenuButton"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Tài khoản
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
-                    </div>
+
                 </ul>
-                x
+
             </div>
         </div>
     </nav>

@@ -9,6 +9,12 @@ Trang cá nhân / Thêm lớp
 <style>
     .choice {
         background-color: blue;
+
+        /* content: '<img src="{{asset("/client/svg/greenTick.svg")}}" alt="" class="green-tick">';
+        display: inline-block;
+        width: 10px;
+        height: 20px; */
+
     }
 
     .btn-secondary {
@@ -32,7 +38,7 @@ Trang cá nhân / Thêm lớp
     <div class="row ">
         <div class="col-md-9 white m-auto">
             <h2 class="m-3 text-center">Thêm thông tin lớp học mới</h2>
-            <form action="{{route('tutor.addClassStore')}}" method="post">
+            <form action="{{route('tutor.addClassStore')}}" method="post" enctype="multipart/form-data">
                 @csrf
 
                 <table class="table table-bordered">
@@ -54,7 +60,7 @@ Trang cá nhân / Thêm lớp
                             @for($i=0;$i<7;$i++) @if($tutor->chitietlichdays[$i]->ctld_trangthai=='Ranh')
 
                                 <td class="square" data-type="free" data-id="{{$i}}">
-                                    <green-tick></green-tick>
+                                    {{-- <green-tick></green-tick> --}}
                                 </td>
 
                                 @else
@@ -71,7 +77,7 @@ Trang cá nhân / Thêm lớp
                             @for($i=7;$i<14;$i++) @if($tutor->chitietlichdays[$i]->ctld_trangthai=='Ranh')
 
                                 <td class="square" data-type="free" data-id="{{$i}}">
-                                    <green-tick></green-tick>
+                                    {{-- <green-tick></green-tick> --}}
                                 </td>
 
                                 @else
@@ -88,7 +94,7 @@ Trang cá nhân / Thêm lớp
                             @for($i=14;$i<21;$i++)@if($tutor->chitietlichdays[$i]->ctld_trangthai=='Ranh')
 
                                 <td class="square" data-type="free" data-id="{{$i}}">
-                                    <green-tick></green-tick>
+                                    {{-- <green-tick></green-tick> --}}
                                 </td>
 
                                 @else
@@ -110,6 +116,8 @@ Trang cá nhân / Thêm lớp
                 </select>
                 <br>
                 <input type="text" class="form-control" name="l_ten" placeholder="Tên khóa học">
+                <br>
+                <input type="file" class="form-control" name="avatar" placeholder="Ảnh đại diện" required>
                 <br>
                 <input type="number" min="0" name="l_soluong" id="" class="form-control"
                     placeholder="Số lượng học viên">
@@ -148,7 +156,7 @@ Trang cá nhân / Thêm lớp
         let type=$(this).attr('data-type');
         let id=$(this).attr('data-id');
         console.log(type);
-        if(type=='free'){
+        if(type=='free' || type=='busy'){
             $(this).attr('data-type', 'new');
             $(this).addClass('choice');
             $(this).html('<input type="hidden" name="lich[]" value="'+id+'">');
@@ -156,7 +164,7 @@ Trang cá nhân / Thêm lớp
         if(type=='new'){
             $(this).attr('data-type', 'free');
             $(this).removeClass('choice');
-            $(this).html('<img src="{{asset("/client/svg/greenTick.svg")}}" alt="" class="green-tick">');
+            // $(this).html('<img src="{{asset("/client/svg/greenTick.svg")}}" alt="" class="green-tick">');
         }
     });
 </script>

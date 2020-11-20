@@ -130,13 +130,13 @@
                     </li>
                     <?php endif ?>
                     <?php else: ?>
-                    <a class="" href="" style="color: white">
+                    <a class="{{route('account.login_view')}}" href="" style="color: white">
                         Đăng nhập
                     </a>
                     &nbsp;
                     &nbsp;
                     &nbsp;
-                    <a class="" href="{{route('account.register')}}" style="color: white">
+                    <a class="{{route('account.register')}}" href="{{route('account.register')}}" style="color: white">
                         Đăng ký
                     </a>
                     <?php endif ?>

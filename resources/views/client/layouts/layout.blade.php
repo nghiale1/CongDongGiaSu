@@ -11,7 +11,7 @@
     <div id="app">
 
         @include('client.layouts.nav')
-        @include('client.layouts.header')
+        {{-- @include('client.layouts.header') --}}
         @include('client.layouts.breadcrum')
         @yield('page')
 

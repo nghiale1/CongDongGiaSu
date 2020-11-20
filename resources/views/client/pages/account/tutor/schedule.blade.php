@@ -16,7 +16,7 @@
 <div class="row">
     <div class="col-md-3">Lịch dạy</div>
     <div class="col-md-9">
-        <table class="table table-bordered table-responsive">
+        <table class="table table-bordered">
             <thead>
                 <tr class="text-center">
                     <td style="width:20%">&nbsp;</td>
@@ -35,7 +35,7 @@
                     @for($i=0;$i<7;$i++) @if($schedule[$i]->ctld_trangthai=='Ranh')
 
                         <td class="square" data-type="free" data-id="{{$i}}">
-                            <green-tick></green-tick>
+                            {{-- <green-tick></green-tick> --}}
                         </td>
 
                         @else
@@ -75,7 +75,7 @@
                     @for($i=7;$i<14;$i++) @if($schedule[$i]->ctld_trangthai=='Ranh')
 
                         <td class="square" data-type="free" data-id="{{$i}}">
-                            <green-tick></green-tick>
+                            {{-- <green-tick></green-tick> --}}
                         </td>
 
                         @else
@@ -106,7 +106,7 @@
                     @for($i=14;$i<21;$i++)@if($schedule[$i]->ctld_trangthai=='Ranh')
 
                         <td class="square" data-type="free" data-id="{{$i}}">
-                            <green-tick></green-tick>
+                            {{-- <green-tick></green-tick> --}}
                         </td>
 
                         @else
