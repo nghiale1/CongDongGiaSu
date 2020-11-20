@@ -1,3 +1,10 @@
+@extends('client.pages.account.student.layout')
+@section('head')
+{{$student->hv_hoten}}
+@endsection
+@section('breadcrum')
+Giới thiệu
+@endsection
 @push('css')
 <style>
   .labels {
@@ -10,8 +17,14 @@
     white-space: nowrap;
   }
 </style>
+
 @endpush
-<div id="map" style="width:100%;height:500px"></div>
+
+@section('content')
+<div class="container">
+  <div id="map" style="width:100%;height:500px"></div>
+</div>
+@endsection
 @push('script')
 <script>
   "use strict";
@@ -52,12 +65,17 @@ function initMap() {
   })
   var loca = '{!!$loca!!}';
   loca = JSON.parse(loca);
-  loca.forEach(element => {
-    new google.maps.Marker({
+  var markers = [];
+  Object.entries(loca).forEach(([key,element]) => {
+            
+    let url='{{ route("tutor.profile", ":id") }}';
+            url = url.replace(':id', element.gs_id);
+    markers[key]=new google.maps.Marker({
       position: {
         lat: JSON.parse(element.gs_toado)[0],
         lng: JSON.parse(element.gs_toado)[1]
       },
+      url:url,
       map: map,
       labelClass: "labels",
       label: {
@@ -67,6 +85,7 @@ function initMap() {
       },
       icon: {
 
+        // url: '<a href="'+url+'"><img src="{{asset("client/svg/teacher_male.svg")}}"></a>',
         url: "{{asset('client/svg/teacher_male.svg')}}",
         scaledSize: {
           width: 50,
@@ -76,6 +95,11 @@ function initMap() {
 
 
     });
+    for ( var i = 0; i < markers.length; i++ ) {
+    google.maps.event.addListener(markers[i], 'click', function() {
+      window.location.href = this.url;  //changed from markers[i] to this
+    });
+}
   });
 
   var circle = new google.maps.Circle({

@@ -212,9 +212,8 @@ Công nghệ thông tin / {{$lop->l_ten}}
                 data+='</video>';
                 
                 $('#video').html(data);
-                $('.see').scrollIntoView();
-        });
-        $('.playVideo').click(function (e) { 
+                // cuộn màn hình video
+                $('#scrollIntoView').scrollIntoView();
         });
     });
 </script>

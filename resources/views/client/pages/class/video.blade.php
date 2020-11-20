@@ -18,7 +18,7 @@
 
 
 
-    <div class="see"></div>
+    <div id="scrollIntoView"></div>
     <div id="video">
     </div>
 

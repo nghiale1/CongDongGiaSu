@@ -1,4 +1,4 @@
-@extends('client.layouts.layout')
+@extends('client.pages.account.student.layout')
 @section('head')
 {{$student->hv_hoten}}
 @endsection
@@ -42,83 +42,8 @@ Giới thiệu
 
 @endpush
 
-@section('page')
+@section('content')
 
-<div class="container">
-    <div class="row">
-        <div class="col col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-            <div class="ui-block">
-                {{-- {{dd(Request::segment(2))}} --}}
-                <input type="hidden" id="id" value="{{Request::segment(2)}}">
-                <div class="top-header">
-                    <div class="top-header-thumb">
-                        <img loading="lazy" src="{{asset($student->hv_hinhnen)}}" alt="">
-                    </div>
-
-                    <div class="profile-section">
-                        <div class="row">
-                            <div class="col col-lg-5 col-md-5 col-sm-12 col-12">
-                                <ul class="profile-menu">
-                                    <li>
-                                        <a href="05-ProfilePage-About.html">Tin nhắn</a>
-                                    </li>
-                                    <li>
-                                        <a href="06-ProfilePage.html">Gia sư yêu thích</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="control-block-button">
-                                <a href="#" class="btn btn-control bg-blue" style="padding: 0!important;">
-                                    <div class="svg" style="background-color: #38a9ff;">
-
-                                        <img src="{{asset('\client\svg\chat.svg')}}" alt="">
-                                    </div>
-                                </a>
-
-                                <a href="#" class="btn btn-control bg-purple" style="padding: 0!important;">
-                                    <div class="svg" style="background-color: #f7c68b;">
-
-                                        <img src="{{asset('\client\svg\heart_full.svg')}}" alt="">
-                                        {{-- <img src="\client\svg\heart.svg" alt=""> --}}
-                                    </div>
-                                </a>
-
-                                <a href="#" class="btn btn-control bg-purple" style="padding: 0!important;">
-                                    <div class="svg" style="background-color: #969696;">
-
-                                        <img src="{{asset('\client\svg\location.svg')}}" alt="">
-                                        {{-- <img src="\client\svg\heart.svg" alt=""> --}}
-                                    </div>
-                                </a>
-
-
-                            </div>
-                            <div class="col col-lg-5 ml-auto col-md-5 col-sm-12 col-12">
-                                <ul class="profile-menu">
-                                    <li>
-                                        <a href="07-ProfilePage-Photos.html">Gia sư gần bạn</a>
-                                    </li>
-                                    <li>
-                                        <a href="09-ProfilePage-Videos.html">Khóa học</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="top-header-author">
-                        <a href="#" class="author-thumb">
-                            <img loading="lazy" src="{{asset($student->hv_hinhdaidien)}}" alt="{{$student->hv_hoten}}">
-                        </a>
-                        <div class="author-content">
-                            <a href="#" class="h4 author-name">{{$student->hv_hoten}}</a>
-                            {{-- <div class="country">San Francisco, CA</div> --}}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 @include('client.pages.account.student.about')
 @include('client.pages.account.student.suggestion')
 {{-- @include('client.pages.account.student.timeline') --}}

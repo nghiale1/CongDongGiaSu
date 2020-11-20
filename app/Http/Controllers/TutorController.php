@@ -234,7 +234,7 @@ class TutorController extends Controller
                 $type_file = \File::extension($file);
                 $name_file=$file.'.'.$type_file;
                 $request->file('avatar')->move(
-                public_path('/clien/img/class/'.$request->type.'/'), //nơi cần lưu
+                public_path('/client/img/class/'.$request->type.'/'), //nơi cần lưu
                 $name_file);
 
                 $id_class=\DB::table('lop')->insertGetId([

@@ -61,4 +61,11 @@ class StudentController extends Controller
     {
         dd($request);
     }
+    public function tutorNear($id)
+    {
+        $student=\DB::table('hocvien')->where('hv_id',$id)->first();
+        $level=\DB::table('doituongnguoihoc')->get();
+        $loca=\DB::table('giasu')->get();
+        return view('client.pages.account.student.map',compact('loca','student','level'));
+    }
 }

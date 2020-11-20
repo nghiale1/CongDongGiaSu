@@ -36,6 +36,7 @@ Route::get('/tim-khoa-hoc',  'SearchController@match')->name('search.match');
 // Route::get('/khoa-hoc/', 'SearchController@result')->name('search.result');
 
 Route::get('/trang-ca-nhan/{id}', 'StudentController@profile')->name('student.profile');
+Route::get('/gia-su-gan-ban/{id}', 'StudentController@tutorNear')->name('student.tutorNear');
 Route::view('/trang-ca-nhan2', 'client.pages.account.tutor.profile');
 
 Route::post('/danh-gia', 'StudentController@rating')->name('rating');
