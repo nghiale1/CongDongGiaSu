@@ -52,6 +52,52 @@ class Taikhoan extends Authenticatable
 	{
 		return $this->hasMany(Hocvien::class, 'tk_id');
 	}
+	public function giaodichs()
+	{
+		return $this->hasMany(Giaodich::class, 'tk_id');
+	}
+	public static function kiemTraGiaoDich($l_id){
+		$check=\DB::table('giaodich')->where('l_id',$l_id)
+		->where('tk_id',\Auth::id())->first();
+		return $check ? true : false;
+    }
+	public static function kiemTraLopHoc($l_id){
+		$check=false;
+		// check giasu
+		if(\Auth::user()->hasRole('GiaSu')){
+
+			$check=\DB::table('taikhoan')
+			->join('giasu','giasu.tk_id','taikhoan.tk_id')
+			->join('lop','lop.gs_id','giasu.gs_id')
+			->where('l_id',$l_id)
+			->where('taikhoan.tk_id',\Auth::id())->first();
+		}
+		return $check ? true : false;
+    }
+	public static function kiemTraGiaSu($gs_id){
+		$check=false;
+		// check giasu
+		if(\Auth::user()->hasRole('GiaSu')){
+
+			$check=\DB::table('taikhoan')
+			->join('giasu','giasu.tk_id','taikhoan.tk_id')
+			->where('gs_id',$gs_id)
+			->where('taikhoan.tk_id',\Auth::id())->first();
+		}
+		return $check ? true : false;
+    }
+	public static function kiemTraHocVien($hv_id){
+		$check=false;
+		// check giasu
+		if(\Auth::user()->hasRole('GiaSu')){
+
+			$check=\DB::table('taikhoan')
+			->join('hocvien','hocvien.tk_id','taikhoan.tk_id')
+			->where('hv_id',$hv_id)
+			->where('taikhoan.tk_id',\Auth::id())->first();
+		}
+		return $check ? true : false;
+    }
 
 	public function phanhois()
 	{

@@ -73,9 +73,11 @@
 </div>
 <div class="col-md-12 intro">
     <h5>Giới thiệu</h5>
+    @if(\Auth::user()->kiemTraLopHoc($lop->l_id))
     <p class="inp-intro">
         {!!$tutor->gs_gioithieu!!}
     </p>
+    @endif
 </div>
 @push('script')
 

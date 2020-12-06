@@ -11,8 +11,10 @@
 
             @foreach ($degree as $item)
             <div class="bangcap-{{$item->bc_id}}">
+                @if(\Auth::user()->kiemTraGiaSu($tutor->gs_id))
                 <a href="#" class="removeBC" style="color: red" onclick="return removebc({{$item->bc_id}})">
                     <i class="fa fa-times" aria-hidden="true"></i></a>&nbsp;
+                @endif
                 <h6 class="school-name">
                     {{$item->bc_tenbangcap}}
                 </h6>
@@ -23,10 +25,11 @@
             @endforeach
         </div>
         <!-- Button trigger modal -->
+        @if(\Auth::user()->kiemTraGiaSu($tutor->gs_id))
         <button type="button" class="btn btn-edit" data-toggle="modal" data-target="#addDegree">
             Thêm
         </button>
-
+        @endif
         <!-- Modal -->
         <div class="modal fade" id="addDegree" tabindex="-1" role="dialog" aria-labelledby="addDegreeLabel"
             aria-hidden="true">

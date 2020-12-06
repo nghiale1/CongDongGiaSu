@@ -57,9 +57,9 @@ class StudentController extends Controller
         ]);
         return redirect()->route('student.profile',$id);
     }
-    public function rating(Request $request)
+    public function rating(Request $request,$gs_id)
     {
-        dd($request);
+        
     }
     public function tutorNear($id)
     {

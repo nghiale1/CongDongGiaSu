@@ -205,7 +205,7 @@
     </div>
     <br>
     {{-- bình luận --}}
-    <form method="post" action="{{route('rating')}}">
+    <form method="post" action="{{route('rating',$tutor->gs_id)}}">
         @csrf
         <div class="row">
 

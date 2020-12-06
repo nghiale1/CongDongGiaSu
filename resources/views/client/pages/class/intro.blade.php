@@ -44,6 +44,8 @@ Công nghệ thông tin / {{$lop->l_ten}}
 
 
                     <h2 class="course_name">{{$lop->l_ten}}</h2>
+                    @if(\Auth::user()->kiemTraLopHoc($lop->l_id))
+
                     <form action="{{route('updateCourseName')}}" method="post" class="frmcourse_name hide">
                         @csrf
                         <input type="hidden" name="id" value="{{$lop->l_id}}">
@@ -56,9 +58,11 @@ Công nghệ thông tin / {{$lop->l_ten}}
                         data-text="Thêm thông tin giới thiệu khoá học" data-height="">Chỉnh
                         sửa</button>
                     <br>
+                    @endif
 
 
                     <div class="course-description">{{$lop->l_mota}}</div>
+                    @if(\Auth::user()->kiemTraLopHoc($lop->l_id))
                     <form action="{{route('updateCourseDescription')}}" method="post"
                         class="frmcourse-description hide">
                         @csrf
@@ -69,10 +73,12 @@ Công nghệ thông tin / {{$lop->l_ten}}
                         <button class="btn btn-hide" data-close="course-description" type="button">Hủy</button>
                         <button class="btn btn-update" type="submit">Lưu</button>
                     </form>
+
                     <button class="edit course-description" data-obj="course-description"
                         data-text="Thêm thông tin giới thiệu khoá học" data-height="">Chỉnh
                         sửa</button>
                     <br>
+                    @endif
 
 
                     <div class="author-area">
@@ -110,6 +116,8 @@ Công nghệ thông tin / {{$lop->l_ten}}
             <div class="white padding" id="info">
 
                 <p class="l_gioithieu">{!!$lop->l_gioithieu!!}</p>
+                @if(\Auth::user()->kiemTraLopHoc($lop->l_id))
+
                 <form action="{{route('updateCourseIntro')}}" method="post" class="frml_gioithieu hide">
                     @csrf
                     <input type="hidden" name="id" value="{{$lop->l_id}}">
@@ -121,6 +129,8 @@ Công nghệ thông tin / {{$lop->l_ten}}
                 <button class="edit l_gioithieu" data-obj="l_gioithieu" data-text="Thêm thông tin giới thiệu khoá học"
                     data-height="">Chỉnh
                     sửa</button>
+                @endif
+
             </div>
             <br>
 

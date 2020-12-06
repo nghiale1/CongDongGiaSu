@@ -21,8 +21,11 @@
     <div id="scrollIntoView"></div>
     <div id="video">
     </div>
+    @if(\Auth::user()->kiemTraLopHoc($lop->l_id))
 
     <button class="edit" data-for="" data-text="Thêm mô tả" data-height="">Chỉnh sửa</button>
+    @endif
+
     <div class="curriculum-lesson-container">
         <div class="curriculum-chapter-container">
             @foreach ($lesson as $item)
@@ -56,10 +59,14 @@
                     <div class="separate-line"></div>
                 </a>
                 @endforeach
+                @if(\Auth::user()->kiemTraLopHoc($lop->l_id))
+
                 <button type="button" class="btn btn-info btnUploadVideo" data-toggle="modal"
                     data-target="#exampleModal1" data-lesson="{{$item->c_id}}">
                     Thêm video
                 </button>
+                @endif
+
             </div>
             @endforeach
         </div>

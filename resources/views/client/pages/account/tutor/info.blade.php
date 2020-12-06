@@ -12,7 +12,9 @@
     <h5 class="font-weight-light inp-des">
         {!!$tutor->gs_motangan!!}
     </h5>
+    @if(\Auth::user()->kiemTraGiaSu($tutor->gs_id))
     <button class="edit" data-for="inp-des" data-text="Thêm mô tả ngắn về bạn" data-position="des">Chỉnh sửa</button>
+    @endif
     <p>
         <div class="review">
             <span class="star-white">
@@ -53,22 +55,24 @@
             <td>
                 <p>
                     <b>
+                        <span class="address"> {!!$tutor->gs_diachi!!}</span>
+                        @if(\Auth::user()->kiemTraGiaSu($tutor->gs_id))
                         <input type="text" name="" id="autocomplete" class="hide form-control "
                             placeholder="Thêm địa chỉ" value="{!!$tutor->gs_diachi!!}" style="height:50px;min-height:45px;background-color: #f0f2f5;
                             border: 1px solid #ccd0d5;">
                         <button class="btn-update  close-address hide" type="button">Hủy</button>
                         <button class="btn-update save-address hide" type="button">Lưu</button>
-                        <span class="address"> {!!$tutor->gs_diachi!!}</span>
                         <button class="edit-address" data-for="address" data-text="Thêm địa chỉ"
                             data-position="address">Chỉnh
                             sửa</button>
+                        @endif
                     </b>
                 </p>
             </td>
         </tr>
     </table>
 
-    <a class="btn btn-grey inline float-md-right save">
+    <a class="btn btn-grey inline float-md-right save" @if(!\Auth::user()->kiemTraGiaSu($tutor->gs_id)) href="" @endif>
         <span style="font-weight: 600;">
             <i class="fa fa-bookmark-o" aria-hidden="true" style="font-weight: 600;"></i> Lưu thông
             tin</span>
@@ -80,8 +84,10 @@
     <p class="inp-intro">
         {!!$tutor->gs_gioithieu!!}
     </p>
+    @if(\Auth::user()->kiemTraGiaSu($tutor->gs_id))
     <button class="edit" data-for="inp-intro" data-text="Thêm thông tin giới thiệu về bạn" data-position="intro">Chỉnh
         sửa</button>
+    @endif
 </div>
 @push('script')
 <script>

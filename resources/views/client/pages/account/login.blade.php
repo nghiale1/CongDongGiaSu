@@ -154,6 +154,17 @@
                             <input type="submit" value="Đăng nhập" class="btn float-right login_btn" id="signin">
                         </div>
                     </form>
+                    <div class="">
+                        <div class="d-flex justify-content-left links">
+                            Tài khoản demo:
+                        </div>
+                        <div class="d-flex justify-content-left links">
+                            &nbsp;&nbsp;&nbsp;&nbsp;Gia sư: giasu1 - giasu
+                        </div>
+                        <div class="d-flex justify-content-left links">
+                            &nbsp;&nbsp;&nbsp;&nbsp;Học viên: hocvien1 - hocvien
+                        </div>
+                    </div>
                     <div class="alert alert-danger" id="error" role="alert">
 
                     </div>

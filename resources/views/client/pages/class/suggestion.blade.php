@@ -16,8 +16,11 @@
 </style>
 @endpush
 
+@if (\Auth::user()->kiemTraGiaoDich($lop->l_id))
+@else
 <div class="sugg white">
     <img src="{{asset($lop->l_daidien)}}" alt="{{$lop->l_ten}}" load="lazy" class="suggestion-avatar rounded-top pb-1">
+    {{-- {{dd(\Auth::user()->giaodichs())}} --}}
     <div class="content pl-4 pr-4">
 
         <strong>
@@ -27,12 +30,16 @@
             </h4>
         </strong>
         <br>
-        <button type="button" class="btn btn-danger" style="width: 100%">ĐĂNG KÝ</button>
+        <form action="{{route('VNPay',$lop->l_id)}}" method="post">
+            @csrf
+            <button type="submit" class="btn btn-danger" style="width: 100%">ĐĂNG KÝ</button>
+        </form>
         <br>
         <br>
     </div>
 </div>
 <br>
+@endif
 @foreach ($suggestion as $item)
 <div class="sugg white">
     <a href="{{route('course.intro',$item->l_id)}}">

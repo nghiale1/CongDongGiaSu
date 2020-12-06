@@ -16,6 +16,7 @@
             @endif
         </div>
         <!-- Button trigger modal -->
+        @if(\Auth::user()->kiemTraGiaSu($tutor->gs_id))
         <button type="button" class="btn btn-edit" data-toggle="modal" data-target="#addPlace">
             Thêm
         </button>
@@ -59,7 +60,7 @@
                 </div>
             </div>
         </div>
-
+        @endif
 
     </div>
 </div>

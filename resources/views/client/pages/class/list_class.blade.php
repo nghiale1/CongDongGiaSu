@@ -211,7 +211,8 @@ Danh sách lớp
 
                                                 <h5>
 
-                                                    {{$item->gs_mucluong}}<span class="hour"> buổi</span>
+                                                    {{number_format($item->gs_mucluong)}}<span class="hour">
+                                                        đ/giờ</span>
                                                 </h5>
                                             </div>
                                         </td>

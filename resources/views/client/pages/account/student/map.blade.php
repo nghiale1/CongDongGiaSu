@@ -97,7 +97,7 @@ function initMap() {
     });
     for ( var i = 0; i < markers.length; i++ ) {
     google.maps.event.addListener(markers[i], 'click', function() {
-      window.location.href = this.url;  //changed from markers[i] to this
+      window.open(this.url,'_blank');  //changed from markers[i] to this
     });
 }
   });
