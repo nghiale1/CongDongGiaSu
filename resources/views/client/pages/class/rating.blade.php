@@ -115,7 +115,7 @@
                 <i class="fa fa-star-o" aria-hidden="true"></i>
                 <i class="fa fa-star-o" aria-hidden="true"></i>
                 <i class="fa fa-star-o" aria-hidden="true"></i>
-                <span class="star-yellow" style="width:50%">
+                <span class="star-yellow" style="width:{{$lop->danhgia['dem']['trungbinh']*20}}%">
                     <i class="fa fa-star" aria-hidden="true"></i>
                     <i class="fa fa-star" aria-hidden="true"></i>
                     <i class="fa fa-star" aria-hidden="true"></i>
@@ -123,57 +123,60 @@
                     <i class="fa fa-star" aria-hidden="true"></i>
                 </span>
             </span>
-        </div> 5.0 (77 ratings)
+        </div> {{$lop->danhgia['dem']['trungbinh']}} ({{$lop->danhgia['tong']}} dánh giá)
         <br>
         <br>
         <div class="flex">
             <b>5 sao</b>
             <div class="rating-bar-container">
-                <span class="rating-bar" style="width: 1.3%"></span>
+                <span class="rating-bar" style="width: {{$lop->danhgia['phantram']['nam']}}%"></span>
             </div>
-            <span>(1)</span>
+            <span>({{$lop->danhgia['dem']['nam']}})</span>
         </div>
         <div class="flex">
             <b>4 sao</b>
             <div class="rating-bar-container">
-                <span class="rating-bar" style="width: 1.3%"></span>
+                <span class="rating-bar" style="width: {{$lop->danhgia['phantram']['bon']}}%"></span>
             </div>
-            <span>(1)</span>
+            <span>({{$lop->danhgia['dem']['bon']}})</span>
         </div>
         <div class="flex">
             <b>3 sao</b>
             <div class="rating-bar-container">
-                <span class="rating-bar" style="width: 1.3%"></span>
+                <span class="rating-bar" style="width: {{$lop->danhgia['phantram']['ba']}}%"></span>
             </div>
-            <span>(1)</span>
+            <span>({{$lop->danhgia['dem']['ba']}})</span>
         </div>
         <div class="flex">
             <b>2 sao</b>
             <div class="rating-bar-container">
-                <span class="rating-bar" style="width: 1.3%"></span>
+                <span class="rating-bar" style="width: {{$lop->danhgia['phantram']['hai']}}%"></span>
             </div>
-            <span>(1)</span>
+            <span>({{$lop->danhgia['dem']['hai']}})</span>
         </div>
         <div class="flex">
             <b>1 sao</b>
             <div class="rating-bar-container">
-                <span class="rating-bar" style="width: 1.3%"></span>
+                <span class="rating-bar" style="width: {{$lop->danhgia['phantram']['mot']}}%"></span>
             </div>
-            <span>(1)</span>
+            <span>({{$lop->danhgia['dem']['mot']}})</span>
         </div>
 
 
 
 
     </div>
+
 </div>
 <hr>
 <div class="comment">
     <div class="row">
+        @foreach ($danhgia as $item)
+
         <div class="col-md-2 ">
             <div class="frame-avatar-review">
 
-                <img src="{{asset('client/svg/teacher_male.svg')}}" alt="" class="avatar-review">
+                <img src="{{asset($item->hv_hinhdaidien)}}" alt="{{$item->hv_hoten}}" class="avatar-review">
             </div>
         </div>
         <div class="col-md-10">
@@ -185,7 +188,7 @@
                     <i class="fa fa-star-o" aria-hidden="true"></i>
                     <i class="fa fa-star-o" aria-hidden="true"></i>
                     <i class="fa fa-star-o" aria-hidden="true"></i>
-                    <span class="star-yellow" style="width:50%">
+                    <span class="star-yellow" style="width:{{$item->dg_xephang*20}}%">
                         <i class="fa fa-star" aria-hidden="true"></i>
                         <i class="fa fa-star" aria-hidden="true"></i>
                         <i class="fa fa-star" aria-hidden="true"></i>
@@ -195,23 +198,29 @@
                 </span>
             </div>
             <br>
-            <p class="student-name">Nghĩa
-                <span class="student-class">Lớp học</span>
+            <p class="student-name">{{$item->hv_hoten}}
+                {{-- <span class="student-class">Lớp học</span> --}}
             </p>
-            <span class="review-timestamp">Thời gian</span>
-            <p class="content">Patient and always explains things well - Has given my daughter a lot of confidence in
-                this subject -Thank you</p>
+            <span class="review-timestamp">{{date('H:m d-m-Y ',strtotime($item->dg_ngaytao))}}</span>
+            <p class="content">{{$item->dg_noidung}}</p>
         </div>
+        <div class="col-md-12"><br></div>
+        @endforeach
     </div>
     <br>
     {{-- bình luận --}}
-    <form method="post" action="{{route('rating',$tutor->gs_id)}}">
+    <form method="post" action="{{route('rating',$lop->l_id)}}">
         @csrf
         <div class="row">
-
             <div class="col-md-1">
+                @if (\Auth::user()->hasRole('GiaSu'))
 
-                <img src="{{asset('client/svg/teacher_male.svg')}}" alt="author" class="avatar-review">
+                <img src="{{asset(\Auth::user()->giasus[0]->gs_hinhdaidien)}}"
+                    alt="{{\Auth::user()->giasu[0]->hv_hoten}}" class="avatar-review">
+                @else
+                <img src="{{asset(\Auth::user()->hocviens[0]->hv_hinhdaidien)}}"
+                    alt="{{\Auth::user()->hocviens[0]->hv_hoten}}" class="avatar-review">
+                @endif
             </div>
             <div class="col-md-11 pl-0">
                 <div id="rating">

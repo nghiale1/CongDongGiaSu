@@ -16,12 +16,12 @@ class CreateYeuthichTable extends Migration
         if (!Schema::hasTable('yeuthich')) {
             Schema::create('yeuthich', function (Blueprint $table) {
                 $table->bigInteger('gs_id')->unsigned()->index();
-                $table->bigInteger('hv_id')->unsigned()->index();
+                $table->bigInteger('tk_id')->unsigned()->index();
 
                 $table->foreign('gs_id')->references('gs_id')->on('giasu')->onDelete('cascade');
-                $table->foreign('hv_id')->references('hv_id')->on('hocvien')->onDelete('cascade');
+                $table->foreign('tk_id')->references('tk_id')->on('taikhoan')->onDelete('cascade');
 
-                $table->primary(['gs_id', 'hv_id']);
+                $table->primary(['gs_id', 'tk_id']);
             });
         }
     }

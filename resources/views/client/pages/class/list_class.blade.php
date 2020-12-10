@@ -227,7 +227,8 @@ Danh sách lớp
                                                     <i class="fa fa-star-o" aria-hidden="true"></i>
                                                     <i class="fa fa-star-o" aria-hidden="true"></i>
                                                     <i class="fa fa-star-o" aria-hidden="true"></i>
-                                                    <span class="star-yellow" style="width:50%">
+                                                    <span class="star-yellow"
+                                                        style="width:{{$item->danhgia['dem']['trungbinh']*20}}%">
                                                         <i class="fa fa-star" aria-hidden="true"></i>
                                                         <i class="fa fa-star" aria-hidden="true"></i>
                                                         <i class="fa fa-star" aria-hidden="true"></i>
@@ -238,14 +239,14 @@ Danh sách lớp
                                             </div>
                                             <span class="review_text" style="font-size: 14px">
 
-                                                <strong>5.0</strong>
-                                                <span class="text-gray">(255)</span>
+                                                <strong>{{$item->danhgia['dem']['trungbinh']}}</strong>
+                                                <span class="text-gray">({{$item->danhgia['tong']}})</span>
                                             </span>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="">
-                                            <span class="teached">10</span>
+                                            <span class="teached">{{$item->lopDaDay}}</span>
 
                                             <span class="teached-class">
 

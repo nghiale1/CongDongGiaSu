@@ -23,12 +23,6 @@ Cộng đồng gia sư
 @section('page')
 <br>
 <div class="container">
-    @if($error = Session::get('error'))
-    <div class="alert alert-danger" role="alert">
-        <p>{{$error}}</p>
-        <p class="mb-0"></p>
-    </div>
-    @endif
     <div class="row">
         <p style="border-top: 2px solid blue;"></p>
 

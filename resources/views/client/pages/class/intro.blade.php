@@ -98,7 +98,7 @@ Công nghệ thông tin / {{$lop->l_ten}}
                             </div>
                         </div>
                         <div class="rating-area">
-                            <div class="new-tag"></div><span class="teached"></span> đánh giá
+                            <div class="new-tag"></div><span class="teached">{{$lop->danhgia['tong']}}</span> đánh giá
                         </div>
                     </div>
                 </div>

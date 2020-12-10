@@ -72,7 +72,8 @@
         </tr>
     </table>
 
-    <a class="btn btn-grey inline float-md-right save" @if(!\Auth::user()->kiemTraGiaSu($tutor->gs_id)) href="" @endif>
+    <a class="btn btn-grey inline float-md-right save" @if(!\Auth::user()->kiemTraGiaSu($tutor->gs_id))
+        href="{{route('wishlist.store',$tutor->gs_id)}}" @endif>
         <span style="font-weight: 600;">
             <i class="fa fa-bookmark-o" aria-hidden="true" style="font-weight: 600;"></i> Lưu thông
             tin</span>

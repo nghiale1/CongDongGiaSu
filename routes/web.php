@@ -20,6 +20,9 @@ Route::group(['middleware' => ['hocVien']], function () {
     Route::post('/cap-nhat-truong-hoc', 'StudentController@updateSchool')->name('updateSchool');
 
     Route::get('/gia-su-gan-ban/{id}', 'StudentController@tutorNear')->name('student.tutorNear');
+
+    Route::get('/goi-y-khoa-hoc', 'CourseController@suggestion')->name('course.suggestion');
+    Route::get('/gia-su-yeu-thich', 'StudentController@wishlist')->name('student.wishlist');
 });
 
 Route::group(['middleware' => ['giaSu']], function () {
@@ -100,6 +103,8 @@ Route::group(['middleware' => ['admin']], function () {
 });
 
 Route::group(['middleware' => ['login']], function () {
+    Route::get('yeu-thich/{gs_id}', 'StudentController@store')->name('wishlist.store');
+    Route::get('bo-yeu-thich/{gs_id}', 'StudentController@destroy')->name('wishlist.destroy');
     Route::post('dang-ky-khoa-hoc/{l_id}','ClassController@regist')->name('class.regist');
     Route::group(['prefix' => '/payment'], function ()
     {

@@ -21,7 +21,7 @@
                 <i class="fa fa-star-o" aria-hidden="true"></i>
                 <i class="fa fa-star-o" aria-hidden="true"></i>
                 <i class="fa fa-star-o" aria-hidden="true"></i>
-                <span class="star-yellow" style="width:100%">
+                <span class="star-yellow" style="width:{{$lop->danhgia['dem']['trungbinh']*20}}%">
                     <i class="fa fa-star" aria-hidden="true"></i>
                     <i class="fa fa-star" aria-hidden="true"></i>
                     <i class="fa fa-star" aria-hidden="true"></i>
@@ -31,7 +31,7 @@
             </span>
         </div>
 
-        75 đánh giá
+        {{$lop->danhgia['tong']}} đánh giá
     </p>
     <table>
         <tr>

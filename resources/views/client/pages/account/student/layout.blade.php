@@ -58,7 +58,7 @@
                                         <a href="{{route('student.profile',$student->hv_id)}}">Trang cá nhân</a>
                                     </li>
                                     <li>
-                                        <a href="">Gợi ý</a>
+                                        <a href="{{route('course.suggestion')}}">Gợi ý</a>
                                     </li>
                                 </ul>
                             </div>
@@ -70,7 +70,8 @@
                                     </div>
                                 </a>
 
-                                <a href="#" class="btn btn-control bg-purple" style="padding: 0!important;">
+                                <a href="{{route('student.wishlist')}}" class="btn btn-control bg-purple"
+                                    style="padding: 0!important;">
                                     <div class="svg" style="background-color: #f7c68b;">
 
                                         <img src="{{asset('\client\svg\heart_full.svg')}}" alt="gia sư yêu thích">
