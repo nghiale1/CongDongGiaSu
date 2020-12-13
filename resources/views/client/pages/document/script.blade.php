@@ -39,9 +39,7 @@
             callback: function(key, options) {
                 var id = $(this).data('id');
                 if (key == "change") {
-                    console.log(id);
                     var url = '{{ URL::to('tai-khoan/tai-lieu/thu-muc/thay-doi-trang-thai/') }}/' + id;
-                    console.log(url);
                     $.ajax({
                         type: "GET",
                         url: url,

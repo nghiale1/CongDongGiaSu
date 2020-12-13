@@ -256,7 +256,7 @@
 
                 <div class="card-footer">
                     <div class="d-flex justify-content-center links">
-                        Bạn đã có tài khoản?<a href="#">Đăng nhập</a>
+                        Bạn đã có tài khoản?<a href="{{route('account.login_view')}}">Đăng nhập</a>
                     </div>
                 </div>
             </div>
@@ -300,12 +300,20 @@
                 },
                 success: function(response) {
 
-                    window.location = "{{ route('home') }}"
+                    window.location = "{{ route('account.login_view') }}"
     },
     error: function(e) {
     console.log(e);
-    $('#error').text(e.responseJSON);
-    $('#error').show();
+    console.log(e.responseJSON.message);
+    if(e.responseJSON.message!=undefined){
+
+        $('#error').text(e.responseJSON.message);
+        $('#error').show();
+    }else{
+
+        $('#error').text(e.responseJSON);
+        $('#error').show();
+    }
 
     }
     });

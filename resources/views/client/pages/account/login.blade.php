@@ -171,7 +171,7 @@
                 </div>
                 <div class="card-footer">
                     <div class="d-flex justify-content-center links">
-                        Bạn chưa có tài khoản?<a href="#">Đăng ký</a>
+                        Bạn chưa có tài khoản?<a href="{{route('account.register')}}">Đăng ký</a>
                     </div>
                     <div class="d-flex justify-content-center">
                         <a href="#">Quên mật khẩu?</a>
