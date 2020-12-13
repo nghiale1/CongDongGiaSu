@@ -25,7 +25,8 @@
                     <?php if (\Auth::user()->hasRole('GiaSu')): ?>
                     <li class="btn-group my-2 my-lg-0 accounts">
                         <a class=" dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false"> Nghĩa <i class="fa fa-caret-down" aria-hidden="true"></i>
+                            aria-expanded="false"> {{\Auth::user()->giasus[0]->gs_hoten}} <i class="fa fa-caret-down"
+                                aria-hidden="true"></i>
                         </a>
                         <div class="dropdown-menu dropdown-account background-hover" style="padding: 15px">
 
@@ -78,7 +79,8 @@
                     <?php else: ?>
                     <li class="btn-group my-2 my-lg-0 accounts">
                         <a class=" dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false"> Nghĩa <i class="fa fa-caret-down" aria-hidden="true"></i>
+                            aria-expanded="false"> {{\Auth::user()->hocviens[0]->hv_hoten}} <i class="fa fa-caret-down"
+                                aria-hidden="true"></i>
                         </a>
                         <div class="dropdown-menu dropdown-account background-hover" style="padding: 15px">
 
@@ -107,7 +109,7 @@
                             </a>
                             <hr>
                             <a class="dropdown-item pb-1"
-                                href="{{route('document.tutor.index',\Auth::user()->hocviens[0]->hv_id)}}">
+                                href="{{route('document.student.index',\Auth::user()->hocviens[0]->hv_id)}}">
                                 <div class="dropdown-icon">
                                     <i class="fa fa-folder-open" aria-hidden="true"></i>
                                 </div>
