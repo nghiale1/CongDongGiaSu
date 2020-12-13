@@ -113,10 +113,9 @@ Cộng đồng gia sư
                             <input type="hidden" value="{{ $findFolder->tmhv_id }}" name="fo_id">
                             <input type="hidden" value="{{ $findFolder->tmhv_duongdan }}" name="fo_dir">
                             <div class="file-loading">
-                                <label class="Tải file" for="input-res-1">
+                                <label class="Tải file" for="input-res-1">Tải file
                                 </label>
-                                <input id="input-res-1" name="file[]" type="file" multiple data-min-file-count="2"
-                                    style="display: none">
+                                <input id="input-res-1" name="file[]" type="file" style="display: none">
                             </div>
                         </div>
                         <div class="form-group">
@@ -166,7 +165,7 @@ Cộng đồng gia sư
 @endsection
 
 @push('script')
-@include('client.pages.account.student.docs.script')
+{{-- @include('client.pages.account.student.docs.script') --}}
 <script>
     (function($) {
         $('input[type="file"]').bind('change', function() {

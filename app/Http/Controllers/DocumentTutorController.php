@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use File;
 use Illuminate\Http\Request;
 use ZipArchive;
@@ -168,40 +169,33 @@ class DocumentTutorController extends Controller
         \DB::beginTransaction();
         try {
             $time_now = Carbon::now();
-            try {
-                //code...
-                if ($request->hasFile('file')) {
+            //code...
+            if ($request->hasFile('file')) {
+                # code...
+                foreach ($request->file('file') as $file) {
                     # code...
-                    foreach ($request->file('file') as $file) {
-                        # code...
-                        $name = $file->getClientOriginalName();
-                        $size = $file->getClientSize();
-                        $file->move(public_path() . '/' . $request->fo_dir, $name);
-                        DB::table('files')->insert(
-                            [
-                                'f_name' => $name,
-                                'f_size' => $size,
-                                'f_path' => $request->fo_dir . '/' . $name,
-                                'f_created' => $time_now,
-                                'f_updated' => 'NULL',
-                                'f_deleted' => 'NULL',
-                                'fo_id' => $request->fo_id,
-                            ]
-                        );
-                    }
-                    return redirect()->back();
+                    $name = $file->getClientOriginalName();
+                    $size = $file->getClientSize();
+                    $file->move(public_path() . '/' . $request->fo_dir, $name);
+                    \DB::table('taptinhv')->insert(
+                        [
+                            'tmhv_id' => $request->fo_id,
+                            'tthv_ten' => $name,
+                            'tthv_kichthuoc' => $size,
+                            'tthv_duongdan' => $request->fo_dir . '/' . $name,
+                        ]
+                    );
                 }
-            } catch (\Throwable $th) {
-                //throw $th;
-                dd("Có cái lỗi gì đó ở đây mà tôi không biết hihi !");
+                \DB::commit();
+                return redirect()->back()->with('success', 'Tải lên thành công');
             }
-            \DB::commit();
-            return redirect()->back()->with('success', 'Tạo thư mục thành công');
         } catch (\Exception $e) {
             \DB::rollback();
+            dd($e);
             throw $e;
         } catch (\Throwable $e) {
             \DB::rollback();
+            dd($e);
             throw $e;
         }
     }
