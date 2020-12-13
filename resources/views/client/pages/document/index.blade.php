@@ -24,11 +24,6 @@ Gia sư / Tài liệu gia sư
     <div class="row" style="margin-bottom: 20px;" id="right-click-bg">
         <div class="col-md-12">
 
-            <h1 class="text-center">Thư mục môn học đã tạo</h1>
-            <p style="border-top: 2px solid blue;"></p>
-        </div>
-        <div class="col-md-12">
-
             <br>
             <br>
         </div>
