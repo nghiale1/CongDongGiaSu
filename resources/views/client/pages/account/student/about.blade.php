@@ -1,3 +1,10 @@
+@push('css')
+<style>
+    .name {
+        font-size: 15px;
+    }
+</style>
+@endpush
 <div class="container">
     <div class="row">
         {{-- left --}}
@@ -17,6 +24,8 @@
                             <span class="title">Ước muốn:</span>
                             <span class="text inp-wish">{{$student->hv_uocmuon}}
                             </span>
+                            @if(\Auth::user()->kiemTraHocVien($student->hv_id))
+
                             <button class="edit" data-for="inp-wish" data-text="Thêm ước muốn của bạn"
                                 data-r="Wish">Chỉnh
                                 sửa</button>
@@ -29,10 +38,13 @@
                                     <button class="btn-update save-wish" type="submit">Lưu</button>
                                 </form>
                             </div>
+                            @endif
                         </li>
                         <li>
                             <span class="title">Ngày sinh:</span>
                             <span class="text inp-birth">{{$student->hv_ngaysinh}}</span>
+                            @if(\Auth::user()->kiemTraHocVien($student->hv_id))
+
                             <button class="edit" data-for="inp-birth" data-text="Thêm ngày sinh của bạn"
                                 data-r="Birth">Chỉnh
                                 sửa</button>
@@ -45,10 +57,14 @@
                                     <button class="btn-update save-birth" type="submit">Lưu</button>
                                 </form>
                             </div>
+                            @endif
+
                         </li>
                         <li>
                             <span class="title">Trình độ:</span>
                             <span class="text inp-level">{{$student->hv_trinhdo}}</span>
+                            @if(\Auth::user()->kiemTraHocVien($student->hv_id))
+
                             <button class="edit" data-for="inp-level" data-text="Thêm trình độ học vấn của bạn"
                                 data-r="Level">Chỉnh
                                 sửa</button>
@@ -67,10 +83,13 @@
                                     <button class="btn-update save-level" type="submit">Lưu</button>
                                 </form>
                             </div>
+                            @endif
                         </li>
                         <li>
                             <span class="title">Học lực:</span>
                             <span class="text inp-power">{{$student->hv_hocluc}}</span>
+                            @if(\Auth::user()->kiemTraHocVien($student->hv_id))
+
                             <button class="edit" data-for="inp-power" data-r="Power">Chỉnh
                                 sửa</button>
                             <div class="Power hide">
@@ -82,10 +101,14 @@
                                     <button class="btn-update save-power" type="submit">Lưu</button>
                                 </form>
                             </div>
+                            @endif
+
                         </li>
                         <li>
                             <span class="title">Tên trường:</span>
                             <span class="text inp-school">{{$student->hv_tentruong}}</span>
+                            @if(\Auth::user()->kiemTraHocVien($student->hv_id))
+
                             <button class="edit" data-for="inp-school" data-r="School">Chỉnh
                                 sửa</button>
                             <div class="School hide">
@@ -97,6 +120,7 @@
                                     <button class="btn-update save-school" type="submit">Lưu</button>
                                 </form>
                             </div>
+                            @endif
                         </li>
                     </ul>
 
@@ -110,76 +134,43 @@
         <div class="col col-xl-8 order-xl-2 col-lg-8 order-lg-2 col-md-12 order-md-1 col-sm-12 col-12">
             <div class="ui-block">
                 <div class="ui-block-title">
-                    <h6 class="title">Hobbies and Interests</h6>
+                    <h6 class="title">Danh sách khoá học</h6>
                     <a href="#" class="more"></a>
                 </div>
                 <div class="ui-block-content">
+
+
+                    <!-- W-Personal-Info -->
                     <div class="row">
-                        <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
+                        @forelse ($student->danhSachKhoaHoc as $item)
 
+                        <div class="col-md-2 avatar">
+                            <a href="{{route('course.intro',$item->l_id)}}" style="display: inline">
 
-                            <!-- W-Personal-Info -->
-
-                            <ul class="widget w-personal-info item-block">
-                                <li>
-                                    <span class="title">Hobbies:</span>
-                                    <span class="text">I like to ride the bike to work, swimming, and working out. I
-                                        also like
-                                        reading design magazines, go to museums, and binge watching a good tv show while
-                                        it’s raining outside.
-                                    </span>
-                                </li>
-                                <li>
-                                    <span class="title">Favourite TV Shows:</span>
-                                    <span class="text">Breaking Good, RedDevil, People of Interest, The Running Dead,
-                                        Found, American Guy.</span>
-                                </li>
-                                <li>
-                                    <span class="title">Favourite Movies:</span>
-                                    <span class="text">Idiocratic, The Scarred Wizard and the Fire Crown, Crime Squad,
-                                        Ferrum Man. </span>
-                                </li>
-                                <li>
-                                    <span class="title">Favourite Games:</span>
-                                    <span class="text">The First of Us, Assassin’s Squad, Dark Assylum, NMAK16, Last
-                                        Cause 4, Grand Snatch Auto. </span>
-                                </li>
-                            </ul>
-
-                            <!-- ... end W-Personal-Info -->
+                                <div class="profile-image ">
+                                    <img src="{{asset($item->l_daidien)}}" alt="{{$item->gs_hoten}}" class="avatar">
+                                </div>
+                            </a>
                         </div>
-                        <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
+                        <div class="col-md-7">
+                            <a href="{{route('course.intro',$item->l_id)}}" style="display: inline">
 
-
-                            <!-- W-Personal-Info -->
-
-                            <ul class="widget w-personal-info item-block">
-                                <li>
-                                    <span class="title">Favourite Music Bands / Artists:</span>
-                                    <span class="text">Iron Maid, DC/AC, Megablow, The Ill, Kung Fighters, System of a
-                                        Revenge.</span>
-                                </li>
-                                <li>
-                                    <span class="title">Favourite Books:</span>
-                                    <span class="text">The Crime of the Century, Egiptian Mythology 101, The Scarred
-                                        Wizard, Lord of the Wings, Amongst Gods, The Oracle, A Tale of Air and
-                                        Water.</span>
-                                </li>
-                                <li>
-                                    <span class="title">Favourite Writers:</span>
-                                    <span class="text">Martin T. Georgeston, Jhonathan R. Token, Ivana Rowle, Alexandria
-                                        Platt, Marcus Roth. </span>
-                                </li>
-                                <li>
-                                    <span class="title">Other Interests:</span>
-                                    <span class="text">Swimming, Surfing, Scuba Diving, Anime, Photography, Tattoos,
-                                        Street Art.</span>
-                                </li>
-                            </ul>
-
-                            <!-- ... end W-Personal-Info -->
+                                <h5 class="name">{{$item->gs_hoten}}</h5>
+                                <h5 class="text-blue ">{{$item->gs_motangan}}</h5>
+                                <br>
+                            </a>
                         </div>
+                        @empty
+                        <div class="col-md-12">
+
+                            <span class="pr-1">{{$student->hv_hoten}} chưa tham gia khoá học nào.
+                            </span>
+                        </div>
+                        @endforelse
                     </div>
+
+                    <!-- ... end W-Personal-Info -->
+
                 </div>
             </div>
         </div>

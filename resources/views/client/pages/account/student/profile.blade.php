@@ -45,7 +45,6 @@ Giới thiệu
 @section('content')
 
 @include('client.pages.account.student.about')
-{{-- @include('client.pages.account.student.suggestion') --}}
 {{-- @include('client.pages.account.student.timeline') --}}
 
 @endsection

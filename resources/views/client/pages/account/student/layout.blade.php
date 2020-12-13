@@ -51,6 +51,8 @@
                     </div>
 
                     <div class="profile-section">
+                        @if(\Auth::user()->kiemTraHocVien($student->hv_id))
+
                         <div class="row">
                             <div class="col col-lg-5 col-md-5 col-sm-12 col-12">
                                 <ul class="profile-menu">
@@ -79,8 +81,8 @@
                                     </div>
                                 </a>
 
-                                <a href="{{route('student.tutorNear',$student->hv_id)}}"
-                                    class="btn btn-control bg-purple" style="padding: 0!important;">
+                                <a href="{{route('student.tutorNear')}}" class="btn btn-control bg-purple"
+                                    style="padding: 0!important;">
                                     <div class="svg" style="background-color: #e9eaee;">
 
                                         <img src="{{asset('\client\svg\location.svg')}}" alt="gia sư gần bạn">
@@ -93,14 +95,16 @@
                             <div class="col col-lg-5 ml-auto col-md-5 col-sm-12 col-12">
                                 <ul class="profile-menu">
                                     <li>
-                                        <a href="{{route('student.tutorNear',$student->hv_id)}}">Gia sư gần bạn</a>
+                                        <a href="{{route('student.tutorNear')}}">Gia sư gần bạn</a>
                                     </li>
                                     <li>
-                                        <a href="">Khóa học</a>
+                                        <a href="{{route('document.student.index',$student->hv_id)}}">Tài liệu</a>
                                     </li>
                                 </ul>
                             </div>
                         </div>
+                        @endif
+
                     </div>
                     <div class="top-header-author">
                         <a href="#" class="author-thumb">
