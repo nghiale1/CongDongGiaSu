@@ -49,7 +49,7 @@ Cộng đồng gia sư
             @else
             <div class="col-md-3">
                 <div class="folder">
-                    <h5>Rỗng</h5>
+                    <h5></h5>
                 </div>
             </div>
             @endif
@@ -73,7 +73,7 @@ Cộng đồng gia sư
             @else
             <div class="col-md-3">
                 <div class="folder">
-                    <h5>Không có tệp</h5>
+                    <h5></h5>
                 </div>
             </div>
             @endif
@@ -95,14 +95,12 @@ Cộng đồng gia sư
                     <form action="{{ route('document.tutor.upload') }}" enctype="multipart/form-data" method="POST">
                         <div class="form-group">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                            <input type="text" value="{{ $findFolder->tmgs_id }}" name="fo_id">
-                            <input type="text" value="{{ $findFolder->tmgs_duongdan }}" name="fo_dir">
-                            <div class="file-loading">
-                                <label class="Tải file" for="input-res-1">
-                                </label>
-                                <input id="input-res-1" name="file[]" type="file" multiple data-min-file-count="2"
-                                    style="display: none">
-                            </div>
+                            <input type="hidden" value="{{ $findFolder->tmgs_id }}" name="fo_id">
+                            <input type="hidden" value="{{ $findFolder->tmgs_duongdan }}" name="fo_dir">
+                            <label class="Tải file" for="input-res">Tải file
+                            </label>
+                            <input id="input-res" name="file[]" type="file" multiple data-min-file-count="2"
+                                style="display: none">
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary" id="uploadImage">Upload</button>
@@ -130,14 +128,12 @@ Cộng đồng gia sư
                     <form action="{{ route('document.tutor.createFolder') }}" method="POST">
                         @csrf
 
-                        <input name="mathumuchientai" type="hidden" value="{{$findFolder->tmgs_id}}">
+                        <input name="thumuchientai" type="hidden" value="{{$findFolder->tmgs_id}}">
                         <input name="duongdan" type="hidden" value="{{$findFolder->tmgs_duongdan}}">
                         <div class="form-group">
-                            <label>Tên thư mục</label>
                             <input type="text" class="form-control" name="tenthumuc"
                                 placeholder="Nhập tên thư mục cần tạo . . ">
-                            <small id="emailHelp" class="form-text text-muted">Đặt tên thư mục liên quan đến môn
-                                học</small>
+
                         </div>
                         <button type="submit" class="btn btn-primary">Tạo</button>
                     </form>

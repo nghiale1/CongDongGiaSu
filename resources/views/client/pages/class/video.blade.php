@@ -21,6 +21,7 @@
     <div id="scrollIntoView"></div>
     <div id="video">
     </div>
+    @if(\Auth::check())
     @if(\Auth::user()->kiemTraLopHoc($lop->l_id))
 
     <button class="edit" data-for="" data-text="Thêm mô tả" data-height="">Chỉnh sửa</button>
@@ -48,7 +49,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <button type="submit" class="btn btn-primary" id="uploadImage">Upload</button>
+                            <button type="submit" class="btn btn-primary" id="uploadImage">Tải lên</button>
                         </div>
                     </form>
                 </div>
@@ -58,6 +59,7 @@
             </div>
         </div>
     </div>
+    @endif
     @endif
 
     <div class="curriculum-lesson-container">
@@ -93,12 +95,14 @@
                     <div class="separate-line"></div>
                 </a>
                 @endforeach
+                @if(\Auth::check())
                 @if(\Auth::user()->kiemTraLopHoc($lop->l_id))
 
                 <button type="button" class="btn btn-info btnUploadVideo" data-toggle="modal"
                     data-target="#exampleModal1" data-lesson="{{$item->c_id}}">
                     Thêm video
                 </button>
+                @endif
                 @endif
 
             </div>

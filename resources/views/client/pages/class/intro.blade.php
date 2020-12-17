@@ -44,6 +44,8 @@ Công nghệ thông tin / {{$lop->l_ten}}
 
 
                     <h2 class="course_name">{{$lop->l_ten}}</h2>
+
+                    @if(\Auth::check())
                     @if(\Auth::user()->kiemTraLopHoc($lop->l_id))
 
                     <form action="{{route('updateCourseName')}}" method="post" class="frmcourse_name hide">
@@ -59,9 +61,11 @@ Công nghệ thông tin / {{$lop->l_ten}}
                         sửa</button>
                     <br>
                     @endif
+                    @endif
 
 
                     <div class="course-description">{{$lop->l_mota}}</div>
+                    @if(\Auth::check())
                     @if(\Auth::user()->kiemTraLopHoc($lop->l_id))
                     <form action="{{route('updateCourseDescription')}}" method="post"
                         class="frmcourse-description hide">
@@ -78,6 +82,7 @@ Công nghệ thông tin / {{$lop->l_ten}}
                         data-text="Thêm thông tin giới thiệu khoá học" data-height="">Chỉnh
                         sửa</button>
                     <br>
+                    @endif
                     @endif
 
 
@@ -116,6 +121,7 @@ Công nghệ thông tin / {{$lop->l_ten}}
             <div class="white padding" id="info">
 
                 <p class="l_gioithieu">{!!$lop->l_gioithieu!!}</p>
+                @if(\Auth::check())
                 @if(\Auth::user()->kiemTraLopHoc($lop->l_id))
 
                 <form action="{{route('updateCourseIntro')}}" method="post" class="frml_gioithieu hide">
@@ -129,6 +135,7 @@ Công nghệ thông tin / {{$lop->l_ten}}
                 <button class="edit l_gioithieu" data-obj="l_gioithieu" data-text="Thêm thông tin giới thiệu khoá học"
                     data-height="">Chỉnh
                     sửa</button>
+                @endif
                 @endif
 
             </div>

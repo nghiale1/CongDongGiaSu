@@ -8,7 +8,7 @@
         </div>
     </div>
 </div>
-
+@if(\Auth::check())
 @if(\Auth::user()->kiemTraLopHoc($lop->l_id))
 
 <button class="edit" data-for="" data-text="Thêm mô tả" data-height="">Chỉnh sửa</button>
@@ -36,7 +36,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary" id="uploadImage">Upload</button>
+                        <button type="submit" class="btn btn-primary" id="uploadImage">Tải lên</button>
                     </div>
                 </form>
             </div>
@@ -46,6 +46,39 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Tạo thư mục</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{{route('uploadVideo')}}" enctype="multipart/form-data" method="POST">
+                    <div class="form-group">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <input type="hidden" name="lesson" id="lessonUpload">
+                        <div class="file-loading">
+                            <label for="input-res-1">Tải file
+                            </label>
+                            <input id="input-res-1" name="file" type="file" multiple style="display: none">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary" id="uploadImage">Tải lên</button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+@endif
 @endif
 
 <div class="curriculum-lesson-container">
@@ -81,12 +114,18 @@
                 <div class="separate-line"></div>
             </a>
             @endforeach
+            @if(\Auth::check())
             @if(\Auth::user()->kiemTraLopHoc($lop->l_id))
 
             <button type="button" class="btn btn-info btnUploadVideo" data-toggle="modal" data-target="#exampleModal2"
                 data-lesson="{{$item->c_id}}">
-                Thêm video
+                Tải lên tập tin
             </button>
+            <button type="button" class="btn btn-info btnUploadVideo" data-toggle="modal" data-target="#exampleModal3"
+                data-lesson="{{$item->c_id}}">
+                Tạo thư mục
+            </button>
+            @endif
             @endif
 
         </div>

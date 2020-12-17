@@ -12,8 +12,10 @@
     <h5 class="font-weight-light inp-des">
         {!!$tutor->gs_motangan!!}
     </h5>
+    @if(\Auth::check())
     @if(\Auth::user()->kiemTraGiaSu($tutor->gs_id))
     <button class="edit" data-for="inp-des" data-text="Thêm mô tả ngắn về bạn" data-position="des">Chỉnh sửa</button>
+    @endif
     @endif
     <p>
         <div class="review">
@@ -56,6 +58,7 @@
                 <p>
                     <b>
                         <span class="address"> {!!$tutor->gs_diachi!!}</span>
+                        @if(\Auth::check())
                         @if(\Auth::user()->kiemTraGiaSu($tutor->gs_id))
                         <input type="text" name="" id="autocomplete" class="hide form-control "
                             placeholder="Thêm địa chỉ" value="{!!$tutor->gs_diachi!!}" style="height:50px;min-height:45px;background-color: #f0f2f5;
@@ -66,14 +69,16 @@
                             data-position="address">Chỉnh
                             sửa</button>
                         @endif
+                        @endif
                     </b>
                 </p>
             </td>
         </tr>
     </table>
 
-    <a class="btn btn-grey inline float-md-right save" @if(!\Auth::user()->kiemTraGiaSu($tutor->gs_id))
-        href="{{route('wishlist.store',$tutor->gs_id)}}" @endif>
+    <a class="btn btn-grey inline float-md-right save" @if(\Auth::check())
+        @if(!\Auth::user()->kiemTraGiaSu($tutor->gs_id))
+        href="{{route('wishlist.store',$tutor->gs_id)}}" @endif @endif>
         <span style="font-weight: 600;">
             <i class="fa fa-bookmark-o" aria-hidden="true" style="font-weight: 600;"></i> Lưu thông
             tin</span>
@@ -85,9 +90,11 @@
     <p class="inp-intro">
         {!!$tutor->gs_gioithieu!!}
     </p>
+    @if(\Auth::check())
     @if(\Auth::user()->kiemTraGiaSu($tutor->gs_id))
     <button class="edit" data-for="inp-intro" data-text="Thêm thông tin giới thiệu về bạn" data-position="intro">Chỉnh
         sửa</button>
+    @endif
     @endif
 </div>
 @push('script')

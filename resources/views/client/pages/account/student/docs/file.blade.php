@@ -64,7 +64,7 @@ Cộng đồng gia sư
             @else
             <div class="col-md-3">
                 <div class="folder">
-                    <h5>Rỗng</h5>
+                    <h5></h5>
                 </div>
             </div>
             @endif
@@ -88,7 +88,7 @@ Cộng đồng gia sư
             @else
             <div class="col-md-3">
                 <div class="folder">
-                    <h5>Không có tệp</h5>
+                    <h5></h5>
                 </div>
             </div>
             @endif
@@ -147,7 +147,6 @@ Cộng đồng gia sư
                         <input name="thumuchientai" type="hidden" value="{{$findFolder->tmhv_id}}">
                         <input name="duongdan" type="hidden" value="{{$findFolder->tmhv_duongdan}}">
                         <div class="form-group">
-                            <label>Tên thư mục</label>
                             <input type="text" class="form-control" name="tenthumuc"
                                 placeholder="Nhập tên thư mục cần tạo . . ">
                         </div>

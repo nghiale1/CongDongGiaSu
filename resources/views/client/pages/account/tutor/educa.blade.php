@@ -16,6 +16,7 @@
             @endif
         </div>
         <!-- Button trigger modal -->
+        @if(\Auth::check())
         @if(\Auth::user()->kiemTraGiaSu($tutor->gs_id))
         <button type="button" class="btn btn-edit" data-toggle="modal" data-target="#addPlace">
             Thêm
@@ -61,6 +62,7 @@
             </div>
         </div>
         @endif
+        @endif
 
     </div>
 </div>
@@ -74,10 +76,6 @@
             let title=$('#inp-title').val();
             let from=$('#inp-from').val();
             let to=$('#inp-to').val();
-            console.log(school);
-            console.log(title);
-            console.log(from);
-            console.log(to);
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

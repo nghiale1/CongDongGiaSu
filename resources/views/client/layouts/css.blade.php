@@ -43,6 +43,6 @@
     }
 
     body {
-        background-color: #edf2f6;
+        background-color: #e5e5e5;
     }
 </style>

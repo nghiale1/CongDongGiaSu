@@ -14,8 +14,9 @@
                 <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
                     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
 
-                        <form class="form-inline position-relative my-2 my-lg-0">
-                            <input class="form-control search" type="search" placeholder="Tìm kiếm..."
+                        <form class="form-inline position-relative my-2 my-lg-0" action="{{route('search')}}"
+                            method="get">
+                            <input class="form-control search" type="search" placeholder="Tìm kiếm..." name="search"
                                 aria-label="Search" required="">
                             <button class="btn btn-search position-absolute" type="submit" s><span class="fa fa-search"
                                     aria-hidden="true"></span></button>

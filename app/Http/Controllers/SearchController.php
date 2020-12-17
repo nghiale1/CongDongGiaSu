@@ -63,6 +63,22 @@ class SearchController extends Controller
         return view('client.pages.class.list_class', \compact('tutor'));
 
     }
+    public function search(Request $request)
+    {
+        $keyword = '%' . $request->search . '%';
+        $tutor = \DB::table('lop')
+            ->join('giasu', 'giasu.gs_id', 'lop.l_id')
+            ->where('lop.l_ten', 'like', $keyword)
+            ->orwhere('giasu.gs_hoten', 'like', $keyword)
+            ->get();
+        foreach ($tutor as $key => $value) {
+            $value->descrip = \Str::limit($value->gs_gioithieu, 200, ' (...)');
+            $value->danhgia = $this->getRatingGS($value->gs_id);
+            $value->lopDaDay = $this->getClassTeached($value->gs_id);
+        }
+        return view('client.pages.class.list_class', \compact('tutor'));
+
+    }
     public function getRatingGS($gs_id)
     {
         $danhgia = \DB::table('giasu')

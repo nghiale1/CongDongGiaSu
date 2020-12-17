@@ -132,7 +132,81 @@ class DocumentTutorController extends Controller
         return back()->with('error', 'Thư mục rỗng');
 
     }
-//Tạo thư mục môn học
+    //Tạo thư mục môn học
+    public function CreateFolder(Request $request)
+    {
+        $folderName = $request->tenthumuc;
+        $tmgs_tmid = \DB::table('thumucgs')->where('tmgs_duongdan', $request->duongdan)
+            ->where('tmgs_id', $request->thumuchientai)->first();
+        if (!$tmgs_tmid) {
+            return redirect()->back()->with('error', 'Không tìm thấy địa chỉ thư mục');
+        }
+        \DB::beginTransaction();
+        try {
+            //Lấy id của students
+            $gs_id = \Auth::user()->giasus[0]->gs_id;
+            // try {
+            $tm = \DB::table('thumucgs')->where('tmgs_id', (int) $request->thumuchientai)->first();
+            \DB::table('thumucgs')->insert(
+                [
+                    'ctcm_id' => $tmgs_tmid->ctcm_id,
+                    'gs_id' => $gs_id,
+                    'tmgs_ten' => $folderName,
+                    'tmgs_slug' => \Str::slug($folderName),
+                    'tmgs_tmid' => intval($request->thumuchientai),
+                    'tmgs_duongdan' => $request->duongdan . '/' . \Str::slug($folderName),
+                    'tmgs_duongdancha' => $request->duongdan,
+                ]
+            );
+            $path = public_path() . '/' . $request->duongdan . '/' . \Str::slug($folderName);
+            File::makeDirectory($path, 0777, true);
+
+            \DB::commit();
+            return redirect()->back()->with('success', 'Tạo thư mục thành công');
+        } catch (\Exception $e) {
+            \DB::rollback();
+            throw $e;
+        } catch (\Throwable $e) {
+            \DB::rollback();
+            throw $e;
+        }
+    }
+    public function upload(Request $request)
+    {
+        \DB::beginTransaction();
+        try {
+            $time_now = Carbon::now();
+            //code...
+            if ($request->hasFile('file')) {
+                # code...
+                foreach ($request->file('file') as $file) {
+                    # code...
+                    $name = $file->getClientOriginalName();
+                    $size = $file->getClientSize();
+                    $file->move(public_path() . '/' . $request->fo_dir, $name);
+                    \DB::table('taptings')->insert(
+                        [
+                            'tmgs_id' => $request->fo_id,
+                            'ttgs_ten' => $name,
+                            'ttgs_kichthuoc' => $size,
+                            'ttgs_duongdan' => $request->fo_dir . '/' . $name,
+                        ]
+                    );
+                }
+                \DB::commit();
+                return redirect()->back()->with('success', 'Tải lên thành công');
+            }
+        } catch (\Exception $e) {
+            \DB::rollback();
+            dd($e);
+            throw $e;
+        } catch (\Throwable $e) {
+            \DB::rollback();
+            dd($e);
+            throw $e;
+        }
+    }
+    //Tạo thư mục môn học
     public function studentCreateFolder(Request $request)
     {
         // dd($request);

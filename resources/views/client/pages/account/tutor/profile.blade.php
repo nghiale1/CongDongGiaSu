@@ -48,7 +48,7 @@ Giới thiệu
         {{-- <div class="col1" style="    width: 2%;"></div> --}}
         <div class="col-md-4">
             <div class="white pad20 chat">
-                {{-- @include('client.pages.account.tutor.chat') --}}
+                @include('client.pages.account.tutor.chat')
 
             </div>
         </div>

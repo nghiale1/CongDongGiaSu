@@ -168,11 +168,12 @@
     </div>
 
 </div>
-<hr>
 <div class="comment">
     <div class="row">
         @foreach ($danhgia as $item)
-
+        <div class="col-md-12">
+            <hr>
+        </div>
         <div class="col-md-2 ">
             <div class="frame-avatar-review">
 
@@ -208,6 +209,9 @@
         @endforeach
     </div>
     <br>
+    @if(\Auth::check())
+    @if (\Auth::user()->kiemTraGiaoDich($lop->l_id))
+
     {{-- bình luận --}}
     <form method="post" action="{{route('rating',$lop->l_id)}}">
         @csrf
@@ -216,7 +220,7 @@
                 @if (\Auth::user()->hasRole('GiaSu'))
 
                 <img src="{{asset(\Auth::user()->giasus[0]->gs_hinhdaidien)}}"
-                    alt="{{\Auth::user()->giasu[0]->hv_hoten}}" class="avatar-review">
+                    alt="{{\Auth::user()->giasus[0]->gs_hoten}}" class="avatar-review">
                 @else
                 <img src="{{asset(\Auth::user()->hocviens[0]->hv_hinhdaidien)}}"
                     alt="{{\Auth::user()->hocviens[0]->hv_hoten}}" class="avatar-review">
@@ -252,4 +256,6 @@
 
         </div>
     </form>
+    @endif
+    @endif
 </div>

@@ -61,15 +61,15 @@ Route::group(['middleware' => ['giaSu']], function () {
 Route::group(['prefix' => ''], function () {
     //ajax linh vuc
     Route::get('/lay-linh-vuc', 'SearchController@get_linhvuc')->name('search.get_linhvuc');
-    //chuyên môn
     Route::get('/buoc-1/chuyen-mon', 'SearchController@step1')->name('search.step1');
     Route::get('/buoc-2/doi-tuong-nguoi-hoc', 'SearchController@step2')->name('search.step2');
     Route::get('/buoc-3/thoi-gian-day', 'SearchController@step3')->name('search.step3');
     Route::get('/tim-khoa-hoc', 'SearchController@match')->name('search.match');
 
+    Route::get('/tim-kiem', 'SearchController@search')->name('search');
+
     Route::get('/khoa-hoc/{l_id}', 'PageController@course')->name('course.intro');
     Route::get('/gia-su/{id}', 'PageController@tutor')->name('tutor.profile');
-    //đối tượng
     Route::get('/', 'PageController@index')->name('home');
     Route::view('/tim-lop', 'client.pages.post');
     Route::view('/tim-gia-su', 'client.pages.find_tutor');
@@ -116,7 +116,7 @@ Route::group(['middleware' => ['login']], function () {
         Route::get('/return-vnpay', ['uses' => 'ClassController@return', 'as' => 'return']);
     });
 });
-
+Route::post('kiem-tra-chat', 'ChatController@checkChatGS')->name('checkChatGS');
 Route::get('/get_subject', 'DomController@getSubject')->name('getSubject');
 Route::get("auto-complete", "GoogleController@index");
 Route::view('/404', 'client.pages.404')->name('404');

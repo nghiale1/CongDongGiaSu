@@ -23,6 +23,7 @@
 
             <div class="col">
                 <!-- Button trigger modal -->
+                @if(\Auth::check())
                 @if(\Auth::user()->kiemTraGiaSu($tutor->gs_id))
                 <button type="button" class="btn btn-edit" data-toggle="modal" data-target="#addSubject">
                     Thêm môn dạy
@@ -73,6 +74,7 @@
                         </div>
                     </div>
                 </div>
+                @endif
                 @endif
 
 

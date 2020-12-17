@@ -154,9 +154,11 @@
                 $(this).addClass('busy');
                 $(this).html('');
             }
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
+            $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
             $.ajax({
                 type: "post",
                 url: "{!!route('changeStatusSchedule')!!}",

@@ -2,6 +2,7 @@
 <style>
     .mesgs {
         float: left;
+        width: 100%;
     }
 
     img {
@@ -216,70 +217,22 @@
         left: 63%;
         bottom: 0;
     }
+
+    .incoming_msg {
+        display: flex;
+    }
 </style>
 @endpush
 <div class="mesgs">
     <div class="msg_history">
-        <div class="incoming_msg">
-            <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil">
-            </div>
-            <div class="received_msg">
-                <div class="received_withd_msg">
-                    <p>Test which is a new approach to have all
-                        solutions</p>
-                    <span class="time_date"> 11:01 AM | June 9</span>
-                </div>
-            </div>
-        </div>
-        <div class="outgoing_msg">
-            <div class="sent_msg">
-                <p>Test which is a new approach to have all
-                    solutions</p>
-                <span class="time_date"> 11:01 AM | June 9</span>
-            </div>
-        </div>
-        <div class="incoming_msg">
-            <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil">
-            </div>
-            <div class="received_msg">
-                <div class="received_withd_msg">
-                    <p>Test which is a new approach to have all
-                        solutions</p>
-                    <span class="time_date"> 11:01 AM | June 9</span>
-                </div>
-            </div>
-        </div>
-        <div class="outgoing_msg">
-            <div class="sent_msg">
-                <p>Test which is a new approach to have all
-                    solutions</p>
-                <span class="time_date"> 11:01 AM | June 9</span>
-            </div>
-        </div>
-        <div class="incoming_msg">
-            <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil">
-            </div>
-            <div class="received_msg">
-                <div class="received_withd_msg">
-                    <p>Test which is a new approach to have all
-                        solutions</p>
-                    <span class="time_date"> 11:01 AM | June 9</span>
-                </div>
-            </div>
-        </div>
-        <div class="outgoing_msg">
-            <div class="sent_msg">
-                <p>Test which is a new approach to have all
-                    solutions</p>
-                <span class="time_date"> 11:01 AM | June 9</span>
-            </div>
-        </div>
+        <div class="content" id="msg_history"></div>
+        <div class="" id="scroll"></div>
 
     </div>
     <div class="type_msg">
         <div class="input_msg_write">
             <form onsubmit="return sendMessage();" id="frmChat">
-                <input type="text" id="messaage" class="write_msg" placeholder="Nội dung">
+                <input type="text" id="messaage" class="write_msg" placeholder="Nội dung" autocomplete="off">
                 <button class="msg_send_btn" type="submit"><i class="fa fa-paper-plane-o"
                         aria-hidden="true"></i></button>
             </form>
@@ -295,7 +248,7 @@
 
 <!-- TODO: Add SDKs for Firebase products that you want to use
      https://firebase.google.com/docs/web/setup#available-libraries -->
-<script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-analytics.js"></script>
+{{-- <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-analytics.js"></script> --}}
 
 <script>
     // Your web app's Firebase configuration
@@ -310,52 +263,105 @@
     appId: "1:383378586012:web:c39f0621a556012c6e7059",
     measurementId: "G-1CFNCT9FP0"
   };
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-  firebase.analytics();
-    var sender = 1;
-    var nameChat=1;
-    // console.log(myName);
-    // document.getElementById("name").innerHTML += myName;
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    //   firebase.analytics();
+    var ID = "{!! \Auth::id() !!}";
+    var senderId = "{!! \Auth::id() !!}";
+    var chatId="{!! $tutor->gs_id !!}";
+    const params = {
+        tk_id: "{!! \Auth::id() !!}",
+        gs_id: "{!! $tutor->gs_id !!}",
+    }
 
     function sendMessage() {
-        //get message
-        var message = document.getElementById("messaage").value;
-        // alert(array(sender,sender,message));
-        let obj=
-        //save in database
-        firebase.database().ref("messages").push({
-            "sender" : sender,
-            "giver" : sender,
-            "time" : Date.now(),
-            "message" : message,
-            "array" : [sender,sender,message],
-        });
-        var frm = document.getElementById('frmChat');
-        frm.reset();  // Reset all form data
-        return false;
+        $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                type: "post",
+                url: "{!!route('checkChatGS')!!}",
+                data: params,
+                dataType: "json",
+                success: function (response) {
+                    //get message
+                    var message = document.getElementById("messaage").value;
+                    // alert(array(sender,sender,message));
+                    //save in database
+                    firebase.database().ref("messages").push({
+                        "senderId" : senderId,
+                        "chatId" : response.chatId,
+                        "time" : Date.now(),
+                        "message" : message,
+                    });
+                    var frm = document.getElementById('frmChat');
+                    frm.reset();  // Reset all form data
+                    return false;
+                }
+            });
+              
     }
+    function formatTime(time) { 
+
+        var d = new Date(time);
+        var result = d.getFullYear()+"/"+(d.getMonth()+1)+"/"+d.getDate() + 
+                    " "+ d.getHours()+":"+d.getMinutes()+":"+
+                    d.getSeconds();
+        return result;
+    }
+    
+
     //listen for incoming message
     firebase.database().ref("messages").on("child_added", function (snapshot) {
-        var html = "";
-        // give each message a unique ID
-        //open tag
-        if(snapshot.val().sender == myName){
-            html += "<div id='message-" + snapshot.key + "' class='d-flex justify-content-end mb-4'>"
-        }
-        html += "<div id='message-" + snapshot.key + "' class='d-flex justify-content-start mb-4'>"
-        // show delete button if message is sent by me
-        if (snapshot.val().sender == myName) {
-            html += "<a style='margin-top: 12px;margin-right: 12px;color: red;' data-id='" + snapshot.key + "' onclick='deleteMessage(this);'>";
-                html += "<i class='fas fa-trash'></i>";
-            html += "</a>";
-        }
-        html += "<div class='img_cont_msg'><img src='https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg' class='rounded-circle user_img_msg'></div>";
-        html += "<div class='msg_cotainer' style='max-width: 200px;'>" + snapshot.val().message + "<span class='msg_time'>" + snapshot.val().sender + "</span></div>";
-        //close tag
-        html += "</div>";
-        // console.log(snapshot.val().message);
-        document.getElementById("messages").innerHTML += html;
+        
+        $(document).ready(function () {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                type: "post",
+                url: "{!!route('checkChatGS')!!}",
+                data: params,
+                dataType: "json",
+                success: function (response) {
+                    console.log(response);
+                if (snapshot.val().chatId==response.chatId) {
+                var html="";
+                if(snapshot.val().senderId == ID){
+                    html+="<div class='outgoing_msg'>";
+                    html+="<div class='sent_msg'>";
+                    html+="<p>"+snapshot.val().message+"</p>";
+                    html+="<span class='time_date'>"+formatTime(snapshot.val().time)+"</span>";
+                    html+="</div>";
+                    html+="</div>";
+                }
+                else{
+                    html+="<div class='incoming_msg'>";
+                    html+= "<div class='incoming_msg_img'>";
+                    html+= "<img src='https://ptetutorials.com/images/user-profile.png' alt='sunil'>";
+                    html+="</div>";
+                    html+="<div class='received_msg'>";
+                    html+="<div class='received_withd_msg'>";
+                    html+="<p>"+snapshot.val().message+"</p>";
+                    html+="<span class='time_date'>" +formatTime(snapshot.val().time)+"</span>";
+                    html+="</div>";
+                    html+="</div>";
+                    html+="</div>";
+                }
+            
+            
+            document.getElementById("msg_history").innerHTML += html;
+            document.getElementById("scroll").scrollIntoView();
+        
+            }
+                }
+            });
+        });
+   
     });
 
     function deleteMessage(self) {
@@ -371,5 +377,7 @@
         // remove message node
         document.getElementById("message-" + snapshot.key).innerHTML = "Tin nhắn này đã bị xóa";
     });
+
+
 </script>
 @endpush
