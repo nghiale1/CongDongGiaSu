@@ -55,6 +55,12 @@
                                 </div>
                             </a>
                             <hr>
+                            <a class="dropdown-item pb-1" href="{{route('tutor.message')}}">
+                                <div class="dropdown-icon">
+                                    <i class="fa fa-comments" aria-hidden="true"></i>
+                                </div>
+                                Tin nhắn
+                            </a>
                             <a class="dropdown-item pb-1"
                                 href="{{route('document.tutor.index',\Auth::user()->giasus[0]->gs_id)}}">
                                 <div class="dropdown-icon">

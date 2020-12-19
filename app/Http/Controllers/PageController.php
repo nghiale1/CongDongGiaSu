@@ -16,6 +16,7 @@ class PageController extends Controller
         $linhvuc = \DB::table('linhvuc')->get();
         return view('client.pages.index', compact('linhvuc'));
     }
+
     public function course($id)
     {
         $lop = Lop::join('giasu', 'giasu.gs_id', 'lop.gs_id')

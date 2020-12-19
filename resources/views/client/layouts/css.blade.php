@@ -45,4 +45,11 @@
     body {
         background-color: #e5e5e5;
     }
+
+    dropdown-item.active,
+    .dropdown-item:active {
+        color: #fff;
+        text-decoration: none;
+        background-color: transparent !important;
+    }
 </style>

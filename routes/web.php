@@ -26,7 +26,8 @@ Route::group(['middleware' => ['hocVien']], function () {
 });
 
 Route::group(['middleware' => ['giaSu']], function () {
-
+    Route::get('/danh-sach-tin-nhan', 'ChatController@listMessage')->name('tutor.listMessage');
+    Route::get('/tin-nhan', 'ChatController@message')->name('tutor.message');
     Route::get('/gia-su/them-khoa-hoc', 'TutorController@addClass')->name('tutor.addClass');
     Route::post('/gia-su/them-khoa-hoc', 'TutorController@addClassStore')->name('tutor.addClassStore');
 
@@ -115,8 +116,9 @@ Route::group(['middleware' => ['login']], function () {
         Route::post('/VNPay/{l_id}', ['uses' => 'ClassController@VNPay', 'as' => 'VNPay']);
         Route::get('/return-vnpay', ['uses' => 'ClassController@return', 'as' => 'return']);
     });
+    Route::post('kiem-tra-chat', 'ChatController@checkChatGS')->name('checkChatGS');
+
 });
-Route::post('kiem-tra-chat', 'ChatController@checkChatGS')->name('checkChatGS');
 Route::get('/get_subject', 'DomController@getSubject')->name('getSubject');
 Route::get("auto-complete", "GoogleController@index");
 Route::view('/404', 'client.pages.404')->name('404');

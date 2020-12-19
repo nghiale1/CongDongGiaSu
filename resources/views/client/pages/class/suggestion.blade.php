@@ -18,11 +18,11 @@
 @if(\Auth::check())
 @if (\Auth::user()->kiemTraGiaoDich($lop->l_id)||\Auth::user()->kiemTraLopHoc($lop->l_id))
 {{-- {{dd(\Auth::user()->giaodichs())}} --}}
-<div class="content pl-4 pr-4" style="border:1px solid #e5e6ec">
+<div class="content pl-4 pr-4 white" style="border:1px solid #e5e6ec">
 
     <strong>
 
-        <h4 class="pt-2" style="    font-family: Open Sans,sans-serif;">
+        <h4 class="pt-2" style="font-family: Open Sans,sans-serif;">
             Bắt đầu học
         </h4>
     </strong>

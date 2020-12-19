@@ -1,8 +1,15 @@
+@extends('client.layouts.layout')
+@section('head')
+{{-- {{$tutor->gs_hoten}} --}}
+@endsection
+@section('breadcrum')
+Chat
+@endsection
 @push('css')
 <style>
-    .mesgs {
-        float: left;
-        width: 100%;
+    .container {
+        max-width: 1170px;
+        margin: auto;
     }
 
     img {
@@ -153,6 +160,11 @@
         width: 57%;
     }
 
+    .mesgs {
+        float: left;
+        padding: 30px 15px 0 25px;
+        width: 60%;
+    }
 
     .sent_msg p {
         background: #05728f none repeat scroll 0 0;
@@ -210,35 +222,75 @@
         height: 516px;
         overflow-y: auto;
     }
-
-    .chat {
-        position: fixed;
-        width: 450px;
-        left: 63%;
-        bottom: 0;
-    }
-
-    .incoming_msg {
-        display: flex;
-    }
 </style>
 @endpush
-<div class="mesgs">
-    <div class="msg_history">
-        <div class="content" id="msg_history"></div>
-        <div class="" id="scroll"></div>
+
+@section('page')
+<div class="container">
+    <br>
+    <div class="messaging">
+        <div class="inbox_msg">
+            <div class="inbox_people">
+                <div class="headind_srch">
+                    <div class="recent_heading">
+                        <h4>Tin nhắn</h4>
+                    </div>
+                    <div class="srch_bar">
+                        <div class="stylish-input-group">
+                            <input type="text" class="search-bar" placeholder="Tìm kiếm">
+                            <span class="input-group-addon">
+                                <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
+                            </span> </div>
+
+                    </div>
+                </div>
+                <div class="inbox_chat">
+                    @foreach ($list as $item)
+
+                    <div class="chat_list active_chat userChat" data-chatId="{{$item->chatId}}"
+                        data-avatar="{{$item->hv_hinhdaidien}}" data-name="{{$item->hv_hoten}}">
+
+                        <div class="chat_people" onclick="">
+                            <div class="chat_img"> <img src="{{asset($item->hv_hinhdaidien)}}"
+                                    alt="{{$item->hv_hoten}}">
+                            </div>
+                            <h5 class="">{{$item->hv_hoten}} </h5>
+
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+
+            <div class="mesgs">
+                <div class="msg_history">
+                    <div class="content" id="message">
+
+                    </div>
+                    <div id="scroll"></div>
+
+                </div>
+                <div class="type_msg">
+
+                    <div class="input_msg_write">
+                        <form onsubmit="return sendMessage();" id="frmChat">
+                            <input type="text" id="messageContent" class="write_msg" placeholder="Nội dung tin nhắn"
+                                autocomplete="off">
+                            <button class="msg_send_btn" type="submit"><i class="fa fa-paper-plane-o"
+                                    aria-hidden="true"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
 
     </div>
-    <div class="type_msg">
-        <div class="input_msg_write">
-            <form onsubmit="return sendMessage();" id="frmChat">
-                <input type="text" id="message" class="write_msg" placeholder="Nội dung" autocomplete="off">
-                <button class="msg_send_btn" type="submit"><i class="fa fa-paper-plane-o"
-                        aria-hidden="true"></i></button>
-            </form>
-        </div>
-    </div>
 </div>
+<br>
+@endsection
+
 @push('script')
 <!-- The core Firebase JS SDK is always required and must be listed first -->
 <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-app.js"></script>
@@ -263,74 +315,88 @@
     appId: "1:383378586012:web:c39f0621a556012c6e7059",
     measurementId: "G-1CFNCT9FP0"
   };
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-    //   firebase.analytics();
-    var ID = "{!! \Auth::id() !!}";
-    var senderId = "{!! \Auth::id() !!}";
-    var chatId="{!! $tutor->gs_id !!}";
-    const params = {
-        tk_id: "{!! \Auth::id() !!}",
-        gs_id: "{!! $tutor->gs_id !!}",
-        // time:Date.now(),
-    }
-
-    function sendMessage() {
-        $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            $.ajax({
-                type: "post",
-                url: "{!!route('checkChatGS')!!}",
-                data: params,
-                dataType: "json",
-                success: function (response) {
-                    //get message
-                    var message = document.getElementById("message").value;
-                    //save in database
-                    firebase.database().ref("messages").push({
-                        "senderId" : senderId,
-                        "chatId" : response.chatId,
-                        "time" : Date.now(),
-                        "message" : message,
-                    });
-                    var frm = document.getElementById('frmChat');
-                    frm.reset();  // Reset all form data
-                    return false;
-                }
-            });
-              
-    }
     function formatTime(time) { 
 
-        var d = new Date(time);
-        var result = d.getHours()+":"+d.getMinutes()+":"+
-                    d.getSeconds()+"&nbsp;&nbsp;"+d.getFullYear()+"/"+(d.getMonth()+1)+"/"+d.getDate() + 
-                    " " ;
-        return result;
+    var d = new Date(time);
+    var result = d.getHours()+":"+d.getMinutes()+":"+
+                d.getSeconds()+"&nbsp;&nbsp;"+d.getFullYear()+"/"+(d.getMonth()+1)+"/"+d.getDate() + 
+                " " ;
+    return result;
     }
-    
+    var html="";
+    var ID = "{!! \Auth::id() !!}";
+    var senderId = "{!! \Auth::id() !!}";
+    var chatId="";
+    var avatar="";
+    var name="";let url='{{asset(":id")}}';
+    const params = {
+        tk_id: "{!! \Auth::id() !!}",
+        gs_id: "{!! \Auth::user()->giasus[0]->gs_id !!}",
+        // time:Date.now(),
+    }
+    function sendMessage() {
+        if(chatId!=""){
+            //get message
+            var message = document.getElementById("messageContent").value;
+            //save in database
+            firebase.database().ref("messages").push({
+                "senderId" : senderId,
+                "chatId" : chatId,
+                "time" : Date.now(),
+                "message" : message,
+            });
+            var frm = document.getElementById('frmChat');
+            frm.reset();  // Reset all form data
 
-    //listen for incoming message
-    firebase.database().ref("messages").on("child_added", function (snapshot) {
-        
-        $(document).ready(function () {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            //listen for incoming message
+            firebase.database().ref("messages").on("child_added", function (snapshot) {
+                html="";
+                if(snapshot.val().chatId == chatId){
+                    url = url.replace(':id', avatar);
+                    if(snapshot.val().senderId == ID){
+                        html+="<div class='outgoing_msg'>";
+                        html+="<div class='sent_msg'>";
+                        html+="<p>"+snapshot.val().message+"</p>";
+                        html+="<span class='time_date'>"+formatTime(snapshot.val().time)+"</span>";
+                        html+="</div>";
+                        html+="</div>";
+                    }
+                    else{
+                        html+="<div class='incoming_msg'>";
+                        html+= "<div class='incoming_msg_img'>";
+                        html+= "<img src='"+url+"' alt='sunil'>";
+                        html+="</div>";
+                        html+="<div class='received_msg'>";
+                        html+="<div class='received_withd_msg'>";
+                        html+="<p>"+snapshot.val().message+"</p>";
+                        html+="<span class='time_date'>" +formatTime(snapshot.val().time)+"</span>";
+                        html+="</div>";
+                        html+="</div>";
+                        html+="</div>";
+                        
+                    }
                 }
             });
-            $.ajax({
-                type: "post",
-                url: "{!!route('checkChatGS')!!}",
-                data: params,
-                dataType: "json",
-                success: function (response) {
-                    console.log(response);
-                if (snapshot.val().chatId==response.chatId) {
-                var html="";
+            document.getElementById("message").innerHTML += html;
+            document.getElementById("scroll").scrollIntoView();
+
+            return false;
+        }    
+    }
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    
+    $(document).ready(function () {
+        $('.userChat').click(function (e) { 
+            document.getElementById("message").innerHTML = "";
+            chatId=$(this).attr('data-chatId');
+            avatar=$(this).attr('data-avatar');
+            name=$(this).attr('data-name');
+            html="";
+        //listen for incoming message
+        firebase.database().ref("messages").on("child_added", function (snapshot) {
+            if(snapshot.val().chatId == chatId){
+                url = url.replace(':id', avatar);
                 if(snapshot.val().senderId == ID){
                     html+="<div class='outgoing_msg'>";
                     html+="<div class='sent_msg'>";
@@ -342,7 +408,7 @@
                 else{
                     html+="<div class='incoming_msg'>";
                     html+= "<div class='incoming_msg_img'>";
-                    html+= "<img src='https://ptetutorials.com/images/user-profile.png' alt='sunil'>";
+                    html+= "<img src='"+url+"' alt='sunil'>";
                     html+="</div>";
                     html+="<div class='received_msg'>";
                     html+="<div class='received_withd_msg'>";
@@ -352,32 +418,13 @@
                     html+="</div>";
                     html+="</div>";
                 }
-            
-            
-            document.getElementById("msg_history").innerHTML += html;
-            document.getElementById("scroll").scrollIntoView();
-        
             }
-                }
-            });
         });
-   
+        document.getElementById("message").innerHTML += html;
+        document.getElementById("scroll").scrollIntoView();
+        e.preventDefault();
+        });
     });
-
-    function deleteMessage(self) {
-        // get message ID
-        var messageId = self.getAttribute("data-id");
-
-        // delete message
-        firebase.database().ref("messages").child(messageId).remove();
-    }
-
-    // attach listener for delete message
-    firebase.database().ref("messages").on("child_removed", function (snapshot) {
-        // remove message node
-        document.getElementById("message-" + snapshot.key).innerHTML = "Tin nhắn này đã bị xóa";
-    });
-
 
 </script>
 @endpush
