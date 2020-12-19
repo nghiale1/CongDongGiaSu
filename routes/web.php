@@ -117,6 +117,7 @@ Route::group(['middleware' => ['login']], function () {
         Route::get('/return-vnpay', ['uses' => 'ClassController@return', 'as' => 'return']);
     });
     Route::post('kiem-tra-chat', 'ChatController@checkChatGS')->name('checkChatGS');
+    Route::post('kiem-tra-chat-nhom', 'ChatController@checkChatLop')->name('checkChatLop');
 
 });
 Route::get('/get_subject', 'DomController@getSubject')->name('getSubject');
