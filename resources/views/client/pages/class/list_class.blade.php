@@ -7,13 +7,20 @@ Danh sách lớp
 @endsection
 @push('css')
 <style>
+    small,
+    .small {
+        font-size: 80% !important;
+        font-weight: 100 !important;
+        color: #8c8c8c !important;
+    }
+
+    .hidden {
+        display: none;
+    }
+
     @include('client.pages.class.list-css');
 </style>
-{{-- <link rel="stylesheet" href="{{asset('client/list_class/style.css')}}"> --}}
-{{-- <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'>
-<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,700,600'>
-<link rel='stylesheet' href='https://pennypixels.pennymacusa.com/css/1_4_1/pp.css'>
-<link rel="stylesheet" href="{{asset('client/list_class/two-point-range-slider/style.css')}}"> --}}
+
 @endpush
 
 @section('page')
@@ -23,128 +30,269 @@ Danh sách lớp
         <div class="col-md-3 opensan">
             <h4 class="title" style="font-weight: 300;">Lọc kết quả</h4>
             <br>
-            <form class="" method="get" action="/match/search">
-                <div class="medium-hide">
-                    <label class="title" for="sort">Sắp xếp theo</label>
+            <div class="medium-hide">
+                <label class="title" for="sort">Sắp xếp theo</label>
+                <form action="{{route('search')}}" method="get" id="frmSort">
+                    <input type="hidden" name="search" value="{{$search}}">
                     <select name="sort" id="sort" class="form-control">
-                        <option value="1" selected="">
-                            Phù hợp nhất
+                        <option value="1" @if($keySearch['sort']=='1' ) selected @endif>
+                            Theo tên
                         </option>
-                        <option value="2">
-                            Giá thấp
+                        <option value="2" @if($keySearch['sort']=='2' ) selected @endif>
+                            Học phí thấp
                         </option>
-                        <option value="3">
-                            Giá cao
+                        <option value="3" @if($keySearch['sort']=='3' ) selected @endif>
+                            Học phí cao
                         </option>
-                        <option value="4">
+                        <option value="4" @if($keySearch['sort']=='4' ) selected @endif>
                             Đánh giá
                         </option>
                     </select>
-                </div>
+                </form>
+            </div>
 
 
-                <br>
-                <div class="voice">
+            <br>
+            <div class="voice">
+                <form action="{{route('search')}}" method="get" id="frmVoice">
+                    <input type="hidden" name="search" value="{{$search}}">
                     <label for="" class="title">Giọng nói</label>
 
                     <div>
-                        <input class="hide medium-show-inline-block" type="checkbox" id="south" name="south"
-                            value="true" checked="">
-                        <label class="hide medium-show-inline-block" for="south">Miền Nam</label>
+                        <input class="hide medium-show-inline-block voice" type="checkbox" id="south" name="voice[]"
+                            required="required" value="Nam" @if (in_array("Nam", $keySearch['voice'])) checked @endif>
+                        <label class="hide medium-show-inline-block voice" for="south">Miền Nam</label>
                     </div>
                     <div>
-                        <input class="hide medium-show-inline-block" type="checkbox" id="central" name="central"
-                            value="true" checked="">
-                        <label class="hide medium-show-inline-block" for="central">Miền Trung</label>
+                        <input class="hide medium-show-inline-block voice" type="checkbox" id="central" name="voice[]"
+                            required="required" value="Trung" @if (in_array("Trung", $keySearch['voice'])) checked
+                            @endif>
+                        <label class="hide medium-show-inline-block voice" for="central">Miền Trung</label>
                     </div>
                     <div>
-                        <input class="hide medium-show-inline-block" type="checkbox" id="northern" name="northern"
-                            value="true" checked="">
-                        <label class="hide medium-show-inline-block" for="northern">Miền Bắc</label>
+                        <input class="hide medium-show-inline-block voice" type="checkbox" id="northern" name="voice[]"
+                            required="required" value="Bắc" @if (in_array("Bắc", $keySearch['voice'])) checked @endif>
+                        <label class="hide medium-show-inline-block voice" for="northern">Miền Bắc</label>
                     </div>
+                </form>
 
-                </div>
 
+            </div>
+
+            <br>
+            <div class="weeksday">
+                <form action="{{route('search')}}" method="get" id="frmVoice">
+                    <input type="hidden" name="search" value="{{$search}}">
+                    <label class="title" for="availability-selection">Thời gian dạy</label>
+
+                    <div>
+                        <label class="hide medium-show-inline-block days mondays" data-value="monday">Thứ hai</label>
+                        <input class="hide medium-show-inline-block days mondays" data-value="monday" type="checkbox">
+                        <br>
+                        <small>
+                            <input class="hidden medium-show-inline-block monday day" data-value="monday"
+                                type="checkbox" name="schedule[]" @if (in_array(1, $keySearch['schedule'])) checked
+                                @endif value=1>
+                            <label class="hidden medium-show-inline-block label-monday day" data-value="monday">Sáng,
+                            </label>
+                            <input class="hidden medium-show-inline-block monday day" data-value="monday"
+                                type="checkbox" name="schedule[]" @if (in_array(8, $keySearch['schedule'])) checked
+                                @endif value=8>
+                            <label class="hidden medium-show-inline-block label-monday day" data-value="monday">Chiều,
+                            </label>
+                            <input class="hidden medium-show-inline-block monday day" data-value="monday"
+                                type="checkbox" name="schedule[]" @if (in_array(15, $keySearch['schedule'])) checked
+                                @endif value=15>
+                            <label class="hidden medium-show-inline-block label-monday day"
+                                data-value="schedule[]">Tối</label>
+                        </small>
+                    </div>
+                    <div>
+                        <label class="hide medium-show-inline-block days tuesdays" data-value="tuesday">Thứ ba</label>
+                        <input class="hide medium-show-inline-block days tuesdays" data-value="tuesday" type="checkbox">
+                        <br>
+                        <small>
+                            <input class="hidden medium-show-inline-block tuesday day" data-value="tuesday"
+                                type="checkbox" name="schedule[]" @if (in_array(2, $keySearch['schedule'])) checked
+                                @endif value=2>
+                            <label class="hidden medium-show-inline-block label-tuesday day" data-value="tuesday">Sáng,
+                            </label>
+                            <input class="hidden medium-show-inline-block tuesday day" data-value="tuesday"
+                                type="checkbox" name="schedule[]" @if (in_array(9, $keySearch['schedule'])) checked
+                                @endif value=9>
+                            <label class="hidden medium-show-inline-block label-tuesday day" data-value="tuesday">Chiều,
+                            </label>
+                            <input class="hidden medium-show-inline-block tuesday day" data-value="tuesday"
+                                type="checkbox" name="schedule[]" @if (in_array(16, $keySearch['schedule'])) checked
+                                @endif value=16>
+                            <label class="hidden medium-show-inline-block label-tuesday day"
+                                data-value="tuesday">Tối</label>
+                        </small>
+                    </div>
+                    <div>
+                        <label class="hide medium-show-inline-block days websdays" data-value="websday">Thứ tư</label>
+                        <input class="hide medium-show-inline-block days websdays" data-value="websday" type="checkbox">
+                        <br>
+                        <small>
+                            <input class="hidden medium-show-inline-block websday day" data-value="websday"
+                                type="checkbox" name="schedule[]" @if (in_array(3, $keySearch['schedule'])) checked
+                                @endif value=3>
+                            <label class="hidden medium-show-inline-block label-websday day" data-value="websday">Sáng,
+                            </label>
+                            <input class="hidden medium-show-inline-block websday day" data-value="websday"
+                                type="checkbox" name="schedule[]" @if (in_array(10, $keySearch['schedule'])) checked
+                                @endif value=10>
+                            <label class="hidden medium-show-inline-block label-websday day" data-value="websday">Chiều,
+                            </label>
+                            <input class="hidden medium-show-inline-block websday day" data-value="websday"
+                                type="checkbox" name="schedule[]" @if (in_array(17, $keySearch['schedule'])) checked
+                                @endif value=17>
+                            <label class="hidden medium-show-inline-block label-websday day"
+                                data-value="websday">Tối</label>
+                        </small>
+                    </div>
+                    <div>
+                        <label class="hide medium-show-inline-block days thurdays" data-value="thurday">Thứ năm</label>
+                        <input class="hide medium-show-inline-block days thurdays" data-value="thurday" type="checkbox">
+                        <br>
+                        <small>
+                            <input class="hidden medium-show-inline-block thurday day" data-value="thurday"
+                                type="checkbox" name="schedule[]" @if (in_array(4, $keySearch['schedule'])) checked
+                                @endif value=4>
+                            <label class="hidden medium-show-inline-block label-thurday day" data-value="thurday">Sáng,
+                            </label>
+                            <input class="hidden medium-show-inline-block thurday day" data-value="thurday"
+                                type="checkbox" name="schedule[]" @if (in_array(11, $keySearch['schedule'])) checked
+                                @endif value=11>
+                            <label class="hidden medium-show-inline-block label-thurday day" data-value="thurday">Chiều,
+                            </label>
+                            <input class="hidden medium-show-inline-block thurday day" data-value="thurday"
+                                type="checkbox" name="schedule[]" @if (in_array(18, $keySearch['schedule'])) checked
+                                @endif value=18>
+                            <label class="hidden medium-show-inline-block label-thurday day"
+                                data-value="thurday">Tối</label>
+                        </small>
+                    </div>
+                    <div>
+                        <label class="hide medium-show-inline-block days fridays" data-value="friday">Thứ sáu</label>
+                        <input class="hide medium-show-inline-block days fridays" data-value="friday" type="checkbox">
+                        <br>
+                        <small>
+                            <input class="hidden medium-show-inline-block friday day" data-value="friday"
+                                type="checkbox" name="schedule[]" @if (in_array(5, $keySearch['schedule'])) checked
+                                @endif value=5>
+                            <label class="hidden medium-show-inline-block label-friday day" data-value="friday">Sáng,
+                            </label>
+                            <input class="hidden medium-show-inline-block friday day" data-value="friday"
+                                type="checkbox" name="schedule[]" @if (in_array(12, $keySearch['schedule'])) checked
+                                @endif value=12>
+                            <label class="hidden medium-show-inline-block label-friday day" data-value="friday">Chiều,
+                            </label>
+                            <input class="hidden medium-show-inline-block friday day" data-value="friday"
+                                type="checkbox" name="schedule[]" @if (in_array(19, $keySearch['schedule'])) checked
+                                @endif value=19>
+                            <label class="hidden medium-show-inline-block label-friday day"
+                                data-value="friday">Tối</label>
+                        </small>
+                    </div>
+                    <div>
+                        <label class="hide medium-show-inline-block days saturdays" data-value="saturday">Thứ
+                            bảy</label>
+                        <input class="hide medium-show-inline-block days saturdays" data-value="saturday"
+                            type="checkbox">
+                        <br>
+                        <small>
+                            <input class="hidden medium-show-inline-block saturday day" data-value="saturday"
+                                type="checkbox" name="schedule[]" @if (in_array(6, $keySearch['schedule'])) checked
+                                @endif value=6>
+                            <label class="hidden medium-show-inline-block label-saturday day"
+                                data-value="saturday">Sáng,
+                            </label>
+                            <input class="hidden medium-show-inline-block saturday day" data-value="saturday"
+                                type="checkbox" name="schedule[]" @if (in_array(13, $keySearch['schedule'])) checked
+                                @endif value=13>
+                            <label class="hidden medium-show-inline-block label-saturday day"
+                                data-value="saturday">Chiều,
+                            </label>
+                            <input class="hidden medium-show-inline-block saturday day" data-value="saturday"
+                                type="checkbox" name="schedule[]" @if (in_array(20, $keySearch['schedule'])) checked
+                                @endif value=20>
+                            <label class="hidden medium-show-inline-block label-saturday day"
+                                data-value="saturday">Tối</label>
+                        </small>
+                    </div>
+                    <div>
+                        <label class="hide medium-show-inline-block days sundays" data-value="sunday">Chủ nhật</label>
+                        <input class="hide medium-show-inline-block days sundays" data-value="sunday" type="checkbox">
+                        <br>
+                        <small>
+                            <input class="hidden medium-show-inline-block sunday day" data-value="sunday"
+                                type="checkbox" name="schedule[]" @if (in_array(7, $keySearch['schedule'])) checked
+                                @endif value=7>
+                            <label class="hidden medium-show-inline-block label-sunday day" data-value="sunday">Sáng,
+                            </label>
+                            <input class="hidden medium-show-inline-block sunday day" data-value="sunday"
+                                type="checkbox" name="schedule[]" @if (in_array(14, $keySearch['schedule'])) checked
+                                @endif value=14>
+                            <label class="hidden medium-show-inline-block label-sunday day" data-value="sunday">Chiều,
+                            </label>
+                            <input class="hidden medium-show-inline-block sunday day" data-value="sunday"
+                                type="checkbox" name="schedule[]" @if (in_array(21, $keySearch['schedule'])) checked
+                                @endif value=21>
+                            <label class="hidden medium-show-inline-block label-sunday day"
+                                data-value="sunday">Tối</label>
+                        </small>
+                    </div>
+                    <button type="submit" class="btn btn-outline-primary p-1 pr-2 pl-2">Tìm</button>
+                </form>
+
+            </div>
+
+            <br>
+
+            <div class="gender">
+
+                <label class="title" for="gender">Giới tính</label>
+                <form action="{{route('search')}}" method="get" id="frmGender">
+                    <input type="hidden" name="search" value="{{$search}}">
+                    <select id="gender" class="form-control" name="gender" id="gender">
+                        <option value="">Không phân biệt</option>
+                        <option value="Nam" @if($keySearch['gender']=='Nam' ) selected @endif>Nam</option>
+                        <option value="Nữ" @if($keySearch['gender']=='Nữ' ) selected @endif>Nữ</option>
+                    </select>
+                </form>
                 <br>
-                <div class="weeksday">
-                    <label class="title" for="availability-selection">Thứ dạy</label>
+            </div>
 
-                    <div>
-                        <input class="hide medium-show-inline-block" type="checkbox" id="monday" name="monday"
-                            value="true" checked="">
-                        <label class="hide medium-show-inline-block" for="monday">Thứ 2</label>
-                    </div>
-                    <div>
-                        <input class="hide medium-show-inline-block" type="checkbox" id="tuesday" name="tuesday"
-                            value="true" checked="">
-                        <label class="hide medium-show-inline-block" for="tuesday">Thứ 3</label>
-                    </div>
-                    <div>
-                        <input class="hide medium-show-inline-block" type="checkbox" id="wednesday" name="wednesday"
-                            value="true" checked="">
-                        <label class="hide medium-show-inline-block" for="wednesday">Thứ 4</label>
-                    </div>
-                    <div>
-                        <input class="hide medium-show-inline-block" type="checkbox" id="thursday" name="thursday"
-                            value="true" checked="">
-                        <label class="hide medium-show-inline-block" for="thursday">Thứ 5</label>
-                    </div>
-                    <div>
-                        <input class="hide medium-show-inline-block" type="checkbox" id="friday" name="friday"
-                            value="true" checked="">
-                        <label class="hide medium-show-inline-block" for="friday">Thứ 6</label>
-                    </div>
-                    <div>
-                        <input class="hide medium-show-inline-block" type="checkbox" id="saturday" name="saturday"
-                            value="true" checked="">
-                        <label class="hide medium-show-inline-block" for="saturday">Thứ 7</label>
-                    </div>
-                    <div>
-                        <input class="hide medium-show-inline-block" type="checkbox" id="sunday" name="sunday"
-                            value="true">
-                        <label class="hide medium-show-inline-block" for="sunday">Chủ nhật</label>
-                    </div>
-                </div>
-
-                <br>
-
-                <div class="gender">
-
-                    <label class="title" for="gender">Giới tính</label>
-                    <select id="gender" class="form-control" name="gender">
-                        <option value="none" selected="">Không phân biệt</option>
-                        <option value="male">Nam</option>
-                        <option value="female">Nữ</option>
-                    </select><br>
-                </div>
-                <input type="checkbox" id="backgroundCheck" name="bc" value="true">
-                <label class="title" for="backgroundCheck"><strong>Đã kiểm tra lý lịch</strong></label>
-                <br>
-                <br>
-                <div class="level-student">
-                    <label class="title" for="level"><strong>Trình độ học viên</strong></label>
-                    <select class="form-control" name="level">
-                        <option value="0" selected="">
+            <div class="level-student">
+                <label class="title" for="level"><strong>Trình độ học viên</strong></label>
+                <form action="{{route('search')}}" method="get" id="frmLevel">
+                    <input type="hidden" name="search" value="{{$search}}">
+                    <select class="form-control" id="level" name="level">
+                        <option value=19 @if($keySearch['level']==19 ) selected @endif>
                             Bất kỳ
                         </option>
-                        <option value="1">
-                            Tiểu học
+                        <option value=20 @if($keySearch['level']==20 ) selected @endif>
+                            Mầm non
                         </option>
-                        <option value="2">
-                            Trung học
+                        <option value=21 @if($keySearch['level']==21 ) selected @endif>
+                            Cấp 1
                         </option>
-                        <option value="3">
-                            Phổ thông
+                        <option value=22 @if($keySearch['level']==22 ) selected @endif>
+                            Cấp 2
                         </option>
-                        <option value="4">
-                            Đại học
+                        <option value=23 @if($keySearch['level']==23 ) selected @endif>
+                            Cấp 3
                         </option>
-                        <option value="5">
+                        <option value=24 @if($keySearch['level']==24 ) selected @endif>
+                            Đại học/Cao đẳng
+                        </option>
+                        <option value=25 @if($keySearch['level']==25 ) selected @endif>
                             Khác
                         </option>
                     </select>
-                </div>
-            </form>
+                </form>
+            </div>
 
         </div>
 
@@ -156,27 +304,28 @@ Danh sách lớp
                         <strong>{{count($tutor)}} kết quả</strong> phù hợp với bạn
                     </h5>
                 </div>
-                <form class="hide " method="get" action="">
-                    <div class="flex">
-                        <label class=" mt-auto ml-auto" for="desktop-sort">Sắp xếp: &nbsp;</label>
-                        <div>
-                            <select name="desktop-sort" id="desktop-sort" class="form-control">
-                                <option value="1" selected="">
-                                    Phù hợp nhất
+                <div class="flex">
+                    <label class=" mt-auto ml-auto" for="desktop-sort">Sắp xếp: &nbsp;</label>
+                    <div>
+                        <form action="{{route('search')}}" method="get" id="frmSort">
+                            <input type="hidden" name="search" value="{{$search}}">
+                            <select id="desktop-sort" class="form-control" name="sort">
+                                <option value="1" @if($keySearch['sort']=='1' ) selected @endif>
+                                    Theo tên
                                 </option>
-                                <option value="2">
-                                    Giá thấp
+                                <option value="2" @if($keySearch['sort']=='2' ) selected @endif>
+                                    Học phí thấp
                                 </option>
-                                <option value="3">
-                                    Giá cao
+                                <option value="3" @if($keySearch['sort']=='3' ) selected @endif>
+                                    Học phí cao
                                 </option>
-                                <option value="4">
+                                <option value="4" @if($keySearch['sort']=='4' ) selected @endif>
                                     Đánh giá
                                 </option>
                             </select>
-                        </div>
+                        </form>
                     </div>
-                </form>
+                </div>
             </div>
 
             <br>
@@ -281,7 +430,92 @@ Danh sách lớp
 @endsection
 
 @push('script')
-{{-- <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-<script src="{{asset('client/list_class/two-point-range-slider/script.js')}}"></script> --}}
+<script>
+    $(document).ready(function(){
+    $("#gender").on("change", function(){
+        this.form.submit();
+    });
+    $("#level").on("change", function(){
+        this.form.submit();
+    });
+    $("#sort").on("change", function(){
+        this.form.submit();
+    });
+    $("#desktop-sort").on("change", function(){
+        this.form.submit();
+    });
+    $('.voice').on("click", function(){
+        if($('.voice:checked').val()!=undefined){
+            this.form.submit();
+        }
+        return false;
+        
+    });
+    $('.schedule').on("click", function(){
+        if($('.schedule:checked').val()!=undefined){
+            this.form.submit();
+        }
+        return false;
+        
+    });
 
+
+    $(".days").click(function (e) { 
+        var day=$(this).attr("data-value");//monday,tue,...
+        var n=$( "."+day+":checked" ).length;
+        if(n<3){
+            $( "."+day+"" ).prop( "checked", true );
+            $("."+day+"").removeClass("hidden");
+            $(".label-"+day+"").removeClass("hidden");
+        }else{
+            $("."+day ).prop( "checked", false );
+            $("."+day).addClass("hidden");
+            $(".label-"+day).addClass("hidden");
+        }
+    });
+    $( window ).on( "load", function() {
+        hide('monday');
+        hide('tuesday');
+        hide('thurday');
+        hide('friday');
+        hide('websday');
+        hide('saturday');
+        hide('sunday');
+    });
+    function hide(day) { 
+        var n=$( "."+day+":checked" ).length;
+            if(n==0){
+                $("."+day).addClass("hidden");
+                $("."+day).addClass("hidden");
+                $(".label-"+day+"").addClass("hidden");
+            }else if(n==3){
+                $("."+day+"s" ).prop( "checked", true );
+                $("."+day).addClass("hidden");
+                $(".label-"+day).removeClass("hidden");
+            }else{
+                $("."+day+"s" ).prop( "checked", false );
+                $("."+day).removeClass("hidden");
+                $(".label-"+day).removeClass("hidden");
+    
+            }
+
+     }
+    $(".day").click(function (e) { 
+        var day=$(this).attr("data-value");
+        var n=$( "."+day+":checked" ).length;
+        if(n==0){
+            $("."+day+"s" ).prop( "checked", false );
+            $("."+day).addClass("hidden");
+            $(".label-"+day+"").addClass("hidden");
+        }else if(n==3){
+            $( "."+day+"s" ).prop( "checked", true );
+            $("."+day).addClass("hidden");
+            
+        }else{
+            $( "."+day+"s" ).prop( "checked", false );
+
+        }
+    });
+});
+</script>
 @endpush
