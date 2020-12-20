@@ -282,7 +282,7 @@
                 }
             });
             $.ajax({
-                type: "post",
+                type: "get",
                 url: "{!!route('checkChatGS')!!}",
                 data: params,
                 dataType: "json",
@@ -323,7 +323,7 @@
                 }
             });
             $.ajax({
-                type: "post",
+                type: "get",
                 url: "{!!route('checkChatGS')!!}",
                 data: params,
                 dataType: "json",

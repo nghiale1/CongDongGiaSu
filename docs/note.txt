@@ -6,3 +6,4 @@ sửa scroll
 sửa chọn ở index
 sửa button chọn lớp
 ds chat gs thêm lớp
+dừng lớp

@@ -6,6 +6,8 @@ Cộng đồng gia sư
 {{ $findFolder->tmgs_ten }}
 @endsection
 @push('css')
+<link rel="stylesheet" href="{{asset('dropzone/dropzone.css')}}">
+
 <style>
     a.down {
         position: absolute;
@@ -92,24 +94,24 @@ Cộng đồng gia sư
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('document.tutor.upload') }}" enctype="multipart/form-data" method="POST">
-                        <div class="form-group">
-                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                            <input type="hidden" value="{{ $findFolder->tmgs_id }}" name="fo_id">
-                            <input type="hidden" value="{{ $findFolder->tmgs_duongdan }}" name="fo_dir">
-                            <label class="Tải file" for="input-res">Tải file
-                            </label>
-                            <input id="input-res" name="file[]" type="file" multiple data-min-file-count="2"
-                                style="display: none">
+                    <form action="{{ route('document.tutor.upload') }}" class="dropzone" enctype="multipart/form-data"
+                        method="post">
+                        @csrf
+
+                        <div class="fallback">
+                            <input name="file" type="file" multiple name="file[]" />
                         </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary" id="uploadImage">Upload</button>
-                        </div>
-                    </form>
+                        <input type="hidden" value="{{ $findFolder->tmgs_id }}" name="fo_id">
+                        <input type="hidden" value="{{ $findFolder->tmgs_duongdan }}" name="fo_dir">
+
                 </div>
                 <div class="modal-footer">
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary" id="uploadImage">Tải lên</button>
+                    </div>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
                 </div>
+                </form>
             </div>
         </div>
     </div>
@@ -134,21 +136,22 @@ Cộng đồng gia sư
                             <input type="text" class="form-control" name="tenthumuc"
                                 placeholder="Nhập tên thư mục cần tạo . . ">
 
-                        </div>
-                        <button type="submit" class="btn btn-primary">Tạo</button>
                     </form>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                </div>
+                <button type="submit" class="btn btn-primary">Tạo</button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
             </div>
         </div>
     </div>
+</div>
 </div>
 <br>
 @endsection
 
 @push('script')
+<script src="{{asset('dropzone/dropzone.js')}}"></script>
 @include('client.pages.document.script')
 <script>
     (function($) {
@@ -156,5 +159,6 @@ Cộng đồng gia sư
       $("#img_text").html($('input[type="file"]').val());
     });
   })
+  
 </script>
 @endpush

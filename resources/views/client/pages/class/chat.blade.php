@@ -6,6 +6,16 @@
         display: contents;
     }
 
+    .content,
+    .input_msg_write {
+        padding-right: 2%;
+        padding-left: 2%;
+    }
+
+    .msg_send_btn {
+        margin-right: 2%;
+    }
+
     img {
         max-width: 100%;
     }
@@ -122,7 +132,8 @@
     }
 
     .incoming_msg_img {
-        display: inline-block;
+        margin-top: inherit;
+        s display: inline-block;
         width: 6%;
     }
 
@@ -289,7 +300,7 @@
                 }
             });
             $.ajax({
-                type: "post",
+                type: "get",
                 url: "{!!route('checkChatLop')!!}",
                 data: params,
                 dataType: "json",
@@ -331,7 +342,7 @@
                 }
             });
             $.ajax({
-                type: "post",
+                type: "get",
                 url: "{!!route('checkChatLop')!!}",
                 data: params,
                 dataType: "json",

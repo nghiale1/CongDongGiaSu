@@ -222,6 +222,10 @@ Chat
         height: 516px;
         overflow-y: auto;
     }
+
+    .w3l-footer-29-main {
+        display: none;
+    }
 </style>
 @endpush
 
@@ -388,7 +392,7 @@ Chat
     
     $(document).ready(function () {
         $('.userChat').click(function (e) { 
-            document.getElementById("message").innerHTML = "";
+           
             chatId=$(this).attr('data-chatId');
             avatar=$(this).attr('data-avatar');
             name=$(this).attr('data-name');
@@ -419,7 +423,7 @@ Chat
                     html+="</div>";
                 }
             }
-        });
+        }); document.getElementById("message").innerHTML = "";
         document.getElementById("message").innerHTML += html;
         document.getElementById("scroll").scrollIntoView();
         e.preventDefault();
