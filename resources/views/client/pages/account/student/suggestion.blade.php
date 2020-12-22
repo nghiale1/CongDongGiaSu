@@ -26,7 +26,12 @@ Gợi ý khoá học
     }
 
     .teacher-avatar img {
-        width: 20%;
+        width: 100%;
+    }
+
+    .hover:hover {
+        /* border: 1px solid grey; */
+        box-shadow: rgb(0 0 0 / 32%) 0px 0px 20px;
     }
 </style>
 @endpush
@@ -35,57 +40,92 @@ Gợi ý khoá học
 @section('content')
 <br>
 <div class="container">
-    <div class="row">
-        @foreach ($yeuthich as $item)
-        <div class="col-md-3">
+    <div class="ml-3 mr-3">
 
-            <div class="sugg white">
-                <a href="{{route('course.intro',$item->l_id)}}">
-                    <img src="{{asset($item->l_daidien)}}" alt="{{$item->l_ten}}" load="lazy"
-                        class="suggestion-avatar rounded-top pb-1">
-                    <strong>
-                        <p class="suggestion-title">
-                            {{$item->l_ten}}
-                        </p>
-                    </strong>
-
-                    <div class="content pl-3 pr-3">
-                        <span class="float-right teacher-avatar"><img src="{{asset($item->gs_hinhdaidien)}}"
-                                alt=""></span>
-                        <span class=""> Lê Minh Nghĩa</span>
-                    </div>
-                    <div class="fee">
-                        {{number_format($item->l_hocphi)  }} đ
-                    </div>
-                </a>
+        @if ($yeuthich->isNotEmpty())
+        <div class="row white">
+            <div class="col-md-12 mt-3">
+                <h4>Khoá học của gia sư yêu thích</h4><br>
             </div>
-        </div>
-        @endforeach
-        @foreach ($goiy as $item)
-        <div class="col-md-3">
 
-            <div class="sugg white">
-                <a href="{{route('course.intro',$item->l_id)}}">
-                    <img src="{{asset($item->l_daidien)}}" alt="{{$item->l_ten}}" load="lazy"
-                        class="suggestion-avatar rounded-top pb-1">
-                    <strong>
-                        <p class="suggestion-title">
-                            {{$item->l_ten}}
-                        </p>
-                    </strong>
 
-                    <div class="content pl-3 pr-3">
-                        <span class="float-right teacher-avatar"><img src="{{asset($item->gs_hinhdaidien)}}"
-                                alt=""></span>
-                        <span class=""> Lê Minh Nghĩa</span>
+            @foreach ($yeuthich as $item)
+            <div class="col-md-3 mb-4">
 
-                    </div>
-                    <div class="fee">
-                        {{number_format($item->l_hocphi)  }} đ
-                    </div>
-                </a>
+                <div class="sugg white hover">
+                    <a href="{{route('course.intro',$item->l_id)}}">
+                        <img src="{{asset($item->l_daidien)}}" alt="{{$item->l_ten}}" load="lazy"
+                            class="suggestion-avatar rounded-top pb-1">
+                        <strong>
+                            <p class="suggestion-title ml-3 mr-3">
+                                {{$item->l_ten}}
+                            </p>
+                        </strong>
+
+                        <div class="content pl-3 pr-3 pb-3">
+                            <div class="row">
+                                <div class="col-md-4">
+
+                                    <span class="float-right teacher-avatar"><img src="{{asset($item->gs_hinhdaidien)}}"
+                                            alt=""></span>
+                                </div>
+                                <div class="col-md-8">
+
+                                    <span class=""> Lê Minh Nghĩa</span><br>
+                                    <span>
+
+                                        {{number_format($item->l_hocphi)  }} đ
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
             </div>
+            @endforeach
         </div>
-        @endforeach
+        <br>
+        @endif
+        @if ($goiy->isNotEmpty())
+        <div class="row white">
+            <div class="col-md-12 mt-3">
+                <h4>Khoá học gợi ý</h4><br>
+            </div>
+            @foreach ($goiy as $item)
+            <div class="col-md-3 mb-4">
+
+                <div class="sugg white hover">
+                    <a href="{{route('course.intro',$item->l_id)}}">
+                        <img src="{{asset($item->l_daidien)}}" alt="{{$item->l_ten}}" load="lazy"
+                            class="suggestion-avatar rounded-top pb-1">
+                        <strong>
+                            <p class="suggestion-title  ml-3 mr-3">
+                                {{$item->l_ten}}
+                            </p>
+                        </strong>
+                        <div class="content pl-3 pr-3 pb-3">
+                            <div class="row">
+                                <div class="col-md-4">
+
+                                    <span class="float-right teacher-avatar"><img src="{{asset($item->gs_hinhdaidien)}}"
+                                            alt=""></span>
+                                </div>
+                                <div class="col-md-8">
+
+                                    <span class=""> Lê Minh Nghĩa</span><br>
+                                    <span>
+
+                                        {{number_format($item->l_hocphi)  }} đ
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            @endforeach
+        </div>
+        @endif
     </div>
 </div>
+@endsection
