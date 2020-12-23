@@ -28,6 +28,7 @@ Route::group(['middleware' => ['hocVien']], function () {
 Route::group(['middleware' => ['giaSu']], function () {
     Route::get('/danh-sach-tin-nhan', 'ChatController@listMessage')->name('tutor.listMessage');
     Route::get('/tin-nhan', 'ChatController@message')->name('tutor.message');
+    Route::get('/tin-nhan-lop', 'ChatController@messageClass')->name('tutor.messageClass');
     Route::get('/gia-su/them-khoa-hoc', 'TutorController@addClass')->name('tutor.addClass');
     Route::post('/gia-su/them-khoa-hoc', 'TutorController@addClassStore')->name('tutor.addClassStore');
 
@@ -107,6 +108,7 @@ Route::group(['middleware' => ['login']], function () {
         Route::get('/thu-muc/{hv_id}/{slug}', 'DocumentTutorController@studentInto')->name('document.student.into');
         Route::post('/tao-thu-muc', 'DocumentTutorController@studentCreateFolder')->name('document.student.createFolder');
         Route::post('/upload-tai-lieu', 'DocumentTutorController@studentUpload')->name('document.student.upload');
+        Route::get('/xoa-tai-lieu', 'DocumentTutorController@studentDelete')->name('document.student.delete');
         Route::get('/nen/{id}', 'DocumentTutorController@studentZip')->name('document.student.zip');
     });
     Route::get('yeu-thich/{gs_id}', 'StudentController@store')->name('wishlist.store');
@@ -123,3 +125,4 @@ Route::group(['middleware' => ['login']], function () {
 Route::get('/get_subject', 'DomController@getSubject')->name('getSubject');
 Route::get("auto-complete", "GoogleController@index");
 Route::view('/404', 'client.pages.404')->name('404');
+Route::post('/save', 'DomController@save')->name('save');

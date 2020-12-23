@@ -68,6 +68,14 @@ class ChatController extends Controller
             ->get();
         return $list;
     }
+    public function listMessageLop()
+    {
+        $list = \DB::table('danhsachchatlop')
+            ->join('lop', 'lop.l_id', 'danhsachchatlop.l_id')
+            ->where('danhsachchatlop.gs_id', \Auth::user()->giasus[0]->gs_id)
+            ->get();
+        return $list;
+    }
     public function message()
     {
         $list = \DB::table('danhsachchatgs')
@@ -76,5 +84,13 @@ class ChatController extends Controller
             ->where('danhsachchatgs.gs_id', \Auth::user()->giasus[0]->gs_id)
             ->get();
         return view('client.pages.account.tutor.message', compact('list'));
+    }
+    public function messageClass()
+    {
+        $list = \DB::table('danhsachchatlop')
+            ->join('lop', 'lop.l_id', 'danhsachchatlop.l_id')
+            ->where('danhsachchatlop.gs_id', \Auth::user()->giasus[0]->gs_id)
+            ->get();
+        return view('client.pages.account.tutor.messageClass', compact('list'));
     }
 }

@@ -37,14 +37,15 @@
                                 <div class="row pl-3 pr-3 ">
                                     <div class="col-md-2 p-0 border-account">
 
-                                        <img src="{{asset('client/svg/teacher_female.svg')}}" alt=""
-                                            class="avatar avatar-account">
+                                        <img src="{{asset(\Auth::user()->giasus[0]->gs_hinhdaidien)}}" alt=""
+                                            class="avatar avatar-account get-avatar"
+                                            data-data="{{\Auth::user()->giasus[0]->gs_hinhdaidien}}">
                                     </div>
                                     <div class="col-md-10 ">
                                         <div class="account-profile">
 
                                             <b>
-                                                <p>
+                                                <p class="get-name" data-data="{{\Auth::user()->giasus[0]->gs_hoten}}">
 
                                                     {{\Auth::user()->giasus[0]->gs_hoten}}
                                                 </p>
@@ -60,6 +61,12 @@
                                     <i class="fa fa-comments" aria-hidden="true"></i>
                                 </div>
                                 Tin nhắn
+                            </a>
+                            <a class="dropdown-item pb-1" href="{{route('tutor.messageClass')}}">
+                                <div class="dropdown-icon">
+                                    <i class="fa fa-comments" aria-hidden="true"></i>
+                                </div>
+                                Tin nhắn của lớp
                             </a>
                             <a class="dropdown-item pb-1"
                                 href="{{route('document.tutor.index',\Auth::user()->giasus[0]->gs_id)}}">
@@ -97,14 +104,16 @@
                                 <div class="row pl-3 pr-3 ">
                                     <div class="col-md-2 p-0 border-account">
 
-                                        <img src="{{asset('client/svg/teacher_female.svg')}}" alt=""
-                                            class="avatar avatar-account">
+                                        <img src="{{asset(\Auth::user()->hocviens[0]->hv_hinhdaidien)}}" alt=""
+                                            class="avatar avatar-account get-avatar"
+                                            data-data="{{\Auth::user()->hocviens[0]->hv_hinhdaidien}}">
                                     </div>
                                     <div class="col-md-10 ">
                                         <div class="account-profile">
 
                                             <b>
-                                                <p>
+                                                <p class="get-name"
+                                                    data-data="{{\Auth::user()->hocviens[0]->hv_hoten}}">
 
                                                     {{\Auth::user()->hocviens[0]->hv_hoten}}
                                                 </p>

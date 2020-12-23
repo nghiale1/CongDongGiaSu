@@ -250,7 +250,7 @@ class DocumentTutorController extends Controller
                     # code...
                     $name = $file->getClientOriginalName();
                     $size = $file->getClientSize();
-                    $file->move(public_path() . '/' . $request->fo_dir, $name);
+                    $upload_success = $file->move(public_path() . '/' . $request->fo_dir, $name);
                     \DB::table('taptinhv')->insert(
                         [
                             'tmhv_id' => $request->fo_id,
@@ -273,19 +273,40 @@ class DocumentTutorController extends Controller
             throw $e;
         }
     }
+    public function studentDelete(Request $request)
+    {
+        $temp = \DB::table('taptinhv')
+            ->where('tthv_id', $request->id)->first();
+        if ($temp) {
+
+            \File::delete(public_path($temp->tthv_duongdan));
+            \DB::table('taptinhv')
+                ->where('tthv_id', $request->id)
+                ->delete();
+            return response()->json($temp->tthv_duongdan, 200);
+        } else {
+
+            return response()->json('error', 400);
+        }
+
+    }
 
     public function studentIndex($id)
     {
+        $folder = [];
+        $file = '';
         $student = \DB::table('hocvien')->where('hv_id', $id)->first();
         $findFolder = \DB::table('thumuchv')
             ->where('hv_id', $id)
             ->where('tmhv_tmid', null)
             ->first();
-        // dd($findFolder);
-        $folder = \DB::table('thumuchv')
-            ->where('tmhv_tmid', $findFolder->tmhv_id)->get();
-        $file = \DB::table('taptinhv')
-            ->where('tmhv_id', $findFolder->tmhv_id)->get();
+        if ($findFolder) {
+
+            $folder = \DB::table('thumuchv')
+                ->where('tmhv_tmid', $findFolder->tmhv_id)->get();
+            $file = \DB::table('taptinhv')
+                ->where('tmhv_id', $findFolder->tmhv_id)->get();
+        }
         // dd($doc);
         return view('client.pages.account.student.docs.file', compact('folder', 'file', 'findFolder', 'student'));
 

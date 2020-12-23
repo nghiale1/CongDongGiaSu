@@ -11,4 +11,8 @@ class DomController extends Controller
         $result=DB::table('linhvuc')->get();
         return response()->json($result, 200);
     }
+    public function save(Request $request)
+    {
+        # code...
+    }
 }
