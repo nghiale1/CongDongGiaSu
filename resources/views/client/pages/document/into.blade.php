@@ -65,7 +65,7 @@ Cộng đồng gia sư
             @foreach ($file as $item)
             <div class="col-md-3">
                 <a href="{{asset($item->ttgs_duongdan)}}" class="btn btn-outline-info file" style="width: 100%;"
-                    download>
+                    id="right-click" data-id="{{ $item->ttgs_id }}" download>
                     <h5 style="font-size: 10px;">
                         <i class="fa fa-folder" aria-hidden="true"></i> {{$item->ttgs_ten}}
                     </h5>
@@ -93,24 +93,20 @@ Cộng đồng gia sư
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    <form action="{{ route('document.tutor.upload') }}" class="dropzone" enctype="multipart/form-data"
-                        method="post">
-                        @csrf
-
-                        <div class="fallback">
-                            <input name="file" type="file" multiple name="file[]" />
+                <form action="{{ route('document.tutor.upload') }}" enctype="multipart/form-data" method="post">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="file-loading">
+                            <input id="input-res-1" name="file[]" type="file" multiple data-min-file-count="2">
                         </div>
                         <input type="hidden" value="{{ $findFolder->tmgs_id }}" name="fo_id">
                         <input type="hidden" value="{{ $findFolder->tmgs_duongdan }}" name="fo_dir">
 
-                </div>
-                <div class="modal-footer">
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary" id="uploadImage">Tải lên</button>
                     </div>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" id="uploadImage">Tải lên</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                    </div>
                 </form>
             </div>
         </div>
@@ -126,9 +122,9 @@ Cộng đồng gia sư
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    <form action="{{ route('document.tutor.createFolder') }}" method="POST">
-                        @csrf
+                <form action="{{ route('document.tutor.createFolder') }}" method="POST">
+                    @csrf
+                    <div class="modal-body">
 
                         <input name="thumuchientai" type="hidden" value="{{$findFolder->tmgs_id}}">
                         <input name="duongdan" type="hidden" value="{{$findFolder->tmgs_duongdan}}">
@@ -136,16 +132,16 @@ Cộng đồng gia sư
                             <input type="text" class="form-control" name="tenthumuc"
                                 placeholder="Nhập tên thư mục cần tạo . . ">
 
-                    </form>
-                </div>
-                <button type="submit" class="btn btn-primary">Tạo</button>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Tạo</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-</div>
 </div>
 <br>
 @endsection

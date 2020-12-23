@@ -42,6 +42,7 @@ Route::group(['middleware' => ['giaSu']], function () {
         Route::get('/thu-muc/{slug}', 'DocumentTutorController@into')->name('document.tutor.into');
         Route::post('/tao-thu-muc', 'DocumentTutorController@createFolder')->name('document.tutor.createFolder');
         Route::post('/upload-tai-lieu', 'DocumentTutorController@upload')->name('document.tutor.upload');
+        Route::get('/xoa-tai-lieu', 'DocumentTutorController@delete')->name('document.tutor.delete');
         Route::get('/nen/{id}', 'DocumentTutorController@zip')->name('document.tutor.zip');
     });
 

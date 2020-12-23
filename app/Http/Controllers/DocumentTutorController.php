@@ -171,6 +171,7 @@ class DocumentTutorController extends Controller
             throw $e;
         }
     }
+
     public function upload(Request $request)
     {
         \DB::beginTransaction();
@@ -205,6 +206,23 @@ class DocumentTutorController extends Controller
             dd($e);
             throw $e;
         }
+    }
+    public function delete(Request $request)
+    {
+        $temp = \DB::table('taptings')
+            ->where('ttgs_id', $request->id)->first();
+        if ($temp) {
+
+            \File::delete(public_path($temp->ttgs_duongdan));
+            \DB::table('taptings')
+                ->where('ttgs_id', $request->id)
+                ->delete();
+            return response()->json($temp->ttgs_duongdan, 200);
+        } else {
+
+            return response()->json('error', 400);
+        }
+
     }
     //Tạo thư mục môn học
     public function studentCreateFolder(Request $request)

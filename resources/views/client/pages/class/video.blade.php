@@ -37,25 +37,22 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    <form action="{{route('uploadVideo')}}" enctype="multipart/form-data" method="POST">
+                <form action="{{route('uploadVideo')}}" enctype="multipart/form-data" method="POST">
+                    <div class="modal-body">
                         <div class="form-group">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                             <input type="hidden" name="lesson" id="lessonUpload">
                             <div class="file-loading">
-                                <label for="input-res-1">Tải file
-                                </label>
-                                <input id="input-res-1" name="file" type="file" multiple style="display: none">
+                                <input id="input-res-1" name="file[]" type="file" multiple data-min-file-count="2"
+                                    accept="video/mp4,video/x-m4v,video/*">
                             </div>
                         </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary" id="uploadImage">Tải lên</button>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" id="uploadImage">Tải lên</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

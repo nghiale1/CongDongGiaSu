@@ -63,9 +63,12 @@ Cộng đồng gia sư
             @foreach ($file as $item)
             <div class="col-md-3">
                 <a href="{{asset($item->tthv_duongdan)}}" class="btn btn-outline-info file" style="width: 100%;"
-                    download>
+                    id="right-click" data-id="{{ $item->tthv_id }}" download>
                     <h5 style="font-size: 10px;">
-                        <i class="fa fa-folder" aria-hidden="true"></i> {{$item->tthv_ten}}
+                        <i class="fa fa-folder" aria-hidden="true"></i>
+                        <span>
+                            {{$item->tthv_ten}}
+                        </span>
                     </h5>
                 </a>
             </div>
@@ -91,26 +94,23 @@ Cộng đồng gia sư
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    <form action="{{ route('document.student.upload') }}" enctype="multipart/form-data" method="POST">
+                <form action="{{ route('document.student.upload') }}" enctype="multipart/form-data" method="POST">
+                    @csrf
+                    <div class="modal-body">
                         <div class="form-group">
-                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+
+                            <div class="file-loading">
+                                <input id="input-res-1" name="file[]" type="file" multiple data-min-file-count="2">
+                            </div>
                             <input type="hidden" value="{{ $findFolder->tmhv_id }}" name="fo_id">
                             <input type="hidden" value="{{ $findFolder->tmhv_duongdan }}" name="fo_dir">
-                            {{-- <div class="file-loading"> --}}
-                            <label class="Tải file" for="input-res">Tải file
-                            </label>
-                            <input id="input-res" name="file[]" type="file" style="display: none">
-                            {{-- </div> --}}
                         </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary" id="uploadImage">Upload</button>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" id="uploadImage">Tải lên</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -125,9 +125,9 @@ Cộng đồng gia sư
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    <form action="{{ route('document.student.createFolder') }}" method="POST">
-                        @csrf
+                <form action="{{ route('document.student.createFolder') }}" method="POST">
+                    @csrf
+                    <div class="modal-body">
 
                         <input name="mathumuchientai" type="hidden" value="{{$findFolder->tmhv_id}}">
                         <input name="duongdan" type="hidden" value="{{$findFolder->tmhv_duongdan}}">
@@ -137,26 +137,18 @@ Cộng đồng gia sư
                                 placeholder="Nhập tên thư mục cần tạo . . ">
 
                         </div>
+                    </div>
+                    <div class="modal-footer">
                         <button type="submit" class="btn btn-primary">Tạo</button>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                </div>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 </div>
 <br>
 @endsection
-
 @push('script')
 @include('client.pages.account.student.docs.script')
-<script>
-    (function($) {
-    $('input[type="file"]').bind('change', function() {
-      $("#img_text").html($('input[type="file"]').val());
-    });
-  })
-</script>
 @endpush
