@@ -43,7 +43,7 @@
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                             <input type="hidden" name="lesson" id="lessonUpload">
                             <div class="file-loading">
-                                <input id="input-res-1" name="file[]" type="file" multiple data-min-file-count="2"
+                                <input class="input-res-1" name="file[]" type="file" multiple data-min-file-count="2"
                                     accept="video/mp4,video/x-m4v,video/*">
                             </div>
                         </div>
@@ -108,3 +108,7 @@
     </div>
     @include('client.pages.class.file')
 </div>
+@push('script')
+
+@include('client.pages.class.script')
+@endpush
