@@ -26,27 +26,42 @@ class PageController extends Controller
             ->count();
         $tutor = Giasu::where('gs_id', $lop->gs_id)->first();
 
-        $lesson = \DB::table('chuong')
-            ->where('chuong.l_id', $lop->l_id)
-            ->get();
+        $tmlop = \DB::table('thumuclop')
+            ->where('l_id', $id)
+            ->where('tml_tmid', null)
+            ->first();
+        $folder = [];
+        $countFilde = 0;
+        if ($tmlop) {
+
+            $folder = \DB::table('thumuclop')
+                ->where('l_id', $id)
+                ->where('tml_tmid', $tmlop->tml_id)
+                ->get();
+            foreach ($folder as $key => $value) {
+                $value->taptin = \DB::table('taptinlop')->where('tml_id', $value->tml_id)->get();
+                if ($value->taptin->isNotEmpty()) {
+                    foreach ($value->taptin as $key2 => $value2) {
+                        $value2->ttl_kichthuoc = $this->formatSize($value2->ttl_kichthuoc);
+                    }
+                    $countFilde += count($value->taptin);
+                }
+            }
+        }
         $temp = 0;
         $minute = 0;
         $second = 0;
-        foreach ($lesson as $item) {
-            $video = \DB::table('video')
-                ->where('video.c_id', $item->c_id)
-                ->get();
-            $item->video = $video;
+        $video = \DB::table('video')
+            ->where('video.l_id', $id)
+            ->get();
 
-            foreach ($video as $key => $value) {
-                $arr = (explode(':', $value->v_dodai));
-                $second += (int) $arr[0] * 60;
-                $second += (int) $arr[1];
+        foreach ($video as $key => $value) {
+            $arr = (explode(':', $value->v_dodai));
+            $second += (int) $arr[0] * 60;
+            $second += (int) $arr[1];
 
-            }
-
-            $temp += count($video);
         }
+        $temp += count($video);
 
         $danhgia = \DB::table('danhgia')
             ->join('hocvien', 'hocvien.hv_id', 'danhgia.hv_id')
@@ -115,7 +130,7 @@ class PageController extends Controller
         $tutor->danhgia = $this->getRatingGS($tutor->gs_id);
         $tutor->lopDaDay = $this->getClassTeached($tutor->gs_id);
         $suggestion = $this->suggestionClass($id, $tutor->gs_id);
-        return view('client.pages.class.intro', compact('lop', 'tutor', 'countHV', 'lesson', 'minute', 'second', 'countVideo', 'suggestion', 'danhgia'));
+        return view('client.pages.class.intro', compact('lop', 'folder', 'countFilde', 'video', 'tutor', 'countHV', 'minute', 'second', 'countVideo', 'suggestion', 'danhgia'));
     }
     public function suggestionClass($id, $gs_id)
     {

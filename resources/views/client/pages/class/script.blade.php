@@ -25,13 +25,11 @@
 <!-- optionally if you need a theme like font awesome theme you can include it as mentioned below -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.1.1/themes/fa/theme.js"></script>
 <!-- optionally if you need translation for your language then include  locale file as mentioned below -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.1.1/js/locales/vi.js"></script>
 
 <script>
     $(document).ready(function() {
         // console.log("loi roi");
         $(".input-res-1").fileinput({
-            language: "vi-VI",
             uploadUrl: "{{ route('document.tutor.upload') }}",
             enableResumableUpload: true,
             initialPreviewAsData: true,
@@ -53,14 +51,13 @@
         });
 
         $('.file-drop-zone-title').text('Kéo & thả file vào đây');
-        $('.btn btn-default btn-secondary fileinput-remove fileinput-remove-button').text('Chọn xa');
+        $('.file-caption-name').attr('placeholder','Chọn file tải lên');
+        $('.close fileinput-remove').attr('style','display: none;');
         $('.btn-file > .hidden-xs').text('Chọn file');
         $('.fileinput-remove > .hidden-xs').text('Xoá');
         $('.kv-file-remove>.glyphicon glyphicon-trash').remove();
         $('.kv-file-remove').html('<i class="fa fa-trash-o" aria-hidden="true"></i>');
         $('.fileinput-upload').remove();
-        $('.file-caption-name').attr('placeholder','Chọn file tải lên');
-        $('.close fileinput-remove').attr('style','display: none;');
     });
 
 </script>
@@ -70,16 +67,73 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.ui.position.js"></script>
 <script>
     $(document).ready(function () {
+        
         $.contextMenu({
-            selector: '.right-click',
+            selector: '.right-click-file',
             callback: function(key, options) {
                 var id = $(this).data('id');
                 if(key == "delete") {
-                    const del = confirm("Bạn có muốn xóa thư mục này ?");
+                    const del = confirm("Bạn có muốn xóa tập tin này ?");
                     if(del == true){
                         $.ajax({
                             type: "GET",
-                            url: "{{route('document.tutor.delete')}}",
+                            url: "{{route('tutor.class.deleteFile')}}",
+                            data: {id:id},
+                            dataType: "json",
+                            success: function (response) {
+                                location.reload();
+                            },
+                            
+                        });
+                    }
+                    else{
+
+                    }
+
+                }
+            },
+            items: {
+                "delete": {name: "Xóa"},
+            }
+        });
+        
+        $.contextMenu({
+            selector: '.right-click-video',
+            callback: function(key, options) {
+                var id = $(this).data('id');
+                if(key == "delete") {
+                    const del = confirm("Bạn có muốn xóa video này ?");
+                    if(del == true){
+                        $.ajax({
+                            type: "GET",
+                            url: "{!!route('tutor.class.deleteVideoClass')!!}",
+                            data: {id:id},
+                            dataType: "json",
+                            success: function (response) {
+                                location.reload();
+                            }
+                        });
+                    }
+                    else{
+
+                    }
+
+                }
+            },
+            items: {
+                "delete": {name: "Xóa"},
+            }
+        });
+        $.contextMenu({
+            selector: '.right-click-folder',
+            callback: function(key, options) {
+                var id = $(this).data('id');
+                if(key == "delete") {
+                    const del = confirm("Bạn có muốn xóa chương này ?");
+                    if(del == true){
+                        $.ajax({
+                            type: "GET",
+                            url: "{!!route('tutor.class.deleteFolderClass')!!}",
                             data: {id:id},
                             dataType: "json",
                             success: function (response) {

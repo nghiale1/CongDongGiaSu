@@ -141,7 +141,32 @@ Công nghệ thông tin / {{$lop->l_ten}}
             </div>
             <br>
 
-            @include('client.pages.class.video')
+            <div class="white padding" id="curriculum">
+                <div class="title">
+                    Giáo trình
+                </div>
+                <div class="curriculum-overview">
+                    <div class="curriculum-type">
+                        Thể loại: <span>CNTT</span>
+                    </div>
+                    <div class="curriculum-lessons">
+                        <div class="curriculum-lessons-number">
+                            Số bài: <span>{{$countVideo}}</span>
+                        </div>
+                        <div class="curriculum-time">
+                            Thời lượng: <span>{{$minute}}:{{$second}}</span>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div id="scrollIntoView"></div>
+                <div id="video"></div>
+
+                @include('client.pages.class.video')
+                @include('client.pages.class.file')
+            </div>
             <br>
             <div class="white padding" id="teacher">
                 <div class="row">
@@ -163,6 +188,7 @@ Công nghệ thông tin / {{$lop->l_ten}}
 @endsection
 
 @push('script')
+@include('client.pages.class.script')
 <script>
     $(document).ready(function () {
         $('.curriculum').click(function (e) { 
@@ -230,7 +256,9 @@ Công nghệ thông tin / {{$lop->l_ten}}
                 
                 $('#video').html(data);
                 // cuộn màn hình video
-                $('#scrollIntoView').scrollIntoView();
+                $('html, body').animate({
+                    scrollTop: $("#video").offset().top-70
+                }, 1000);
         });
     });
 </script>

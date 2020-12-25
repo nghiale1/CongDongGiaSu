@@ -379,26 +379,28 @@ class TutorController extends Controller
                 ->where('c_id', $request->lesson)
                 ->first();
             if ($request->hasFile('file')) {
-                //lưu file
-                $name = $request->file('file')->getClientOriginalName();
-                $type = $request->file('file')->getClientOriginalExtension();
-                // dd($request->file)
-                // dd($name);
-                $path = '/video/' . $gs->gs_id . '/' . $request->lesson . '/';
-                $request->file('file')->move(
-                    public_path($path), //nơi cần lưu
-                    $name);
-                $getID3 = new \getID3;
-                // dd(realpath(public_path(($path.''.$name))));
-                $duration = $getID3->analyze(realpath(public_path($path . '' . $name)))['playtime_string'];
+                foreach ($request->file('file') as $key => $value) {
+                    //lưu file
+                    $name = $value->getClientOriginalName();
+                    $type = $value->getClientOriginalExtension();
+                    // dd($request->file)
+                    // dd($name);
+                    $path = '/video/' . $gs->gs_id . '/' . $request->lesson . '/';
+                    $value->move(
+                        public_path($path), //nơi cần lưu
+                        $name);
+                    $getID3 = new \getID3;
+                    // dd(realpath(public_path(($path.''.$name))));
+                    $duration = $getID3->analyze(realpath(public_path($path . '' . $name)))['playtime_string'];
 
-                \DB::table('video')->insert([
-                    'v_duongdan' => '/video/' . $gs->gs_id . '/' . $request->lesson . '/' . $name,
-                    'v_ten' => $name,
-                    'v_dodai' => $duration,
-                    'v_theloai' => $type,
-                    'c_id' => $request->lesson,
-                ]);
+                    \DB::table('video')->insert([
+                        'v_duongdan' => '/video/' . $gs->gs_id . '/' . $request->lesson . '/' . $name,
+                        'v_ten' => $name,
+                        'v_dodai' => $duration,
+                        'v_theloai' => $type,
+                        'c_id' => $request->lesson,
+                    ]);
+                }
             }
             \DB::commit();
             return redirect()->route('course.intro', $request->lesson);

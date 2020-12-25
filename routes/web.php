@@ -36,6 +36,11 @@ Route::group(['middleware' => ['giaSu']], function () {
     Route::post('/cap-nhat-mo-ta-khoa-hoc', 'TutorController@updateCourseDescription')->name('updateCourseDescription');
     Route::post('/cap-nhat-gioi-thieu-khoa-hoc', 'TutorController@updateCourseIntro')->name('updateCourseIntro');
     Route::post('/them-video', 'TutorController@uploadVideo')->name('uploadVideo');
+    Route::post('/them-chuong-moi', 'DocumentTutorController@createFolderClass')->name('tutor.class.createFolder');
+    Route::post('/them-tap-tin', 'DocumentTutorController@createFileClass')->name('tutor.class.createFile');
+    Route::get('/xoa-tap-tin', 'DocumentTutorController@deleteFileClass')->name('tutor.class.deleteFile');
+    Route::get('/xoa-tap-video', 'DocumentTutorController@deleteVideoClass')->name('tutor.class.deleteVideoClass');
+    Route::get('/xoa-chương', 'DocumentTutorController@deleteFolderClass')->name('tutor.class.deleteFolderClass');
 
     Route::group(['prefix' => '/tai-lieu-gia-su'], function () {
         Route::get('/tai-lieu/{id}', 'DocumentTutorController@index')->name('document.tutor.index');
