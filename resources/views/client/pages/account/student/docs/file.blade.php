@@ -40,62 +40,65 @@ Cộng đồng gia sư
 @section('content')
 <br>
 <div class="container">
-    <div class="row">
-        <p style="border-top: 2px solid blue;"></p>
+    <div class="white p-4">
 
-        <div class="col-md-12">
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal1">
-                Tải tệp lên
-            </button>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal2">
-                Tạo thư mục
-            </button>
-            <br>
-            <br>
-        </div>
-    </div>
-
-
-    <div class="col-md-12" style="padding-left: 0px;">
         <div class="row">
-            @if (count($folder) > 0)
-            @foreach ($folder as $item)
-            @include('client.pages.account.student.docs.folder')
-            @endforeach
-            @else
-            <div class="col-md-3">
-                <div class="folder">
-                    <h5></h5>
-                </div>
-            </div>
-            @endif
-            <br>
-            <br>
+            <p style="border-top: 2px solid blue;"></p>
 
             <div class="col-md-12">
-                <hr>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal1">
+                    Tải tệp lên
+                </button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal2">
+                    Tạo thư mục
+                </button>
+                <br>
+                <br>
             </div>
-            @if (count($file) != null)
-            @foreach ($file as $item)
-            <div class="col-md-3">
-                <a href="{{asset($item->tthv_duongdan)}}" class="btn btn-outline-info file" style="width: 100%;"
-                    id="right-click" data-id="{{ $item->tthv_id }}" download>
-                    <h5 style="font-size: 10px;">
-                        <i class="fa fa-folder" aria-hidden="true"></i> {{$item->tthv_ten}}
-                    </h5>
-                </a>
-            </div>
-            @endforeach
-            @else
-            <div class="col-md-3">
-                <div class="folder">
-                    <h5></h5>
-                </div>
-            </div>
-            @endif
         </div>
 
+
+        <div class="col-md-12" style="padding-left: 0px;">
+            <div class="row">
+                @if (count($folder) > 0)
+                @foreach ($folder as $item)
+                @include('client.pages.account.student.docs.folder')
+                @endforeach
+                @else
+                <div class="col-md-3">
+                    <div class="folder">
+                        <h5></h5>
+                    </div>
+                </div>
+                @endif
+                <br>
+                <br>
+
+                <div class="col-md-12">
+                    <hr>
+                </div>
+                @if (count($file) != null)
+                @foreach ($file as $item)
+                <div class="col-md-3">
+                    <a href="{{asset($item->tthv_duongdan)}}" class="btn btn-outline-info file" style="width: 100%;"
+                        id="right-click" data-id="{{ $item->tthv_id }}" download>
+                        <h5 style="font-size: 10px;">
+                            <i class="fa fa-folder" aria-hidden="true"></i> {{$item->tthv_ten}}
+                        </h5>
+                    </a>
+                </div>
+                @endforeach
+                @else
+                <div class="col-md-3">
+                    <div class="folder">
+                        <h5></h5>
+                    </div>
+                </div>
+                @endif
+            </div>
+
+        </div>
     </div>
     <!-- Modal Upload file-->
     <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"

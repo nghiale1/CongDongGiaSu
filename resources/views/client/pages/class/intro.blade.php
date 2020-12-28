@@ -262,14 +262,5 @@ Công nghệ thông tin / {{$lop->l_ten}}
         });
     });
 </script>
-<script>
-    $(document).ready(function () {
-        $('.btnUploadVideo').click(function (e) { 
-            e.preventDefault();
-            let lesson=$(this).attr('data-lesson');
-            $('#lessonUpload').val(lesson);
-        });
-    });
-</script>
 
 @endpush

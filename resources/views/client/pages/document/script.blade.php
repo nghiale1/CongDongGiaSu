@@ -53,6 +53,11 @@
         $('.file-drop-zone-title').text('Kéo & thả file vào đây');
         $('.file-caption-name').attr('placeholder','Chọn file tải lên');
         $('.close fileinput-remove').attr('style','display: none;');
+        $('.btn-file > .hidden-xs').text('Chọn file');
+        $('.fileinput-remove > .hidden-xs').text('Xoá');
+        $('.kv-file-remove>.glyphicon glyphicon-trash').remove();
+        $('.kv-file-remove').html('<i class="fa fa-trash-o" aria-hidden="true"></i>');
+        $('.fileinput-upload').remove();
     });
 
 </script>

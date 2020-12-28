@@ -369,14 +369,11 @@ class TutorController extends Controller
     }
     public function uploadVideo(Request $request)
     {
-
-        // dd($request);
         DB::beginTransaction();
         try {
             $gs = \DB::table('giasu')
                 ->join('lop', 'lop.gs_id', 'giasu.gs_id')
-                ->join('chuong', 'chuong.l_id', 'lop.l_id')
-                ->where('c_id', $request->lesson)
+                ->where('lop.l_id', $request->lop)
                 ->first();
             if ($request->hasFile('file')) {
                 foreach ($request->file('file') as $key => $value) {
@@ -398,12 +395,13 @@ class TutorController extends Controller
                         'v_ten' => $name,
                         'v_dodai' => $duration,
                         'v_theloai' => $type,
-                        'c_id' => $request->lesson,
+                        'l_id' => $request->lop,
                     ]);
                 }
             }
             \DB::commit();
-            return redirect()->route('course.intro', $request->lesson);
+            return redirect()->back()->with('success', 'Tải lên video thành công');
+            // return redirect()->route('course.intro', $request->lesson);
         } catch (\Exception $e) {
             \DB::rollback();
             throw $e;

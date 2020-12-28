@@ -152,27 +152,22 @@ class PageController extends Controller
     }
     public function getDuration($l_id)
     {
-        $lesson = \DB::table('chuong')
-            ->where('chuong.l_id', $l_id)
-            ->get();
         $temp = 0;
         $minute = 0;
         $second = 0;
-        foreach ($lesson as $item) {
-            $video = \DB::table('video')
-                ->where('video.c_id', $item->c_id)
-                ->get();
-            $item->video = $video;
+        $video = \DB::table('video')
+            ->where('video.l_id', $l_id)
+            ->get();
 
-            foreach ($video as $key => $value) {
-                $arr = (explode(':', $value->v_dodai));
-                $second += (int) $arr[0] * 60;
-                $second += (int) $arr[1];
+        foreach ($video as $key => $value) {
+            $arr = (explode(':', $value->v_dodai));
+            $second += (int) $arr[0] * 60;
+            $second += (int) $arr[1];
 
-            }
-
-            $temp += count($video);
         }
+
+        $temp += count($video);
+
         $countVideo = $temp;
         $minute = round($second / 60, 0, PHP_ROUND_HALF_DOWN);
         $second = $second % 60;

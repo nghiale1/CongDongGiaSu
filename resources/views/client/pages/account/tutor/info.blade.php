@@ -133,13 +133,11 @@
                         url: "{!!route('changeIntro')!!}",
                         data: {data:data},
                         success: function (response) {
-                            console.log(response);
                             let dataNew=data;
                             $(elem).show();
                             $('.'+obj).html(dataNew);
                         },
                         error:function (e) {
-                            console.log(e);
                         }
                     });
                 });
@@ -157,13 +155,11 @@
                         url: "{!!route('changeDes')!!}",
                         data: {data:data},
                         success: function (response) {
-                            console.log(response);
                             let dataNew=data;
                             $(elem).show();
                             $('.'+obj).html(dataNew);
                         },
                         error:function (e) {
-                            console.log(e);
                         }
                     });
                 });
@@ -209,7 +205,6 @@
                         url: "{!!route('changeAddress')!!}",
                         data: {data:data},
                         success: function (response) {
-                            console.log(response);
                             let dataNew=data;
                             $('.address').show();
                             $('.address').html(data);
@@ -221,7 +216,6 @@
                             $('.'+obj).html(dataNew);
                         },
                         error:function (e) {
-                            console.log(e);
                         }
                     });
                 });

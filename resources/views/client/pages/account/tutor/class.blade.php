@@ -155,7 +155,6 @@ Trang cá nhân / Thêm lớp
         e.preventDefault();
         let type=$(this).attr('data-type');
         let id=$(this).attr('data-id');
-        console.log(type);
         if(type=='free' || type=='busy'){
             $(this).attr('data-type', 'new');
             $(this).addClass('choice');

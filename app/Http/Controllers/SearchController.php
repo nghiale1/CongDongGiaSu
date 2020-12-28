@@ -39,27 +39,116 @@ class SearchController extends Controller
     }
     public function match(Request $request)
     {
+        $tutor = Lop::query();
+        $chuyen_mon = $request->chuyen_mon;
+        $ngay_thu = $request->ngay_thu;
+        $keySearch['gender'] = "";
+        $keySearch['sort'] = 1;
+        $keySearch['voice'] = ['Bắc', 'Trung', 'Nam'];
+        $keySearch['schedule'] = [];
+        $keySearch['level'] = [];
         $find = \DB::table('chitietlichday as ld')
             ->join('giasu as gs', 'gs.gs_id', 'ld.gs_id')
             ->join('chitietchuyenmon as cm', 'cm.gs_id', 'gs.gs_id')
             ->select('gs.gs_id')
-            ->where('cm_id', $request->chuyen_mon)
+            ->where('cm_id', $chuyen_mon)
         // ->where('dtnh_id',$request->dtnh)
-            ->wherein('ld.tgd_id', $request->ngay_thu)
+            ->wherein('ld.tgd_id', $ngay_thu)
             ->where('ld.ctld_trangthai', 'Ranh')
             ->groupby('gs.gs_id')
             ->get();
-        $tutor = [];
+        dd($find);
         if ($find->isNotEmpty()) {
-            foreach ($find as $key => $value) {
-                $tutor[$key] = \DB::table('giasu')
-                    ->where('gs_id', $value->gs_id)->first();
-                $tutor[$key]->descrip = \Str::limit($tutor[$key]->gs_gioithieu, 200, ' (...)');
-                $tutor[$key]->danhgia = $this->getRatingGS($value->gs_id);
-                $tutor[$key]->lopDaDay = $this->getClassTeached($value->gs_id);
+            $tutor = $tutor
+                ->whereIn('gs_id', $find->gs_id)
+                ->get();
+
+            if ($request->voice) {
+                $tutor = $tutor->whereIn('gs_giongnoi', $request->voice);
+                $keySearch['voice'] = $request->voice;
             }
+            // thứ dạy
+            if ($request->schedule) {
+                foreach ($request->schedule as $key => $value) {
+                    $keySearch['schedule'][$key] = intval($value);
+                }
+                foreach ($keySearch['schedule'] as $key => $value) {
+                    foreach ($tutor as $key2 => $value2) {
+                        $f = \DB::table('loptgd')
+                            ->where('l_id', $value2->l_id)
+                            ->where('loptgd.tgd_id', $value)
+                            ->first();
+                        if (!$f) {
+                            unset($tutor[$key2]);
+                        }
+                    }
+                }
+            }
+            // lưu ý
+            if ($request->level) {
+                if ($request->level != 19) {
+
+                    foreach ($tutor as $key2 => $value2) {
+                        $f = \DB::table('chitietchuyenmon')
+                            ->where('gs_id', $value2->gs_id)
+                            ->where('dtnh_id', $request->level)
+                            ->first();
+                        if (!$f) {
+                            unset($tutor[$key2]);
+                        }
+                    }
+                }
+                $keySearch['level'] = $request->level;
+            }
+            if ($request->gender) {
+                $tutor = $tutor->where('gs_gioitinh', $request->gender);
+                $keySearch['gender'] = $request->gender;
+            }
+
+            foreach ($tutor as $key => $value) {
+                $value->descrip = \Str::limit($value->gs_gioithieu, 200, ' (...)');
+                $value->danhgia = $this->getRatingGS($value->gs_id);
+                $value->lopDaDay = $this->getClassTeached($value->gs_id);
+            }
+            // dd($tutor);
+            if ($request->sort) {
+                switch ($request->sort) {
+                    // phù hợp
+                    case '1':
+                        $tutor = $tutor->sortBy(function ($item) {
+                            return $item->gs_hoten;
+                        })->values();
+                        break;
+                    //thấp tới cao
+                    case '2':
+                        $tutor = $tutor->sortBy(function ($item) {
+                            return $item->gs_mucluong;
+                        })->values();
+                        break;
+                    // cao tới thấp
+                    case '3':
+                        $tutor = $tutor->sortByDesc(function ($item) {
+                            return $item->gs_mucluong;
+                        })->values();
+                        break;
+                    // đánh giá
+                    case '4':
+                        $tutor = $tutor->sortBy(function ($item) {
+                            return $item->danhgia['dem']['trungbinh'];
+                        })->values();
+
+                        break;
+
+                    default:
+                        $keySearch['sort'] = $request->sort;
+                        break;
+                }
+                $keySearch['sort'] = $request->sort;
+            }
+        } else {
+            $tutor = [];
         }
-        return view('client.pages.class.list_class', \compact('tutor', 'keySearch'));
+        return view('client.pages.class.list_class', \compact('tutor', 'chuyen_mon', 'ngay_thu', 'keySearch'));
 
     }
     public function search(Request $request)

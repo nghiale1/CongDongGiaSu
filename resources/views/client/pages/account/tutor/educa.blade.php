@@ -86,14 +86,12 @@
                     url: "{!!route('addSchool')!!}",
                     data: {school:school,title:title,from:from,to:to},
                     success: function (response) {
-                        console.log(response);
                         let content='<h6 class="school-name">'+school+' </h6> <span class="float-right">'+from+'-'+to+'</span> <p> '+title+' </p><br>';
                         // content+='<button type="button" class="btn edit" data-toggle="modal" data-target="#addPlace">Thêm</button>';
                         $('.edu').append(content);
                         $(".close").click();
                     },
                     error:function (e) {
-                        console.log(e);
                     }
                 });
                 

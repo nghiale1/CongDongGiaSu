@@ -29,7 +29,8 @@
 
         html,
         body {
-            background-image: url('/hand-read-board-underwater-blackboard-training-797673-pxhere.com.jpg');
+            background-image: url("{{ asset('hand-read-board-underwater-blackboard-training-797673-pxhere.com.jpg') }}");
+
             /* background-image: url('http://getwallpapers.com/wallpaper/full/a/5/d/544750.jpg'); */
             background-size: cover;
             background-repeat: no-repeat;
@@ -212,7 +213,6 @@
     $('#error').show();
     }
     else{
-    console.log(e);
     $('#error').text(e.responseJSON);
     $('#error').show();
     }

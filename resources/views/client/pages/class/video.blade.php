@@ -1,7 +1,6 @@
 @if(\Auth::check())
 @if(\Auth::user()->kiemTraLopHoc($lop->l_id))
 
-
 <!-- Modal Upload file-->
 <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
@@ -14,10 +13,11 @@
                 </button>
             </div>
             <form action="{{route('uploadVideo')}}" enctype="multipart/form-data" method="POST">
+                @csrf
                 <div class="modal-body">
                     <div class="form-group">
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                        <input type="hidden" name="lesson" id="lessonUpload">
+
+                        <input type="hidden" name="lop" value="{{$lop->l_id}}">
                         <div class="file-loading">
                             <input class="input-res-1" name="file[]" type="file" multiple data-min-file-count="2"
                                 accept="video/mp4,video/x-m4v,video/*">

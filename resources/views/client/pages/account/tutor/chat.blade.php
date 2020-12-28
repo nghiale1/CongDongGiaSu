@@ -335,7 +335,6 @@
                 data: params,
                 dataType: "json",
                 success: function (response) {
-                    console.log(response);
                 if (snapshot.val().chatId==response.chatId) {
                 var html="";
                 if(snapshot.val().senderId == ID){

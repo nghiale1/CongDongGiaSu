@@ -303,8 +303,6 @@
                     window.location = "{{ route('account.login_view') }}"
     },
     error: function(e) {
-    console.log(e);
-    console.log(e.responseJSON.message);
     if(e.responseJSON.message!=undefined){
 
         $('#error').text(e.responseJSON.message);
