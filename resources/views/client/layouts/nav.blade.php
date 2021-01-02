@@ -82,6 +82,13 @@
                                 </div>
                                 Lớp dạy
                             </a>
+                            <a class="dropdown-item pb-1" href="">
+                                <div class="dropdown-icon">
+
+                                    <i class="fa fa-credit-card" aria-hidden="true"></i>
+                                </div>
+                                Rút tiền
+                            </a>
                             <a class="dropdown-item pb-1" href="{{route('account.logout')}}">
                                 <div class="dropdown-icon">
                                     <i class="fa fa-sign-out" aria-hidden="true"></i>
@@ -90,7 +97,7 @@
                             </a>
                         </div>
                     </li>
-                    <?php else: ?>
+                    <?php elseif (\Auth::user()->hasRole('HocVien')):  ?>
                     <li class="btn-group my-2 my-lg-0 accounts">
                         <a class=" dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false"> {{\Auth::user()->hocviens[0]->hv_hoten}} <i class="fa fa-caret-down"
@@ -136,7 +143,7 @@
 
                                     <i class="fa fa-graduation-cap" aria-hidden="true"></i>
                                 </div>
-                                Lớp dạy
+                                Lớp học
                             </a>
                             <a class="dropdown-item pb-1" href="{{route('account.logout')}}">
                                 <div class="dropdown-icon">

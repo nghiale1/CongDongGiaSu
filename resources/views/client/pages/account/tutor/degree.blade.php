@@ -4,7 +4,7 @@
 </style>
 @endpush
 <div class="row">
-    <div class="col-md-3">Bằng cấp</div>
+    <div class="col-md-3">Chứng chỉ, chứng nhận</div>
     <div class="col-md-9">
         <div class="cont">
 

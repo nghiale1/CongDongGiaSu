@@ -109,7 +109,7 @@ function initMap() {
             function(response, status) {
               if (status === "OK") {
                 // console.log(response);
-                directionsRenderer = new google.maps.DirectionsRenderer({
+                var directionsRenderer = new google.maps.DirectionsRenderer({
                   directions:response,
                   map:map
                 });

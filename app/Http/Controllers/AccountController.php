@@ -21,7 +21,22 @@ class AccountController extends Controller
             $remember = false;
         }
         if (Auth::attempt($arr, $remember)) {
-            return redirect()->route('home');
+            $role = \DB::table('taikhoan')
+                ->join('giasu', 'giasu.tk_id', 'taikhoan.tk_id')
+                ->where('username', $arr['username'])->first();
+
+            if ($role->tk_quyen == 'HocVien') {
+
+                return redirect()->route('home');
+            }
+            if ($role->tk_quyen == 'GiaSu') {
+
+                return redirect()->route('tutor.profile', $role->gs_id);
+            }
+            if ($role->tk_quyen == 'Admin') {
+
+                return redirect()->route('dashboard.index');
+            }
 
         } else {
             $alert = "Sai tên tài khoản hoặc mật khẩu";
@@ -51,7 +66,7 @@ class AccountController extends Controller
                 if ($request->role == 'tutor') {
                     $id_tk = \DB::table('taikhoan')->insertGetId([
                         'username' => $request->username,
-                        'password' => $request->password,
+                        'password' => \Hash::make($request->password),
                         'tk_quyen' => 'GiaSu',
                     ]);
                     $gs = new Giasu;

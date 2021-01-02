@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-md-3">Giáo dục</div>
+    <div class="col-md-3">Trình độ</div>
     <div class="col-md-9">
         <div class="edu">
             @if ($school!=null)

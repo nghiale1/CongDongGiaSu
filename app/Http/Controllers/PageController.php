@@ -13,8 +13,8 @@ class PageController extends Controller
 {
     public function index()
     {
-        $linhvuc = \DB::table('linhvuc')->get();
-        return view('client.pages.index', compact('linhvuc'));
+        $chuyenmon = \DB::table('chuyenmon')->get();
+        return view('client.pages.index', compact('chuyenmon'));
     }
 
     public function course($id)
@@ -202,6 +202,9 @@ class PageController extends Controller
                 'mot' => 0,
             ],
         ];
+        if ($danhgia->isNotEmpty()) {
+
+        }
         foreach ($danhgia as $key => $value) {
             switch ($value->dg_xephang) {
                 case 1:
@@ -225,14 +228,14 @@ class PageController extends Controller
                     $dem['dem']['nam']++;
                     break;
             }
-        }
-        $dem['dem']['trungbinh'] = (($dem['dem']['mot'] * 1) + ($dem['dem']['hai'] * 2) + ($dem['dem']['ba'] * 3) + ($dem['dem']['bon'] * 4) + ($dem['dem']['nam'] * 5)) / $dem['tong'];
+            $dem['dem']['trungbinh'] = (($dem['dem']['mot'] * 1) + ($dem['dem']['hai'] * 2) + ($dem['dem']['ba'] * 3) + ($dem['dem']['bon'] * 4) + ($dem['dem']['nam'] * 5)) / $dem['tong'];
 
-        $dem['phantram']['nam'] = $dem['dem']['mot'] * 100 / $dem['tong'];
-        $dem['phantram']['bon'] = $dem['dem']['bon'] * 100 / $dem['tong'];
-        $dem['phantram']['ba'] = $dem['dem']['ba'] * 100 / $dem['tong'];
-        $dem['phantram']['hai'] = $dem['dem']['hai'] * 100 / $dem['tong'];
-        $dem['phantram']['mot'] = $dem['dem']['mot'] * 100 / $dem['tong'];
+            $dem['phantram']['nam'] = $dem['dem']['mot'] * 100 / $dem['tong'];
+            $dem['phantram']['bon'] = $dem['dem']['bon'] * 100 / $dem['tong'];
+            $dem['phantram']['ba'] = $dem['dem']['ba'] * 100 / $dem['tong'];
+            $dem['phantram']['hai'] = $dem['dem']['hai'] * 100 / $dem['tong'];
+            $dem['phantram']['mot'] = $dem['dem']['mot'] * 100 / $dem['tong'];
+        }
 
         return $dem;
 
@@ -271,6 +274,7 @@ class PageController extends Controller
                 ->get();
             $value->lop = $lop;
         }
+        $tutor->danhgia = $this->getRatingGS($tutor->gs_id);
 
         $loca = \json_encode(\DB::table('giasu')->get());
         // dd($tutor->chitietlichdays);

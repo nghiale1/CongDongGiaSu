@@ -1,5 +1,4 @@
 <?php
-Route::view('/a', 'admin.pages.index');
 Route::view('/about', 'client.pages.about');
 Route::view('/contact', 'client.pages.contact');
 Route::view('/dang-nhap', 'client.pages.account.login')->name('account.login_view');
@@ -22,6 +21,7 @@ Route::group(['middleware' => ['hocVien']], function () {
     Route::get('/gia-su-gan-ban', 'StudentController@tutorNear')->name('student.tutorNear');
 
     Route::get('/goi-y-khoa-hoc', 'CourseController@suggestion')->name('course.suggestion');
+    Route::post('bao-cao', 'CourseController@report')->name('course.report');
     Route::get('/gia-su-yeu-thich', 'StudentController@wishlist')->name('student.wishlist');
 });
 
@@ -70,8 +70,8 @@ Route::group(['prefix' => ''], function () {
     //ajax linh vuc
     Route::get('/lay-linh-vuc', 'SearchController@get_linhvuc')->name('search.get_linhvuc');
     Route::get('/buoc-1/chuyen-mon', 'SearchController@step1')->name('search.step1');
-    Route::get('/buoc-2/doi-tuong-nguoi-hoc', 'SearchController@step2')->name('search.step2');
-    Route::get('/buoc-3/thoi-gian-day', 'SearchController@step3')->name('search.step3');
+    Route::get('/buoc-1/doi-tuong-nguoi-hoc', 'SearchController@step2')->name('search.step2');
+    Route::get('/buoc-2/thoi-gian-day', 'SearchController@step3')->name('search.step3');
     Route::get('/tim-khoa-hoc', 'SearchController@match')->name('search.match');
 
     Route::get('/tim-kiem', 'SearchController@search')->name('search');
@@ -92,6 +92,8 @@ Route::group(['prefix' => ''], function () {
 Route::group(['middleware' => ['admin']], function () {
 
     Route::group(['prefix' => 'dashboard'], function () {
+        Route::get('/', 'AdminController@index')->name('dashboard.index');
+
         Route::group(['prefix' => 'gia-su'], function () {
         });
         Route::group(['prefix' => 'phu-huynh'], function () {
@@ -104,6 +106,13 @@ Route::group(['middleware' => ['admin']], function () {
         Route::group(['prefix' => 'lop-hoc'], function () {
         });
         Route::group(['prefix' => 'thong-ke'], function () {
+        });
+        Route::group(['prefix' => 'bao-cao'], function () {
+            Route::get('/chua-xu-ly', 'AdminController@newReport')->name('dashboard.newReport');
+            Route::get('/da-xu-ly', 'AdminController@report')->name('dashboard.report');
+            Route::get('/xoa-khoa-hoc/{l_id}', 'AdminController@removeCourse')->name('dashboard.removeCourse');
+            Route::get('/xoa-bao-cao/{bc_id}', 'AdminController@protectCourse')->name('dashboard.protectCourse');
+
         });
     });
 });

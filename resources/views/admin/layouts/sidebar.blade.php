@@ -31,6 +31,16 @@
             <li><a href=""><i class="fas fa-user-graduate"></i> <span>Học sinh</span></a></li>
             <li><a href=""><i class="fas fa-chalkboard-teacher"></i> <span>Gia sư</span></a></li>
             <li><a href=""><i class="fa fa-th"></i> <span>Lớp học</span></a></li>
+            {{-- report --}}
+            <li class="menu-list">
+                <a href="#"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                    <span>Báo cáo khoá
+                        học<i class="lnr lnr-chevron-right"></i></span></a>
+                <ul class="sub-menu-list">
+                    <li><a href="{{route('dashboard.newReport')}}">Báo cáo chưa xữ lý</a> </li>
+                    <li><a href="{{route('dashboard.report')}}">Báo cáo đã được xữ lý</a> </li>
+                </ul>
+            </li>
             <li class="menu-list">
                 <a href="#"><i class="fas fa-file-invoice"></i>
                     <span>Bản tin tìm gia sư<i class="lnr lnr-chevron-right"></i></span></a>
