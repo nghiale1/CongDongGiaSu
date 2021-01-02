@@ -29,7 +29,7 @@
 
         html,
         body {
-            background-image: url('/hand-read-board-underwater-blackboard-training-797673-pxhere.com.jpg');
+            background-image: url('./hand-read-board-underwater-blackboard-training-797673-pxhere.com.jpg');
             /* background-image: url('http://getwallpapers.com/wallpaper/full/a/5/d/544750.jpg'); */
             background-size: cover;
             background-repeat: no-repeat;
@@ -224,6 +224,39 @@
                             </select>
 
                         </div>
+                        <div class="cm">
+                            {{-- chuyenmon --}}
+                            <div class="input-group form-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-trophy"
+                                            aria-hidden="true"></i></span>
+                                </div>
+                                <select name="cm_id" id="cm_id" class="form-control" placeholder="Chuyên môn">
+                                    @foreach ($cm as $item)
+
+                                    <option value="{{$item->cm_id}}">@if ($item->lv_id)
+                                        {{$item->lv_ten}} -
+                                        @endif {{$item->cm_ten}}</option>
+                                    @endforeach
+                                </select>
+
+                            </div>
+                            {{-- dtnh --}}
+                            <div class="input-group form-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-graduation-cap"
+                                            aria-hidden="true"></i></span>
+                                </div>
+                                <select name="dtnh_id" id="dtnh_id" class="form-control"
+                                    placeholder="Đối tượng người học">
+                                    @foreach ($dtnh as $item)
+
+                                    <option value="{{$item->dtnh_id}}">{{$item->dtnh_ten}}</option>
+                                    @endforeach
+                                </select>
+
+                            </div>
+                        </div>
                         <div class="input-group form-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
@@ -265,11 +298,28 @@
 
     <script>
         $(document).ready(function() {
+            $(".chooseHide").click(function (e) { 
+                console.log('12');
+                e.preventDefault();
+            var role = $(this).attr('data-value');
+                console.log(role);
+            if(role=='tutor'){
+                $('.cm').removeClass('hide');
+            }
+            else{
+                $('.cm').removeClass('hide');
+                $('.cm').addClass('hide');
+
+            }
+                
+            });
         $('#signup').click(function(e) {
 
             e.preventDefault();
             var name = $("input[name='name']").val();
             var gender = $("#gender").val();
+            var cm_id = $("#cm_id").val();
+            var dtnh_id = $("#dtnh_id").val();
             var username = $("input[name='username']").val();
             var password = $("input[name='password']").val();
             var confirm = $("input[name='confirm']").val();
@@ -295,6 +345,8 @@
                     gender: gender,
                     username: username,
                     password: password,
+                    cm_id: cm_id,
+                    dtnh_id: dtnh_id,
                     confirm: confirm,
                     role: role
                 },

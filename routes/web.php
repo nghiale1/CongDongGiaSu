@@ -4,7 +4,7 @@ Route::view('/contact', 'client.pages.contact');
 Route::view('/dang-nhap', 'client.pages.account.login')->name('account.login_view');
 Route::post('/xu-ly-dang-nhap', 'AccountController@login')->name('account.login');
 Route::get('/dang-xuat', 'AccountController@logout')->name('account.logout');
-Route::view('/dang-ky', 'client.pages.account.register')->name('account.register');
+Route::get('/dang-ky', 'AccountController@register')->name('account.register');
 Route::post('/xet-dang-ky', 'AccountController@signup')->name('account.signup');
 
 Route::group(['middleware' => ['hocVien']], function () {

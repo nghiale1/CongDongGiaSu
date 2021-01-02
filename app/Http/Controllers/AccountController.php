@@ -50,7 +50,6 @@ class AccountController extends Controller
     }
     public function signup(Request $request)
     {
-        // dd($request);
         $arr = [
             'username' => $request->username,
             'password' => $request->password,
@@ -79,6 +78,31 @@ class AccountController extends Controller
                         $gs->gs_hinhdaidien = 'client/svg/teacher_female.svg';
                     }
                     $gs->save();
+                    $ctcm_id = \DB::table('chitietchuyenmon')->insertGetId([
+                        'gs_id' => $gs->gs_id,
+                        'cm_id' => $request->cm_id,
+                        'dtnh_id' => $request->dtnh_id,
+                    ]);
+                    $info = \DB::table('chitietchuyenmon')
+                        ->join('chuyenmon', 'chuyenmon.cm_id', 'chitietchuyenmon.cm_id')
+                        ->join('doituongnguoihoc', 'doituongnguoihoc.dtnh_id', 'chitietchuyenmon.dtnh_id')
+                        ->where('chitietchuyenmon.ctcm_id', $ctcm_id)
+                        ->first();
+                    \DB::table('thumucgs')->insert([
+                        'gs_id' => $gs->gs_id,
+                        'ctcm_id' => $ctcm_id,
+                        'tmgs_duongdancha' => 'tai-lieu-gia-su/' . $gs->gs_id,
+                        'tmgs_duongdan' => 'tai-lieu-gia-su/' . $gs->gs_id . '/' . \Str::slug($info->cm_ten . '-' . $info->dtnh_ten),
+                        'tmgs_slug' => \Str::slug($info->cm_ten . '-' . $info->dtnh_ten),
+                        'tmgs_ten' => $info->cm_ten . '-' . $info->dtnh_ten,
+                    ]);
+                    for ($i = 1; $i <= 21; $i++) {
+                        \DB::table('chitietlichday')->insert([
+                            'tgd_id' => $i,
+                            'ctld_trangthai' => 'Ranh',
+                            'gs_id' => $gs->gs_id,
+                        ]);
+                    }
                 } elseif ($request->role == 'student') {
                     $id_tk = \DB::table('taikhoan')->insertGetId([
                         'username' => $request->username,
@@ -113,13 +137,21 @@ class AccountController extends Controller
                 return redirect()->route('account.login_view');
             } catch (\Exception $e) {
                 \DB::rollback();
+                \Log::debug($e);
                 throw $e;
             } catch (\Throwable $e) {
                 \DB::rollback();
+                \Log::debug($e);
                 throw $e;
             }
 
             return response()->json('success', 200);
         }
+    }
+    public function register()
+    {
+        $cm = \DB::table('chuyenmon')->leftjoin('linhvuc', 'linhvuc.lv_id', 'chuyenmon.lv_id')->get();
+        $dtnh = \DB::table('doituongnguoihoc')->get();
+        return view('client.pages.account.register', compact('cm', 'dtnh'));
     }
 }
