@@ -138,6 +138,12 @@
         <a href="{{route('tutor.addClass')}}" class="btn btn-edit">Thêm khoá học</a>
         @endif
         @endif
+        <br>
+        <a class="btn btn-grey inline float-md-left save" href="{{route('listClass',$tutor->gs_id)}}">
+            <span style="font-weight: 600;">
+                Xem khoá học của gia
+                sư</span>
+        </a>
     </div>
 </div>
 @push('script')

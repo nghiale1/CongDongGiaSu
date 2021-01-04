@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class login
+class unLogin
 {
     /**
      * Handle an incoming request.
@@ -15,10 +15,12 @@ class login
      */
     public function handle($request, Closure $next)
     {
-        if (\Auth::check()) {
+        if (!\Auth::check()) {
+
             return $next($request);
         } else {
-            return redirect()->route('account.login_view');
+            return back();
         }
+
     }
 }

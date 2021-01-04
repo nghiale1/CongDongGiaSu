@@ -29,8 +29,10 @@ class AccountController extends Controller
                 return redirect()->route('home');
             }
             if ($role->tk_quyen == 'GiaSu') {
-
-                return redirect()->route('tutor.profile', $role->gs_id);
+                $route = \DB::table('taikhoan')
+                ->join('giasu','giasu.tk_id','taikhoan.tk_id')
+                ->where('username', $arr['username'])->first();
+                return redirect()->route('tutor.profile', $route->gs_id);
             }
             if ($role->tk_quyen == 'Admin') {
 

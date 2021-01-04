@@ -160,10 +160,13 @@
                             Tài khoản demo:
                         </div>
                         <div class="d-flex justify-content-left links">
-                            &nbsp;&nbsp;&nbsp;&nbsp;Gia sư: giasu1 - giasu
+                            &nbsp;&nbsp;&nbsp;&nbsp;Gia sư: giasu1-giasu
                         </div>
                         <div class="d-flex justify-content-left links">
-                            &nbsp;&nbsp;&nbsp;&nbsp;Học viên: hocvien1 - hocvien
+                            &nbsp;&nbsp;&nbsp;&nbsp;Học viên: hocvien1-hocvien
+                        </div>
+                        <div class="d-flex justify-content-left links">
+                            &nbsp;&nbsp;&nbsp;&nbsp;Admin: admin-admin
                         </div>
                     </div>
                     <div class="alert alert-danger" id="error" role="alert">

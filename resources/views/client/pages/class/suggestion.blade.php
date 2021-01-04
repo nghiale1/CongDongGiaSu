@@ -34,7 +34,7 @@
 </div>
 <br>
 @include('client.pages.class.chat')
-
+@endif
 @else
 <div class="sugg white">
     <img src="{{asset($lop->l_daidien)}}" alt="{{$lop->l_ten}}" load="lazy" class="suggestion-avatar rounded-top pb-1">
@@ -56,7 +56,6 @@
         <br>
     </div>
 </div>
-@endif
 @endif
 <br>
 @foreach ($suggestion as $item)

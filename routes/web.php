@@ -1,11 +1,14 @@
 <?php
 Route::view('/about', 'client.pages.about');
 Route::view('/contact', 'client.pages.contact');
-Route::view('/dang-nhap', 'client.pages.account.login')->name('account.login_view');
-Route::post('/xu-ly-dang-nhap', 'AccountController@login')->name('account.login');
+Route::group(['middleware' => ['unLogin']], function () {
+    Route::view('/dang-nhap', 'client.pages.account.login')->name('account.login_view');
+    Route::post('/xu-ly-dang-nhap', 'AccountController@login')->name('account.login');
+    Route::get('/dang-ky', 'AccountController@register')->name('account.register');
+    Route::post('/xet-dang-ky', 'AccountController@signup')->name('account.signup');
+});
+
 Route::get('/dang-xuat', 'AccountController@logout')->name('account.logout');
-Route::get('/dang-ky', 'AccountController@register')->name('account.register');
-Route::post('/xet-dang-ky', 'AccountController@signup')->name('account.signup');
 
 Route::group(['middleware' => ['hocVien']], function () {
     Route::post('/danh-gia/{gs_id}', 'StudentController@rating')->name('rating');

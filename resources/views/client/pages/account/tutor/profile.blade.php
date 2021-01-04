@@ -14,14 +14,7 @@ Giới thiệu
 @section('page')
 <div class="container pt-3">
     <div class="row ">
-        <div class="col-md-2">
-            @foreach ($listClass as $item)
-            <div class="white">
-                <img src="{{$item->l_daidien}}" alt="">
-            </div>
-            @endforeach
-        </div>
-        <div class="col-md-7">
+        <div class="col-md-9">
             <div class="white pad20">
                 <div class="row">
                     @include('client.pages.account.tutor.info')

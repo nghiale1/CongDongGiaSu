@@ -64,6 +64,7 @@ class Kernel extends HttpKernel
         'giaSu' => \App\Http\Middleware\giaSu::class,
         'admin' => \App\Http\Middleware\admin::class,
         'login' => \App\Http\Middleware\login::class,
+        'unLogin' => \App\Http\Middleware\unLogin::class,
     ];
 
     /**

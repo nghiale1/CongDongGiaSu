@@ -130,7 +130,7 @@ class PageController extends Controller
         $tutor->danhgia = $this->getRatingGS($tutor->gs_id);
         $tutor->lopDaDay = $this->getClassTeached($tutor->gs_id);
         $suggestion = $this->suggestionClass($id, $tutor->gs_id);
-        return view('client.pages.class.intro', compact('lop', 'listClass', 'folder', 'countFilde', 'video', 'tutor', 'countHV', 'minute', 'second', 'countVideo', 'suggestion', 'danhgia'));
+        return view('client.pages.class.intro', compact('lop', 'folder', 'countFilde', 'video', 'tutor', 'countHV', 'minute', 'second', 'countVideo', 'suggestion', 'danhgia'));
     }
     public function suggestionClass($id, $gs_id)
     {

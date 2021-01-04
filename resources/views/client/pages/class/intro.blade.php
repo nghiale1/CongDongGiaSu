@@ -64,7 +64,7 @@ Công nghệ thông tin / {{$lop->l_ten}}
                     @endif
 
 
-                    <div class="course-description">{{$lop->l_mota}}</div>
+                    <div class="course-description">{!!$lop->l_mota!!}</div>
                     @if(\Auth::check())
                     @if(\Auth::user()->kiemTraLopHoc($lop->l_id))
                     <form action="{{route('updateCourseDescription')}}" method="post"

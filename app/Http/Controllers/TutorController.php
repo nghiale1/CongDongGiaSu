@@ -415,6 +415,7 @@ class TutorController extends Controller
     public function listClass($gs_id)
     {
         $list = \DB::table('lop')->where('gs_id', $gs_id)->get();
-        return view('client.pages.account.tutor.listClass', compact('list'));
+        $tutor = \DB::table('giasu')->where('gs_id', $gs_id)->first();
+        return view('client.pages.account.tutor.listClass', compact('list', 'tutor'));
     }
 }
