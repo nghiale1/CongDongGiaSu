@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Giasu
- * 
+ *
  * @property int $gs_id
  * @property string $gs_hinhdaidien
  * @property string $gs_videogioithieu
@@ -26,7 +26,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $gs_giongnoi
  * @property string $gs_vitri
  * @property int $tk_id
- * 
+ *
  * @property Taikhoan $taikhoan
  * @property Collection|Bangcap[] $bangcaps
  * @property Collection|Chitietchuyenmon[] $chitietchuyenmons
@@ -39,62 +39,65 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Giasu extends Model
 {
-	protected $table = 'giasu';
-	protected $primaryKey = 'gs_id';
-	public $timestamps = false;
+    protected $table = 'giasu';
+    protected $primaryKey = 'gs_id';
+    public $timestamps = true;
 
-	protected $casts = [
-		'tk_id' => 'int'
-	];
+    protected $casts = [
+        'tk_id' => 'int',
+    ];
+    protected $dates = ['gs_ngayxoa'];
 
-	protected $fillable = [
-		'gs_hinhdaidien',
-		'gs_videogioithieu',
-		'gs_motangan',
-		'gs_gioithieu',
-		'gs_hoten',
-		'gs_gioitinh',
-		'gs_namsinh',
-		'gs_sdt',
-		'gs_diachi',
-		'gs_mucluong',
-		'gs_giongnoi',
-		'gs_vitri',
-		'tk_id'
-	];
+    protected $fillable = [
+        'gs_hinhdaidien',
+        'gs_videogioithieu',
+        'gs_motangan',
+        'gs_gioithieu',
+        'gs_hoten',
+        'gs_gioitinh',
+        'gs_namsinh',
+        'gs_sdt',
+        'gs_diachi',
+        'gs_mucluong',
+        'gs_giongnoi',
+        'gs_vitri',
+        'gs_ngaytao',
+        'gs_ngayxoa',
+        'tk_id',
+    ];
 
-	public function taikhoan()
-	{
-		return $this->belongsTo(Taikhoan::class, 'tk_id');
-	}
+    public function taikhoan()
+    {
+        return $this->belongsTo(Taikhoan::class, 'tk_id');
+    }
 
-	public function bangcaps()
-	{
-		return $this->hasMany(Bangcap::class, 'gs_id');
-	}
+    public function bangcaps()
+    {
+        return $this->hasMany(Bangcap::class, 'gs_id');
+    }
 
-	public function chitietchuyenmons()
-	{
-		return $this->hasMany(Chitietchuyenmon::class, 'gs_id');
-	}
+    public function chitietchuyenmons()
+    {
+        return $this->hasMany(Chitietchuyenmon::class, 'gs_id');
+    }
 
-	public function chitietlichdays()
-	{
-		return $this->hasMany(Chitietlichday::class, 'gs_id');
-	}
+    public function chitietlichdays()
+    {
+        return $this->hasMany(Chitietlichday::class, 'gs_id');
+    }
 
-	public function lops()
-	{
-		return $this->hasMany(Lop::class, 'gs_id');
-	}
+    public function lops()
+    {
+        return $this->hasMany(Lop::class, 'gs_id');
+    }
 
-	public function truonghocs()
-	{
-		return $this->hasMany(Truonghoc::class, 'gs_id');
-	}
+    public function truonghocs()
+    {
+        return $this->hasMany(Truonghoc::class, 'gs_id');
+    }
 
-	public function yeuthiches()
-	{
-		return $this->hasMany(Yeuthich::class, 'gs_id');
-	}
+    public function yeuthiches()
+    {
+        return $this->hasMany(Yeuthich::class, 'gs_id');
+    }
 }

@@ -8,7 +8,11 @@ class AdminController extends Controller
 {
     public function index()
     {
-        return view('admin.pages.index');
+        $countGS = \DB::table('giasu')->count();
+        $countHV = \DB::table('hocvien')->count();
+        $countLH = \DB::table('lop')->count();
+        $countGD = \DB::table('giaodich')->count();
+        return view('admin.pages.index', compact('countGS', 'countGD', 'countLH', 'countHV'));
     }
     public function newReport()
     {
@@ -98,18 +102,58 @@ class AdminController extends Controller
     }
     public function tkGS()
     {
-
+        $gs = \DB::table('giasu')->get();
+        return view('admin.pages.tkGS', \compact('gs'));
+    }
+    public function tkGSChon(Request $request)
+    {
+        $gs = \DB::table('giasu')
+            ->whereBetween('gs_ngaytao', [$request->from, $request->to])
+            ->get();
+        return view('admin.pages.tkGS', \compact('gs'));
     }
     public function tkHV()
     {
-
+        $hv = \DB::table('hocvien')->get();
+        return view('admin.pages.tkHV', \compact('hv'));
+    }
+    public function tkHVChon(Request $request)
+    {
+        $hv = \DB::table('hocvien')
+            ->whereBetween('hv_ngaytao', [$request->from, $request->to])
+            ->get();
+        return view('admin.pages.tkHV', \compact('hv'));
     }
     public function tkLH()
     {
-
+        $lh = \DB::table('lop')->get();
+        return view('admin.pages.tkLH', \compact('lh'));
     }
+    public function tkLHChon(Request $request)
+    {
+        $lh = \DB::table('lop')
+            ->whereBetween('l_ngaytao', [$request->from, $request->to])
+            ->get();
+        return view('admin.pages.tkLH', \compact('lh'));
+    }
+
     public function tkTT()
     {
-
+        $tt = \DB::table('giaodich')
+            ->join('hocvien', 'hocvien.hv_id', 'giaodich.gd_id')
+            ->join('lop', 'lop.l_id', 'giaodich.l_id')
+            ->where('gd_trangthai', 1)
+            ->get();
+        return view('admin.pages.tkTT', \compact('tt'));
+    }
+    public function tkTTChon(Request $request)
+    {
+        $tt = \DB::table('giaodich')
+            ->join('hocvien', 'hocvien.hv_id', 'giaodich.gd_id')
+            ->join('lop', 'lop.l_id', 'giaodich.l_id')
+            ->where('gd_trangthai', 1)
+            ->whereBetween('gd_ngaytao', [$request->from, $request->to])
+            ->get();
+        return view('admin.pages.tkTT', \compact('tt'));
     }
 }

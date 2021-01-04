@@ -108,14 +108,19 @@ Route::group(['middleware' => ['admin']], function () {
         });
         Route::group(['prefix' => 'thong-ke'], function () {
             Route::get('gia-su', 'AdminController@tkGS')->name('dashboard.tkGS');
+            Route::get('gia-su-lua-chon', 'AdminController@tkGSChon')->name('dashboard.tkGSChon');
             Route::get('hoc-vien', 'AdminController@tkHV')->name('dashboard.tkHV');
+            Route::get('hoc-vien-lua-chon', 'AdminController@tkHVChon')->name('dashboard.tkHVChon');
             Route::get('lop-hoc', 'AdminController@tkLH')->name('dashboard.tkLH');
+            Route::get('lop-hoc-lua-chon', 'AdminController@tkLHChon')->name('dashboard.tkLHChon');
             Route::get('thanh-toan', 'AdminController@tkTT')->name('dashboard.tkTT');
+            Route::get('thanh-toan-lua-chon', 'AdminController@tkTTChon')->name('dashboard.tkTTChon');
         });
         Route::get('mon-hoc', 'AdminController@monHoc')->name('dashboard.monHoc');
         Route::post('them-mon-hoc', 'AdminController@addMonHoc')->name('dashboard.addMonHoc');
         Route::post('cap-nhat-mon-hoc', 'AdminController@updateMonHoc')->name('dashboard.updateMonHoc');
         Route::post('xoa-mon-hoc/{id}', 'AdminController@xoaMonHoc')->name('dashboard.xoaMonHoc');
+
         Route::group(['prefix' => 'bao-cao'], function () {
             Route::get('/chua-xu-ly', 'AdminController@newReport')->name('dashboard.newReport');
             Route::get('/da-xu-ly', 'AdminController@report')->name('dashboard.report');

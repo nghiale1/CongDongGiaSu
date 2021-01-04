@@ -27,9 +27,14 @@
             <li class="active"><a href=""><i class="fas fa-tachometer-alt"></i><span> Trang chủ</span></a>
             </li>
 
-            <li><a href=""><i class="fas fa-user-graduate"></i> <span>Học sinh</span></a></li>
-            <li><a href=""><i class="fas fa-chalkboard-teacher"></i> <span>Gia sư</span></a></li>
-            <li><a href=""><i class="fa fa-th"></i> <span>Lớp học</span></a></li>
+            <li><a href="{{route('dashboard.tkHV')}}"><i class="fas fa-user-graduate"></i> <span>Học sinh</span></a>
+            </li>
+            <li><a href="{{route('dashboard.tkGS')}}"><i class="fas fa-chalkboard-teacher"></i> <span>Gia sư</span></a>
+            </li>
+            <li><a href="{{route('dashboard.tkLH')}}"><i class="fa fa-users" aria-hidden="true"></i> <span>Lớp
+                        học</span></a></li>
+            <li><a href="{{route('dashboard.tkTT')}}"><i class="fa fa-handshake" aria-hidden="true"></i> <span>Thanh
+                        toán</span></a></li>
             {{-- report --}}
             <li class="menu-list">
                 <a href="#"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
