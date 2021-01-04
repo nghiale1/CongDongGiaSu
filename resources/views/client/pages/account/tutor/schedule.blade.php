@@ -133,7 +133,11 @@
                 </tr>
             </tbody>
         </table>
-
+        @if(\Auth::check())
+        @if(\Auth::user()->kiemTraGiaSu($tutor->gs_id))
+        <a href="{{route('tutor.addClass')}}" class="btn btn-edit">Thêm khoá học</a>
+        @endif
+        @endif
     </div>
 </div>
 @push('script')

@@ -57,7 +57,7 @@ Trang cá nhân / Thêm lớp
                     <tbody class="text-center">
                         <tr>
                             <td class="text-left"><img src="{{asset('/client/svg/morning.svg')}}" alt=""> Sáng</td>
-                            @for($i=0;$i<7;$i++) @if($tutor->chitietlichdays[$i]->ctld_trangthai=='Ranh')
+                            @for($i=1;$i<8;$i++) @if($tutor->chitietlichdays[$i-1]->ctld_trangthai=='Ranh')
 
                                 <td class="square" data-type="free" data-id="{{$i}}">
                                     {{-- <green-tick></green-tick> --}}
@@ -74,7 +74,7 @@ Trang cá nhân / Thêm lớp
                         </tr>
                         <tr>
                             <td class="text-left"><img src="{{asset('/client/svg/afternoon.svg')}}" alt="">Chiều</td>
-                            @for($i=7;$i<14;$i++) @if($tutor->chitietlichdays[$i]->ctld_trangthai=='Ranh')
+                            @for($i=8;$i<15;$i++) @if($tutor->chitietlichdays[$i-1]->ctld_trangthai=='Ranh')
 
                                 <td class="square" data-type="free" data-id="{{$i}}">
                                     {{-- <green-tick></green-tick> --}}
@@ -91,7 +91,7 @@ Trang cá nhân / Thêm lớp
                         </tr>
                         <tr>
                             <td class="text-left"><img src="{{asset('/client/svg/evening.svg')}}" alt="">Tối</td>
-                            @for($i=14;$i<21;$i++)@if($tutor->chitietlichdays[$i]->ctld_trangthai=='Ranh')
+                            @for($i=15;$i<22;$i++)@if($tutor->chitietlichdays[$i-1]->ctld_trangthai=='Ranh')
 
                                 <td class="square" data-type="free" data-id="{{$i}}">
                                     {{-- <green-tick></green-tick> --}}
@@ -122,10 +122,12 @@ Trang cá nhân / Thêm lớp
                 <input type="number" min="0" name="l_soluong" id="" class="form-control"
                     placeholder="Số lượng học viên">
                 <br>
-                <input type="number" min="0" name="l_sobuoi" id="" class="form-control" placeholder="Số buổi">
+                <input type="number" min="0" name="l_sobuoi" id="" class="form-control" placeholder="Số buổi"
+                    onKeyUp="if(this.value>100){this.value='100';}else if(this.value<0){this.value='0';}">
                 <br>
                 <input type="number" min="0" step="1000" name="l_hocphi" id="" class="form-control"
-                    placeholder="Học phí">
+                    placeholder="Học phí"
+                    onKeyUp="if(this.value>100000000){this.value='100000000';}else if(this.value<0){this.value='0';}">
                 <br>
                 <input type="date" name="l_ngaybatdau" id="" class="form-control" placeholder="Ngày bắt đầu">
                 <br>
@@ -137,13 +139,14 @@ Trang cá nhân / Thêm lớp
                 <textarea name="l_gioithieu" id="" cols="30" rows="10" class="form-control tiny"
                     placeholder="Giới thiệu khóa học"></textarea>
                 <br>
-                <textarea name="l_mota" id="" cols="30" rows="10" class="form-control tiny"
+                <textarea name="l_mota" id="" cols="30" rows="10" class="form-control tiny" maxlength="191"
                     placeholder="Mô tả khóa học"></textarea>
                 <br>
                 <button type="button" class="btn btn-secondary">Hủy</button>
                 <button type="submit" class="btn btn-success">Tạo</button>
+                <br>
             </form>
-
+            <br>
         </div>
     </div>
 </div>

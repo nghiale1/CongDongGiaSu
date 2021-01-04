@@ -26,7 +26,7 @@
                 <i class="fa fa-star-o" aria-hidden="true"></i>
                 <i class="fa fa-star-o" aria-hidden="true"></i>
                 <i class="fa fa-star-o" aria-hidden="true"></i>
-                <span class="star-yellow" style="width:100%">
+                <span class="star-yellow" style="width:{{$tutor->danhgia['dem']['trungbinh']*20}}%">
                     <i class="fa fa-star" aria-hidden="true"></i>
                     <i class="fa fa-star" aria-hidden="true"></i>
                     <i class="fa fa-star" aria-hidden="true"></i>
@@ -34,9 +34,7 @@
                     <i class="fa fa-star" aria-hidden="true"></i>
                 </span>
             </span>
-        </div>
-
-        75 đánh giá
+        </div> {{$tutor->danhgia['dem']['trungbinh']}} ({{$tutor->danhgia['tong']}} đánh giá)
     </p>
     <table>
         <tr>
@@ -221,6 +219,22 @@
                 });
             });
     });
+    
+</script>
+<script
+    src="https://maps.google.com/maps/api/js?key=AIzaSyDxTV3a6oL6vAaRookXxpiJhynuUpSccjY&amp;libraries=places&amp;callback=initAutocomplete"
+    type="text/javascript">
+</script>
+
+<script>
+    google.maps.event.addDomListener(window, 'load', initialize);
+    function initialize() {
+        var input = document.getElementById('autocomplete');
+        var autocomplete = new google.maps.places.Autocomplete(input);
+        autocomplete.addListener('place_changed', function() {
+            var place = autocomplete.getPlace();
+        });
+    }
 </script>
 
 @endpush

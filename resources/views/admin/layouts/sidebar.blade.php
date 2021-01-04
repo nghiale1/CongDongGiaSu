@@ -27,7 +27,6 @@
             <li class="active"><a href=""><i class="fas fa-tachometer-alt"></i><span> Trang chủ</span></a>
             </li>
 
-            <li><a href=""><i class="fa fa-user" aria-hidden="true"></i> <span>Phụ huynh</span></a></li>
             <li><a href=""><i class="fas fa-user-graduate"></i> <span>Học sinh</span></a></li>
             <li><a href=""><i class="fas fa-chalkboard-teacher"></i> <span>Gia sư</span></a></li>
             <li><a href=""><i class="fa fa-th"></i> <span>Lớp học</span></a></li>
@@ -42,31 +41,14 @@
                 </ul>
             </li>
             <li class="menu-list">
-                <a href="#"><i class="fas fa-file-invoice"></i>
-                    <span>Bản tin tìm gia sư<i class="lnr lnr-chevron-right"></i></span></a>
-                <ul class="sub-menu-list">
-                    <li><a href="">Chưa duyệt</a> </li>
-                    <li><a href="">Đang tìm</a> </li>
-                    <li><a href="">Đã tìm được</a></li>
-                </ul>
-            </li>
-            <li class="menu-list">
-                <a href="#"><i class="fas fa-file-invoice"></i>
-                    <span>Thống kê<i class="lnr lnr-chevron-right"></i></span></a>
-                <ul class="sub-menu-list">
-                    <li><a href="">Doanh thu</a> </li>
-                    <li><a href="">Lợi nhuận</a> </li>
-                    <li><a href="">Gia sư</a></li>
-                </ul>
-            </li>
-
-            <li class="menu-list">
                 <a href="#"><i class="fa fa-cogs"></i>
                     <span>Danh mục <i class="lnr lnr-chevron-right"></i></span></a>
                 <ul class="sub-menu-list">
-                    <li><a href="">Môn học</a> </li>
-                    <li><a href="">Trình độ</a> </li>
-                    <li><a href="">Bằng cấp</a></li>
+                    <li><a href="#">Lĩnh vực</a> </li>
+                    <li><a href="{{route('dashboard.monHoc')}}">Môn học</a> </li>
+                    <li><a href="#">Trình độ</a> </li>
+                    <li><a href="#">Giọng nói</a></li>
+                    <li><a href="#">Đối tượng học</a></li>
                 </ul>
             </li>
         </ul>

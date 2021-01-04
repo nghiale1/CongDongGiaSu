@@ -31,7 +31,9 @@ Cộng đồng gia sư
                                 <div class="banner-info-bg mx-auto text-center">
 
                                     <form class="position-relative my-2 my-lg-0" style="width: 83%;text-align:center"
-                                        method="get" action="{{route('search.step2')}}">
+                                        method="get" action="{{route('search')}}">
+                                        <input class="form-control search" type="search" placeholder="Tìm kiếm..."
+                                            name="search" aria-label="Search" required="" style="height: 45px;">
                                         {{-- @csrf --}}
                                         {{-- <select class="selectpicker search" data-live-search="true" name="chuyen_mon"
                                             placeholder="Nhập môn học" data-width="100%">
@@ -47,15 +49,15 @@ Cộng đồng gia sư
 
 
 
-                                        <input class="form-control search" list="browsers" name="chuyen_mon"
+                                        {{-- <input class="form-control search" list="browsers" name="chuyen_mon"
                                             placeholder="Nhập môn học" aria-label="Search" required=""
                                             autocomplete="off" id="searchSubject" style="height: 45px;">
                                         <datalist id="browsers">
                                             @foreach ($chuyenmon as $item)
                                             <option data-value="{{$item->cm_id}}" value="{{$item->cm_ten}}"></option>
-                                            @endforeach
+                                        @endforeach
                                         </datalist>
-                                        <input type="hidden" name="linh_vuc" id="linhvuc">
+                                        <input type="hidden" name="linh_vuc" id="linhvuc"> --}}
                                         <button class="btn btn-search position-absolute" type="submit" style="top: 0px;"
                                             id="btnSearchSubject"><span class="fa fa-search"
                                                 aria-hidden="true"></span></button>

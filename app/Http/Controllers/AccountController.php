@@ -22,7 +22,6 @@ class AccountController extends Controller
         }
         if (Auth::attempt($arr, $remember)) {
             $role = \DB::table('taikhoan')
-                ->join('giasu', 'giasu.tk_id', 'taikhoan.tk_id')
                 ->where('username', $arr['username'])->first();
 
             if ($role->tk_quyen == 'HocVien') {
@@ -72,6 +71,7 @@ class AccountController extends Controller
                     $gs->gs_hoten = $request->name;
                     $gs->tk_id = $id_tk;
                     $gs->gs_gioitinh = $request->gender;
+                    $gs->gs_toado = '[0,0]';
                     if ($request->gender == 'Nam') {
                         $gs->gs_hinhdaidien = 'client/svg/teacher_male.svg';
                     } else {

@@ -130,7 +130,7 @@ class PageController extends Controller
         $tutor->danhgia = $this->getRatingGS($tutor->gs_id);
         $tutor->lopDaDay = $this->getClassTeached($tutor->gs_id);
         $suggestion = $this->suggestionClass($id, $tutor->gs_id);
-        return view('client.pages.class.intro', compact('lop', 'folder', 'countFilde', 'video', 'tutor', 'countHV', 'minute', 'second', 'countVideo', 'suggestion', 'danhgia'));
+        return view('client.pages.class.intro', compact('lop', 'listClass', 'folder', 'countFilde', 'video', 'tutor', 'countHV', 'minute', 'second', 'countVideo', 'suggestion', 'danhgia'));
     }
     public function suggestionClass($id, $gs_id)
     {
@@ -251,6 +251,8 @@ class PageController extends Controller
         $tutor->solop = \DB::table('lop')->where('gs_id', $tutor->gs_id)->count();
         $school = Truonghoc::where('gs_id', $id)->get();
         $degree = Bangcap::where('gs_id', $id)->get();
+        $listClass = Lop::join('giasu', 'giasu.gs_id', 'lop.gs_id')
+            ->where('lop.gs_id', $id)->limit(3)->get();
 
         $mySubject = \DB::table('chitietchuyenmon')->join('chuyenmon', 'chuyenmon.cm_id', 'chitietchuyenmon.cm_id')
             ->leftjoin('linhvuc', 'linhvuc.lv_id', 'chuyenmon.lv_id')
@@ -278,7 +280,7 @@ class PageController extends Controller
 
         $loca = \json_encode(\DB::table('giasu')->get());
         // dd($tutor->chitietlichdays);
-        return view('client.pages.account.tutor.profile', compact('tutor', 'school', 'degree', 'subject', 'obj', 'mySubject', 'loca', 'schedule'));
+        return view('client.pages.account.tutor.profile', compact('tutor', 'school', 'degree', 'subject', 'obj', 'mySubject', 'loca', 'schedule', 'listClass'));
 
     }
 }

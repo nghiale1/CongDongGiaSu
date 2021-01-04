@@ -213,8 +213,8 @@
 
     .chat {
         position: fixed;
-        width: 450px;
-        left: 63%;
+        width: 350px;
+        left: 70%;
         bottom: 0;
     }
 

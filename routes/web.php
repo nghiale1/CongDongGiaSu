@@ -83,6 +83,7 @@ Route::group(['prefix' => ''], function () {
     Route::view('/tim-gia-su', 'client.pages.find_tutor');
     Route::view('/tim-lop', 'client.pages.find_class');
     Route::view('/dang-ky-gia-su', 'client.pages.register_tutor');
+    Route::get('/danh-sach-khoa-hoc/{gs_id}', 'TutorController@listClass')->name('listClass');
     Route::group(['prefix' => '/hop-dong'], function () {
         Route::view('/mau-gia-su', 'client.pages.model_contract');
         Route::view('/thue-gia-su', 'client.pages.contract');
@@ -106,7 +107,15 @@ Route::group(['middleware' => ['admin']], function () {
         Route::group(['prefix' => 'lop-hoc'], function () {
         });
         Route::group(['prefix' => 'thong-ke'], function () {
+            Route::get('gia-su', 'AdminController@tkGS')->name('dashboard.tkGS');
+            Route::get('hoc-vien', 'AdminController@tkHV')->name('dashboard.tkHV');
+            Route::get('lop-hoc', 'AdminController@tkLH')->name('dashboard.tkLH');
+            Route::get('thanh-toan', 'AdminController@tkTT')->name('dashboard.tkTT');
         });
+        Route::get('mon-hoc', 'AdminController@monHoc')->name('dashboard.monHoc');
+        Route::post('them-mon-hoc', 'AdminController@addMonHoc')->name('dashboard.addMonHoc');
+        Route::post('cap-nhat-mon-hoc', 'AdminController@updateMonHoc')->name('dashboard.updateMonHoc');
+        Route::post('xoa-mon-hoc/{id}', 'AdminController@xoaMonHoc')->name('dashboard.xoaMonHoc');
         Route::group(['prefix' => 'bao-cao'], function () {
             Route::get('/chua-xu-ly', 'AdminController@newReport')->name('dashboard.newReport');
             Route::get('/da-xu-ly', 'AdminController@report')->name('dashboard.report');

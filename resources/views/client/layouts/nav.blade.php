@@ -8,7 +8,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <a class="navbar-brand" href="{{route('home')}}">
-                    <span class="fa fa-pencil-square-o "></span> Cộng Đồng Gia Sư
+                    Cộng Đồng Gia Sư
                 </a>
 
                 <div class="collapse navbar-collapse" id="navbarTogglerDemo03">

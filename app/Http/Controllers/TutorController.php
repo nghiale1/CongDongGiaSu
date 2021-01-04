@@ -276,28 +276,30 @@ class TutorController extends Controller
                     'l_daidien' => 'client/img/class/' . $request->type . '/' . $name_file,
                     'gs_id' => $id,
                     'ctcm_id' => $request->ctcm,
+                    'l_ngaytao' => Date('y/m/d h:i:s'),
+                    'l_ngaycapnhat' => Date('y/m/d h:i:s'),
                 ]);
                 // tạo thư mục môn học
-                $id_class = \DB::table('thumuclop')->insertGetId([
+                $thumuclop_id = \DB::table('thumuclop')->insertGetId([
                     'l_id' => $id_class,
                     'tml_ten' => $request->l_ten,
                     'tml_slug' => \Str::slug($request->l_ten) . '.' . $id_class,
                     'tml_duongdan' => 'tai-lieu-mon-hoc/' . $id_class . '/' . \Str::slug($request->l_ten),
                 ]);
-            }
-            foreach ($request->lich as $key => $value) {
-                \DB::table('loptgd')->insert([
-                    'l_id' => $id_class,
-                    'tgd_id' => $value,
-                ]);
-            }
-            foreach ($request->lich as $key => $value) {
-                \DB::table('chitietlichday')
-                    ->where('tgd_id', $value)
-                    ->where('gs_id', $id)
-                    ->update([
-                        'ctld_trangthai' => 'Ban',
+                foreach ($request->lich as $key => $value) {
+                    \DB::table('loptgd')->insert([
+                        'l_id' => $id_class,
+                        'tgd_id' => \intval($value),
                     ]);
+                }
+                foreach ($request->lich as $key => $value) {
+                    \DB::table('chitietlichday')
+                        ->where('tgd_id', $value)
+                        ->where('gs_id', $id)
+                        ->update([
+                            'ctld_trangthai' => 'Ban',
+                        ]);
+                }
             }
 
             \DB::commit();
@@ -409,5 +411,10 @@ class TutorController extends Controller
             \DB::rollback();
             throw $e;
         }
+    }
+    public function listClass($gs_id)
+    {
+        $list = \DB::table('lop')->where('gs_id', $gs_id)->get();
+        return view('client.pages.account.tutor.listClass', compact('list'));
     }
 }

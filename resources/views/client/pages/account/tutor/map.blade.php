@@ -11,7 +11,10 @@
   }
 </style>
 @endpush
+
+
 <div id="map" style="width:100%;height:500px"></div>
+
 @push('script')
 <script>
   "use strict";
