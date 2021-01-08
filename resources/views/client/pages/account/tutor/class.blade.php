@@ -115,32 +115,34 @@ Trang cá nhân / Thêm lớp
                     @endforeach
                 </select>
                 <br>
-                <input type="text" class="form-control" name="l_ten" placeholder="Tên khóa học">
+                <input type="text" class="form-control" name="l_ten" placeholder="Tên khóa học" required>
                 <br>
-                <input type="file" class="form-control" name="avatar" placeholder="Ảnh đại diện" required>
+                <label for="ava">Ảnh đại diện</label>
+                <input type="file" class="form-control" name="avatar" placeholder="Ảnh đại diện" required id="ava">
                 <br>
-                <input type="number" min="0" name="l_soluong" id="" class="form-control"
-                    placeholder="Số lượng học viên">
+                <input type="number" min="0" name="l_soluong" id="" class="form-control" placeholder="Số lượng học viên"
+                    required>
                 <br>
                 <input type="number" min="0" name="l_sobuoi" id="" class="form-control" placeholder="Số buổi"
-                    onKeyUp="if(this.value>100){this.value='100';}else if(this.value<0){this.value='0';}">
+                    onKeyUp="if(this.value>100){this.value='100';}else if(this.value<0){this.value='0';}" required>
                 <br>
                 <input type="number" min="0" step="1000" name="l_hocphi" id="" class="form-control"
                     placeholder="Học phí"
-                    onKeyUp="if(this.value>100000000){this.value='100000000';}else if(this.value<0){this.value='0';}">
+                    onKeyUp="if(this.value>100000000){this.value='100000000';}else if(this.value<0){this.value='0';}"
+                    required>
                 <br>
-                <input type="date" name="l_ngaybatdau" id="" class="form-control" placeholder="Ngày bắt đầu">
+                <input type="date" name="l_ngaybatdau" id="" class="form-control" placeholder="Ngày bắt đầu" required>
                 <br>
                 <input type="date" name="l_ngayketthuc" id="" class="form-control"
-                    placeholder="Ngày hoàn thành khóa học">
+                    placeholder="Ngày hoàn thành khóa học" required>
                 <br>
                 <input type="text" name="l_diachi" id="autocomplete" class="form-control" placeholder="Địa chỉ">
                 <br>
                 <textarea name="l_gioithieu" id="" cols="30" rows="10" class="form-control tiny"
-                    placeholder="Giới thiệu khóa học"></textarea>
+                    placeholder="Giới thiệu khóa học" required></textarea>
                 <br>
                 <textarea name="l_mota" id="" cols="30" rows="10" class="form-control tiny" maxlength="191"
-                    placeholder="Mô tả khóa học"></textarea>
+                    placeholder="Mô tả khóa học" required></textarea>
                 <br>
                 <button type="button" class="btn btn-secondary">Hủy</button>
                 <button type="submit" class="btn btn-success">Tạo</button>

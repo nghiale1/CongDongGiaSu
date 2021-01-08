@@ -332,7 +332,8 @@ Chat
     var senderId = "{!! \Auth::id() !!}";
     var chatId="";
     var avatar="";
-    var name="";let url='{{asset(":id")}}';
+    var name="";
+    let url='{{asset(":id")}}';
     const params = {
         tk_id: "{!! \Auth::id() !!}",
         gs_id: "{!! \Auth::user()->giasus[0]->gs_id !!}",
@@ -348,6 +349,9 @@ Chat
                 "chatId" : chatId,
                 "time" : Date.now(),
                 "message" : message,
+                "avatar" : "{!! \Auth::user()->giasus[0]->gs_hinhdaidien !!}",
+                "name" : "{!! \Auth::user()->giasus[0]->gs_hoten !!}",
+
             });
             var frm = document.getElementById('frmChat');
             frm.reset();  // Reset all form data

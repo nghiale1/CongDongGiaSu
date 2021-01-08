@@ -41,8 +41,8 @@
                     <span>Báo cáo khoá
                         học<i class="lnr lnr-chevron-right"></i></span></a>
                 <ul class="sub-menu-list">
-                    <li><a href="{{route('dashboard.newReport')}}">Báo cáo chưa xữ lý</a> </li>
-                    <li><a href="{{route('dashboard.report')}}">Báo cáo đã được xữ lý</a> </li>
+                    <li><a href="{{route('dashboard.newReport')}}">Báo cáo chưa xử lý</a> </li>
+                    <li><a href="{{route('dashboard.report')}}">Báo cáo đã được xử lý</a> </li>
                 </ul>
             </li>
             <li class="menu-list">

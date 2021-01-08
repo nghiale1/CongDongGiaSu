@@ -12,7 +12,7 @@ Trang chủ
 
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb my-breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Trang chủ</a></li>
+                <li class="breadcrumb-item"><a href="{{route('dashboard.index')}}">Trang chủ</a></li>
             </ol>
         </nav>
 

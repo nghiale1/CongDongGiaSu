@@ -41,7 +41,7 @@ class Giasu extends Model
 {
     protected $table = 'giasu';
     protected $primaryKey = 'gs_id';
-    public $timestamps = true;
+    public $timestamps = false;
 
     protected $casts = [
         'tk_id' => 'int',

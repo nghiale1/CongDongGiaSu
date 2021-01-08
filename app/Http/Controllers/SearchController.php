@@ -321,13 +321,16 @@ class SearchController extends Controller
                     break;
             }
         }
-        $dem['dem']['trungbinh'] = (($dem['dem']['mot'] * 1) + ($dem['dem']['hai'] * 2) + ($dem['dem']['ba'] * 3) + ($dem['dem']['bon'] * 4) + ($dem['dem']['nam'] * 5)) / $dem['tong'];
+        if ($dem['tong'] != 0) {
 
-        $dem['phantram']['nam'] = $dem['dem']['mot'] * 100 / $dem['tong'];
-        $dem['phantram']['bon'] = $dem['dem']['bon'] * 100 / $dem['tong'];
-        $dem['phantram']['ba'] = $dem['dem']['ba'] * 100 / $dem['tong'];
-        $dem['phantram']['hai'] = $dem['dem']['hai'] * 100 / $dem['tong'];
-        $dem['phantram']['mot'] = $dem['dem']['mot'] * 100 / $dem['tong'];
+            $dem['dem']['trungbinh'] = (($dem['dem']['mot'] * 1) + ($dem['dem']['hai'] * 2) + ($dem['dem']['ba'] * 3) + ($dem['dem']['bon'] * 4) + ($dem['dem']['nam'] * 5)) / $dem['tong'];
+
+            $dem['phantram']['nam'] = $dem['dem']['mot'] * 100 / $dem['tong'];
+            $dem['phantram']['bon'] = $dem['dem']['bon'] * 100 / $dem['tong'];
+            $dem['phantram']['ba'] = $dem['dem']['ba'] * 100 / $dem['tong'];
+            $dem['phantram']['hai'] = $dem['dem']['hai'] * 100 / $dem['tong'];
+            $dem['phantram']['mot'] = $dem['dem']['mot'] * 100 / $dem['tong'];
+        }
 
         return $dem;
 

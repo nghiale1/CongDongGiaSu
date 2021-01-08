@@ -57,7 +57,7 @@ Môn học
                 <tr>
                     <th>STT</th>
                     <th>Họ tên học viên</th>
-                    <th>Địa chỉ</th>
+                    <th>Ngày sinh</th>
                     <th>Giới tính</th>
                 </tr>
             </thead>
@@ -68,7 +68,7 @@ Môn học
                     <tr>
                         <td>{{$key+1}}</td>
                         <td>{{$item->hv_hoten}}</td>
-                        <td>{{$item->hv_diachi}}</td>
+                        <td>{{$item->hv_ngaysinh}}</td>
                         <td>{{$item->hv_gioitinh}}</td>
                     </tr>
                     @endforeach

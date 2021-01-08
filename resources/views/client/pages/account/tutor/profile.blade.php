@@ -49,10 +49,15 @@ Giới thiệu
         </div>
         {{-- <div class="col1" style="    width: 2%;"></div> --}}
         <div class="col-md-3">
+            @if (\Auth::check())
+            @if (\Auth::user()->hasRole('HocVien'))
+
             <div class="white pad20 chat">
                 @include('client.pages.account.tutor.chat')
 
             </div>
+            @endif
+            @endif
         </div>
     </div>
 </div>

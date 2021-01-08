@@ -298,8 +298,8 @@
                         "chatId" : response.chatId,
                         "time" : Date.now(),
                         "message" : message,
-                        "avatar" : message,
-                        "name" : message,
+                        "avatar" : avatar,
+                        "name" : name,
                     });
                     var frm = document.getElementById('frmChat');
                     frm.reset();  // Reset all form data

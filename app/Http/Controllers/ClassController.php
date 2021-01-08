@@ -78,10 +78,22 @@ class ClassController extends Controller
                     $vnpSecureHash = hash('sha256', $vnp_HashSecret . $hashdata);
                     $vnp_Url .= 'vnp_SecureHashType=SHA256&vnp_SecureHash=' . $vnpSecureHash;
                 }
+                if ($vnp_Amount == 0) {
+                    \DB::table('giaodich')
+                        ->where('gd_id', $gd_id)
+                        ->update(
+                            [
+                                'gd_trangthai' => 1,
+                            ]
+                        );
+                    return redirect($url)->with('success', 'Đã thanh toán phí dịch vụ');
+                }
                 return redirect($vnp_Url);
             }
+        } else {
+
+            return redirect()->route('404');
         }
-        return redirect()->route('404');
 
     }
 

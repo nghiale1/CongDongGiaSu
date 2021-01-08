@@ -178,7 +178,9 @@
             background-color: white;
         }
 
-
+        .hide {
+            display: none;
+        }
 
         /* ============ login-resources ============= */
     </style>
@@ -202,8 +204,10 @@
                         @csrf
                         <div class="input-group form-group">
                             <div class="choice" class="form-control">
-                                <div class="selected" id="Giasu" href="#" title="" data-value="tutor">Gia sư</div>
-                                <div class="tab-role" id="Hocvien" href="#" title="" data-value="student">Học viên</div>
+                                <div class="selected chooseHide" id="Giasu" href="#" title="" data-value="tutor">Gia sư
+                                </div>
+                                <div class="tab-role chooseHide" id="Hocvien" href="#" title="" data-value="student">Học
+                                    viên</div>
                             </div>
                         </div>
                         <div class="input-group form-group">
@@ -299,10 +303,8 @@
     <script>
         $(document).ready(function() {
             $(".chooseHide").click(function (e) { 
-                console.log('12');
                 e.preventDefault();
             var role = $(this).attr('data-value');
-                console.log(role);
             if(role=='tutor'){
                 $('.cm').removeClass('hide');
             }
