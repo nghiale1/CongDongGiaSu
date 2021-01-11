@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Lop
- * 
+ *
  * @property int $l_id
  * @property string $l_malop
  * @property string $l_ten
@@ -26,7 +26,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $gs_id
  * @property int $cm_id
  * @property int $dtnh_id
- * 
+ *
  * @property Giasu $giasu
  * @property Collection|Hopdong[] $hopdongs
  * @property Collection|Loptgd[] $loptgds
@@ -36,55 +36,53 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Lop extends Model
 {
-	protected $table = 'lop';
-	protected $primaryKey = 'l_id';
-	public $timestamps = false;
+    protected $table = 'lop';
+    protected $primaryKey = 'l_id';
+    public $timestamps = true;
 
-	protected $casts = [
-		'l_hocphi' => 'int',
-		'l_soluong' => 'int',
-		'l_sobuoi' => 'int',
-		'gs_id' => 'int',
-		'cm_id' => 'int',
-		'dtnh_id' => 'int'
-	];
+    protected $casts = [
+        'l_hocphi' => 'int',
+        'l_soluong' => 'int',
+        'l_sobuoi' => 'int',
+        'gs_id' => 'int',
+        'cm_id' => 'int',
+        'dtnh_id' => 'int',
+    ];
 
-	protected $dates = [
-		'l_ngaybatdau',
-		'l_ngayketthuc'
-	];
+    protected $fillable = [
+        'l_malop',
+        'l_ten',
+        'l_gioithieu',
+        'l_hocphi',
+        'l_soluong',
+        'l_ngaybatdau',
+        'l_ngayketthuc',
+        'l_sobuoi',
+        'l_diachi',
+        'gs_id',
+        'cm_id',
+        'dtnh_id',
+        'l_ngaytao',
+        'l_ngaycapnhat',
+        'l_ngayxoa',
+    ];
+    protected $dates = ['l_ngayxoa'];
+    public function giasu()
+    {
+        return $this->belongsTo(Giasu::class, 'gs_id');
+    }
 
-	protected $fillable = [
-		'l_malop',
-		'l_ten',
-		'l_gioithieu',
-		'l_hocphi',
-		'l_soluong',
-		'l_ngaybatdau',
-		'l_ngayketthuc',
-		'l_sobuoi',
-		'l_diachi',
-		'gs_id',
-		'cm_id',
-		'dtnh_id'
-	];
+    public function hopdongs()
+    {
+        return $this->hasMany(Hopdong::class, 'l_id');
+    }
+    public function loptgds()
+    {
+        return $this->hasMany(Loptgd::class, 'l_id');
+    }
 
-	public function giasu()
-	{
-		return $this->belongsTo(Giasu::class, 'gs_id');
-	}
-
-	public function hopdongs()
-	{
-		return $this->hasMany(Hopdong::class, 'l_id');
-	}
-	public function loptgds()
-	{
-		return $this->hasMany(Loptgd::class, 'l_id');
-	}
-
-	public function thumuclops()
-	{
-		return $this->hasMany(Thumuclop::class, 'l_id');
-	}
+    public function thumuclops()
+    {
+        return $this->hasMany(Thumuclop::class, 'l_id');
+    }
 }

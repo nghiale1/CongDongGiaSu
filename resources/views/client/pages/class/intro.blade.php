@@ -64,7 +64,7 @@ Công nghệ thông tin / {{$lop->l_ten}}
                     @endif
 
 
-                    <div class="course-description">{{$lop->l_mota}}</div>
+                    <div class="course-description">{!!$lop->l_mota!!}</div>
                     @if(\Auth::check())
                     @if(\Auth::user()->kiemTraLopHoc($lop->l_id))
                     <form action="{{route('updateCourseDescription')}}" method="post"
@@ -140,8 +140,69 @@ Công nghệ thông tin / {{$lop->l_ten}}
 
             </div>
             <br>
+            <div class="white padding" id="teacher">
+                @include('client.pages.class.rating')
+            </div>
+            <br>
 
-            @include('client.pages.class.video')
+            <div class="white padding" id="curriculum">
+                <div class="title">
+                    Giáo trình
+                </div>
+                <span>
+                    <button type="button" class="btn" data-toggle="modal" data-target="#report" style="color: red">
+                        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                    </button>
+
+                </span>
+                <!-- Modal -->
+                <div class="modal fade" id="report" tabindex="-1" role="dialog" aria-labelledby="reportLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <form action="{{route('course.report')}}" method="post">
+                                @csrf
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="reportLabel">Báo cáo khoá học</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <input type="hidden" name="l_id" value="{{$lop->l_id}}">
+                                    <textarea name="content" id="" cols="55" rows="10"
+                                        placeholder="Nội dung báo cáo"></textarea>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
+                                    <button type="submit" class="btn btn-primary">Gửi lên quản trị viên</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="curriculum-overview">
+                    <div class="curriculum-type">
+                        Thể loại: <span>CNTT</span>
+                    </div>
+                    <div class="curriculum-lessons">
+                        <div class="curriculum-lessons-number">
+                            Số bài: <span>{{$countVideo}}</span>
+                        </div>
+                        <div class="curriculum-time">
+                            Thời lượng: <span>{{$minute}}:{{$second}}</span>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div id="scrollIntoView"></div>
+                <div id="video"></div>
+
+                @include('client.pages.class.video')
+                @include('client.pages.class.file')
+            </div>
             <br>
             <div class="white padding" id="teacher">
                 <div class="row">
@@ -149,9 +210,6 @@ Công nghệ thông tin / {{$lop->l_ten}}
                 </div>
             </div>
             <br>
-            <div class="white padding" id="teacher">
-                @include('client.pages.class.rating')
-            </div>
         </div>
         <div class="col-md-4">
             @include('client.pages.class.suggestion')
@@ -163,6 +221,7 @@ Công nghệ thông tin / {{$lop->l_ten}}
 @endsection
 
 @push('script')
+@include('client.pages.class.script')
 <script>
     $(document).ready(function () {
         $('.curriculum').click(function (e) { 
@@ -230,16 +289,9 @@ Công nghệ thông tin / {{$lop->l_ten}}
                 
                 $('#video').html(data);
                 // cuộn màn hình video
-                $('#scrollIntoView').scrollIntoView();
-        });
-    });
-</script>
-<script>
-    $(document).ready(function () {
-        $('.btnUploadVideo').click(function (e) { 
-            e.preventDefault();
-            let lesson=$(this).attr('data-lesson');
-            $('#lessonUpload').val(lesson);
+                $('html, body').animate({
+                    scrollTop: $("#video").offset().top-70
+                }, 1000);
         });
     });
 </script>

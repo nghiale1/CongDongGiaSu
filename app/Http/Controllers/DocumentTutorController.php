@@ -171,6 +171,7 @@ class DocumentTutorController extends Controller
             throw $e;
         }
     }
+
     public function upload(Request $request)
     {
         \DB::beginTransaction();
@@ -205,6 +206,23 @@ class DocumentTutorController extends Controller
             dd($e);
             throw $e;
         }
+    }
+    public function delete(Request $request)
+    {
+        $temp = \DB::table('taptings')
+            ->where('ttgs_id', $request->id)->first();
+        if ($temp) {
+
+            \File::delete(public_path($temp->ttgs_duongdan));
+            \DB::table('taptings')
+                ->where('ttgs_id', $request->id)
+                ->delete();
+            return response()->json($temp->ttgs_duongdan, 200);
+        } else {
+
+            return response()->json('error', 400);
+        }
+
     }
     //Tạo thư mục môn học
     public function studentCreateFolder(Request $request)
@@ -250,7 +268,7 @@ class DocumentTutorController extends Controller
                     # code...
                     $name = $file->getClientOriginalName();
                     $size = $file->getClientSize();
-                    $file->move(public_path() . '/' . $request->fo_dir, $name);
+                    $upload_success = $file->move(public_path() . '/' . $request->fo_dir, $name);
                     \DB::table('taptinhv')->insert(
                         [
                             'tmhv_id' => $request->fo_id,
@@ -273,19 +291,40 @@ class DocumentTutorController extends Controller
             throw $e;
         }
     }
+    public function studentDelete(Request $request)
+    {
+        $temp = \DB::table('taptinhv')
+            ->where('tthv_id', $request->id)->first();
+        if ($temp) {
+
+            \File::delete(public_path($temp->tthv_duongdan));
+            \DB::table('taptinhv')
+                ->where('tthv_id', $request->id)
+                ->delete();
+            return response()->json($temp->tthv_duongdan, 200);
+        } else {
+
+            return response()->json('error', 400);
+        }
+
+    }
 
     public function studentIndex($id)
     {
+        $folder = [];
+        $file = '';
         $student = \DB::table('hocvien')->where('hv_id', $id)->first();
         $findFolder = \DB::table('thumuchv')
             ->where('hv_id', $id)
             ->where('tmhv_tmid', null)
             ->first();
-        // dd($findFolder);
-        $folder = \DB::table('thumuchv')
-            ->where('tmhv_tmid', $findFolder->tmhv_id)->get();
-        $file = \DB::table('taptinhv')
-            ->where('tmhv_id', $findFolder->tmhv_id)->get();
+        if ($findFolder) {
+
+            $folder = \DB::table('thumuchv')
+                ->where('tmhv_tmid', $findFolder->tmhv_id)->get();
+            $file = \DB::table('taptinhv')
+                ->where('tmhv_id', $findFolder->tmhv_id)->get();
+        }
         // dd($doc);
         return view('client.pages.account.student.docs.file', compact('folder', 'file', 'findFolder', 'student'));
 
@@ -364,5 +403,119 @@ class DocumentTutorController extends Controller
         // return response()->download(public_path($nameFile));
         return back()->with('error', 'Thư mục rỗng');
 
+    }
+    //Tạo thư mục môn học
+    public function createFolderClass(Request $request)
+    {
+        \DB::beginTransaction();
+        try {
+
+            $id = \DB::table('thumuclop')
+                ->where('l_id', $request->thumuchientai)
+                ->where('tml_tmid', null)
+                ->first();
+            \DB::table('thumuclop')
+                ->insert([
+                    'l_id' => $request->thumuchientai,
+                    'tml_ten' => $request->tenthumuc,
+                    'tml_tmid' => $id->tml_id,
+                    'tml_slug' => \Str::slug($request->tenthumuc),
+                    'tml_duongdan' => $id->tml_duongdan . '/' . \Str::slug($request->tenthumuc),
+                ]);
+            $path = public_path() . '/' . $id->tml_duongdan . '/' . \Str::slug($request->tenthumuc);
+            File::makeDirectory($path, 0777, true);
+            \DB::commit();
+            return redirect()->back()->with('success', 'Tạo thư mục thành công');
+        } catch (\Exception $e) {
+            \DB::rollback();
+            throw $e;
+        } catch (\Throwable $e) {
+            \DB::rollback();
+            throw $e;
+        }
+    }
+    public function createFileClass(Request $request)
+    {
+        \DB::beginTransaction();
+        try {
+            $id = \DB::table('thumuclop')
+                ->where('tml_id', $request->tml_id)
+                ->first();
+            $time_now = Carbon::now();
+            //code...
+            if ($request->hasFile('file')) {
+                # code...
+                foreach ($request->file('file') as $file) {
+                    # code...
+                    $name = $file->getClientOriginalName();
+                    $size = $file->getClientSize();
+                    $upload_success = $file->move(public_path() . '/' . $id->tml_duongdan, $name);
+                    \DB::table('taptinlop')->insert(
+                        [
+                            'tml_id' => $id->tml_id,
+                            'ttl_ten' => $name,
+                            'ttl_kichthuoc' => $size,
+                            'ttl_duongdan' => $id->tml_duongdan . '/' . $name,
+                        ]
+                    );
+                }
+                \DB::commit();
+                return redirect()->back()->with('success', 'Tải lên thành công');
+            }
+        } catch (\Exception $e) {
+            \DB::rollback();
+            throw $e;
+        } catch (\Throwable $e) {
+            \DB::rollback();
+            throw $e;
+        }
+    }
+    public function deleteFileClass(Request $request)
+    {
+        $temp = \DB::table('taptinlop')
+            ->where('ttl_id', $request->id)->first();
+        if ($temp) {
+
+            \File::delete(public_path($temp->ttl_duongdan));
+            \DB::table('taptinlop')
+                ->where('ttl_id', $request->id)
+                ->delete();
+            return response()->json($temp->ttl_duongdan, 200);
+        } else {
+
+            return response()->json($request, 400);
+        }
+
+    }
+    public function deleteVideoClass(Request $request)
+    {
+        $temp = \DB::table('video')
+            ->where('v_id', $request->id)->first();
+        if ($temp) {
+
+            \File::delete(public_path($temp->v_duongdan));
+            \DB::table('video')
+                ->where('v_id', $request->id)
+                ->delete();
+            return response()->json($temp->v_duongdan, 200);
+        } else {
+
+            return response()->json('error', 400);
+        }
+    }
+    public function deleteFolderClass(Request $request)
+    {
+        $temp = \DB::table('thumuclop')
+            ->where('tml_id', $request->id)->first();
+        if ($temp) {
+            $taptinlop = \DB::table('taptinlop')->where('tml_id', $temp->tml_id)->delete();
+            \File::deleteDirectory(public_path($temp->tml_duongdan));
+            \DB::table('thumuclop')
+                ->where('tml_id', $request->id)->delete();
+            return response()->json($temp->tml_duongdan, 200);
+        } else {
+
+            return response()->json('error', 400);
+        }
     }
 }

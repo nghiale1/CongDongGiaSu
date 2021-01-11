@@ -75,7 +75,6 @@ Giới thiệu
                     $(elem).removeClass('hide');
                     // alert(123);
                     $('.'+placeForm).addClass('hide');
-                    console.log(e);
                     
                 });
                 

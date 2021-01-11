@@ -43,7 +43,7 @@
     }
 
     body {
-        background-color: #e5e5e5;
+        background-color: #d7d7d7 !important;
     }
 
     dropdown-item.active,

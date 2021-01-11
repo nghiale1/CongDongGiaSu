@@ -13,8 +13,8 @@ class PageController extends Controller
 {
     public function index()
     {
-        $linhvuc = \DB::table('linhvuc')->get();
-        return view('client.pages.index', compact('linhvuc'));
+        $chuyenmon = \DB::table('chuyenmon')->get();
+        return view('client.pages.index', compact('chuyenmon'));
     }
 
     public function course($id)
@@ -26,27 +26,42 @@ class PageController extends Controller
             ->count();
         $tutor = Giasu::where('gs_id', $lop->gs_id)->first();
 
-        $lesson = \DB::table('chuong')
-            ->where('chuong.l_id', $lop->l_id)
-            ->get();
+        $tmlop = \DB::table('thumuclop')
+            ->where('l_id', $id)
+            ->where('tml_tmid', null)
+            ->first();
+        $folder = [];
+        $countFilde = 0;
+        if ($tmlop) {
+
+            $folder = \DB::table('thumuclop')
+                ->where('l_id', $id)
+                ->where('tml_tmid', $tmlop->tml_id)
+                ->get();
+            foreach ($folder as $key => $value) {
+                $value->taptin = \DB::table('taptinlop')->where('tml_id', $value->tml_id)->get();
+                if ($value->taptin->isNotEmpty()) {
+                    foreach ($value->taptin as $key2 => $value2) {
+                        $value2->ttl_kichthuoc = $this->formatSize($value2->ttl_kichthuoc);
+                    }
+                    $countFilde += count($value->taptin);
+                }
+            }
+        }
         $temp = 0;
         $minute = 0;
         $second = 0;
-        foreach ($lesson as $item) {
-            $video = \DB::table('video')
-                ->where('video.c_id', $item->c_id)
-                ->get();
-            $item->video = $video;
+        $video = \DB::table('video')
+            ->where('video.l_id', $id)
+            ->get();
 
-            foreach ($video as $key => $value) {
-                $arr = (explode(':', $value->v_dodai));
-                $second += (int) $arr[0] * 60;
-                $second += (int) $arr[1];
+        foreach ($video as $key => $value) {
+            $arr = (explode(':', $value->v_dodai));
+            $second += (int) $arr[0] * 60;
+            $second += (int) $arr[1];
 
-            }
-
-            $temp += count($video);
         }
+        $temp += count($video);
 
         $danhgia = \DB::table('danhgia')
             ->join('hocvien', 'hocvien.hv_id', 'danhgia.hv_id')
@@ -115,7 +130,7 @@ class PageController extends Controller
         $tutor->danhgia = $this->getRatingGS($tutor->gs_id);
         $tutor->lopDaDay = $this->getClassTeached($tutor->gs_id);
         $suggestion = $this->suggestionClass($id, $tutor->gs_id);
-        return view('client.pages.class.intro', compact('lop', 'tutor', 'countHV', 'lesson', 'minute', 'second', 'countVideo', 'suggestion', 'danhgia'));
+        return view('client.pages.class.intro', compact('lop', 'folder', 'countFilde', 'video', 'tutor', 'countHV', 'minute', 'second', 'countVideo', 'suggestion', 'danhgia'));
     }
     public function suggestionClass($id, $gs_id)
     {
@@ -137,27 +152,22 @@ class PageController extends Controller
     }
     public function getDuration($l_id)
     {
-        $lesson = \DB::table('chuong')
-            ->where('chuong.l_id', $l_id)
-            ->get();
         $temp = 0;
         $minute = 0;
         $second = 0;
-        foreach ($lesson as $item) {
-            $video = \DB::table('video')
-                ->where('video.c_id', $item->c_id)
-                ->get();
-            $item->video = $video;
+        $video = \DB::table('video')
+            ->where('video.l_id', $l_id)
+            ->get();
 
-            foreach ($video as $key => $value) {
-                $arr = (explode(':', $value->v_dodai));
-                $second += (int) $arr[0] * 60;
-                $second += (int) $arr[1];
+        foreach ($video as $key => $value) {
+            $arr = (explode(':', $value->v_dodai));
+            $second += (int) $arr[0] * 60;
+            $second += (int) $arr[1];
 
-            }
-
-            $temp += count($video);
         }
+
+        $temp += count($video);
+
         $countVideo = $temp;
         $minute = round($second / 60, 0, PHP_ROUND_HALF_DOWN);
         $second = $second % 60;
@@ -192,6 +202,9 @@ class PageController extends Controller
                 'mot' => 0,
             ],
         ];
+        if ($danhgia->isNotEmpty()) {
+
+        }
         foreach ($danhgia as $key => $value) {
             switch ($value->dg_xephang) {
                 case 1:
@@ -215,14 +228,14 @@ class PageController extends Controller
                     $dem['dem']['nam']++;
                     break;
             }
-        }
-        $dem['dem']['trungbinh'] = (($dem['dem']['mot'] * 1) + ($dem['dem']['hai'] * 2) + ($dem['dem']['ba'] * 3) + ($dem['dem']['bon'] * 4) + ($dem['dem']['nam'] * 5)) / $dem['tong'];
+            $dem['dem']['trungbinh'] = (($dem['dem']['mot'] * 1) + ($dem['dem']['hai'] * 2) + ($dem['dem']['ba'] * 3) + ($dem['dem']['bon'] * 4) + ($dem['dem']['nam'] * 5)) / $dem['tong'];
 
-        $dem['phantram']['nam'] = $dem['dem']['mot'] * 100 / $dem['tong'];
-        $dem['phantram']['bon'] = $dem['dem']['bon'] * 100 / $dem['tong'];
-        $dem['phantram']['ba'] = $dem['dem']['ba'] * 100 / $dem['tong'];
-        $dem['phantram']['hai'] = $dem['dem']['hai'] * 100 / $dem['tong'];
-        $dem['phantram']['mot'] = $dem['dem']['mot'] * 100 / $dem['tong'];
+            $dem['phantram']['nam'] = $dem['dem']['mot'] * 100 / $dem['tong'];
+            $dem['phantram']['bon'] = $dem['dem']['bon'] * 100 / $dem['tong'];
+            $dem['phantram']['ba'] = $dem['dem']['ba'] * 100 / $dem['tong'];
+            $dem['phantram']['hai'] = $dem['dem']['hai'] * 100 / $dem['tong'];
+            $dem['phantram']['mot'] = $dem['dem']['mot'] * 100 / $dem['tong'];
+        }
 
         return $dem;
 
@@ -238,6 +251,8 @@ class PageController extends Controller
         $tutor->solop = \DB::table('lop')->where('gs_id', $tutor->gs_id)->count();
         $school = Truonghoc::where('gs_id', $id)->get();
         $degree = Bangcap::where('gs_id', $id)->get();
+        $listClass = Lop::join('giasu', 'giasu.gs_id', 'lop.gs_id')
+            ->where('lop.gs_id', $id)->limit(3)->get();
 
         $mySubject = \DB::table('chitietchuyenmon')->join('chuyenmon', 'chuyenmon.cm_id', 'chitietchuyenmon.cm_id')
             ->leftjoin('linhvuc', 'linhvuc.lv_id', 'chuyenmon.lv_id')
@@ -261,10 +276,11 @@ class PageController extends Controller
                 ->get();
             $value->lop = $lop;
         }
+        $tutor->danhgia = $this->getRatingGS($tutor->gs_id);
 
         $loca = \json_encode(\DB::table('giasu')->get());
         // dd($tutor->chitietlichdays);
-        return view('client.pages.account.tutor.profile', compact('tutor', 'school', 'degree', 'subject', 'obj', 'mySubject', 'loca', 'schedule'));
+        return view('client.pages.account.tutor.profile', compact('tutor', 'school', 'degree', 'subject', 'obj', 'mySubject', 'loca', 'schedule', 'listClass'));
 
     }
 }

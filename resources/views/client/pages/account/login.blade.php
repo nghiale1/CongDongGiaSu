@@ -29,7 +29,8 @@
 
         html,
         body {
-            background-image: url('/hand-read-board-underwater-blackboard-training-797673-pxhere.com.jpg');
+            background-image: url("{{ asset('hand-read-board-underwater-blackboard-training-797673-pxhere.com.jpg') }}");
+
             /* background-image: url('http://getwallpapers.com/wallpaper/full/a/5/d/544750.jpg'); */
             background-size: cover;
             background-repeat: no-repeat;
@@ -132,6 +133,11 @@
                     </div>
                 </div>
                 <div class="card-body">
+                    @if($error = Session::get('error'))
+                    <div class="alert alert-danger" role="alert">
+                        <p>{{$error}}</p>
+                    </div>
+                    @endif
                     <form action="{{route('account.login')}}" method="post">
                         @csrf
                         <div class="input-group form-group">
@@ -159,10 +165,13 @@
                             Tài khoản demo:
                         </div>
                         <div class="d-flex justify-content-left links">
-                            &nbsp;&nbsp;&nbsp;&nbsp;Gia sư: giasu1 - giasu
+                            &nbsp;&nbsp;&nbsp;&nbsp;Gia sư: giasu1-giasu
                         </div>
                         <div class="d-flex justify-content-left links">
-                            &nbsp;&nbsp;&nbsp;&nbsp;Học viên: hocvien1 - hocvien
+                            &nbsp;&nbsp;&nbsp;&nbsp;Học viên: hocvien1-hocvien
+                        </div>
+                        <div class="d-flex justify-content-left links">
+                            &nbsp;&nbsp;&nbsp;&nbsp;Admin: admin-admin
                         </div>
                     </div>
                     <div class="alert alert-danger" id="error" role="alert">
@@ -184,41 +193,18 @@
         $(document).ready(function () {
                 $('#error').hide();
                 $('#signin').click(function (e) {
-                    
-                    e.preventDefault();
-                    var username = $("input[name='username']").val();
-                    var password = $("input[name='password']").val();
-                    var remember = $("input[name='remember']").val();
-                    
-                   
-                    $.ajax({
-                    type: "POST",
-                    url: "{!! route('account.login') !!}",
-                    headers: {
-                        'X-CSRF-TOKEN': $('input[name="_token"]').val()
-                    },
-                    data: {
-                        username : username,
-                        password : password,
-                        remember : remember
-                    },
-                    success: function (response) {
+                    if(username=='' || password==''){
+                    $('#error').text("Chưa điền tài khoản và mật khẩu");
+                    $('#error').show();
+                    return false;
 
-                        window.location = "{{ route('home') }}"
-    },
-    error: function(e) {
-    if(username=='' || password==''){
-    $('#error').text("Chưa điền tài khoản và mật khẩu");
-    $('#error').show();
-    }
-    else{
-    console.log(e);
-    $('#error').text(e.responseJSON);
-    $('#error').show();
-    }
-    }
-    });
-    });
+                }
+                else{
+                    $('#error').text(e.responseJSON);
+                    $('#error').show();
+                    return false;
+                }
+                });
     });
     </script>
 </body>

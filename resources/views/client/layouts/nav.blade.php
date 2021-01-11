@@ -8,7 +8,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <a class="navbar-brand" href="{{route('home')}}">
-                    <span class="fa fa-pencil-square-o "></span> Cộng Đồng Gia Sư
+                    Cộng Đồng Gia Sư
                 </a>
 
                 <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
@@ -37,14 +37,15 @@
                                 <div class="row pl-3 pr-3 ">
                                     <div class="col-md-2 p-0 border-account">
 
-                                        <img src="{{asset('client/svg/teacher_female.svg')}}" alt=""
-                                            class="avatar avatar-account">
+                                        <img src="{{asset(\Auth::user()->giasus[0]->gs_hinhdaidien)}}" alt=""
+                                            class="avatar avatar-account get-avatar"
+                                            data-data="{{\Auth::user()->giasus[0]->gs_hinhdaidien}}">
                                     </div>
                                     <div class="col-md-10 ">
                                         <div class="account-profile">
 
                                             <b>
-                                                <p>
+                                                <p class="get-name" data-data="{{\Auth::user()->giasus[0]->gs_hoten}}">
 
                                                     {{\Auth::user()->giasus[0]->gs_hoten}}
                                                 </p>
@@ -61,6 +62,12 @@
                                 </div>
                                 Tin nhắn
                             </a>
+                            <a class="dropdown-item pb-1" href="{{route('tutor.messageClass')}}">
+                                <div class="dropdown-icon">
+                                    <i class="fa fa-comments" aria-hidden="true"></i>
+                                </div>
+                                Tin nhắn của lớp
+                            </a>
                             <a class="dropdown-item pb-1"
                                 href="{{route('document.tutor.index',\Auth::user()->giasus[0]->gs_id)}}">
                                 <div class="dropdown-icon">
@@ -75,6 +82,13 @@
                                 </div>
                                 Lớp dạy
                             </a>
+                            <a class="dropdown-item pb-1" href="">
+                                <div class="dropdown-icon">
+
+                                    <i class="fa fa-credit-card" aria-hidden="true"></i>
+                                </div>
+                                Rút tiền
+                            </a>
                             <a class="dropdown-item pb-1" href="{{route('account.logout')}}">
                                 <div class="dropdown-icon">
                                     <i class="fa fa-sign-out" aria-hidden="true"></i>
@@ -83,7 +97,7 @@
                             </a>
                         </div>
                     </li>
-                    <?php else: ?>
+                    <?php elseif (\Auth::user()->hasRole('HocVien')):  ?>
                     <li class="btn-group my-2 my-lg-0 accounts">
                         <a class=" dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false"> {{\Auth::user()->hocviens[0]->hv_hoten}} <i class="fa fa-caret-down"
@@ -97,14 +111,16 @@
                                 <div class="row pl-3 pr-3 ">
                                     <div class="col-md-2 p-0 border-account">
 
-                                        <img src="{{asset('client/svg/teacher_female.svg')}}" alt=""
-                                            class="avatar avatar-account">
+                                        <img src="{{asset(\Auth::user()->hocviens[0]->hv_hinhdaidien)}}" alt=""
+                                            class="avatar avatar-account get-avatar"
+                                            data-data="{{\Auth::user()->hocviens[0]->hv_hinhdaidien}}">
                                     </div>
                                     <div class="col-md-10 ">
                                         <div class="account-profile">
 
                                             <b>
-                                                <p>
+                                                <p class="get-name"
+                                                    data-data="{{\Auth::user()->hocviens[0]->hv_hoten}}">
 
                                                     {{\Auth::user()->hocviens[0]->hv_hoten}}
                                                 </p>
@@ -127,7 +143,7 @@
 
                                     <i class="fa fa-graduation-cap" aria-hidden="true"></i>
                                 </div>
-                                Lớp dạy
+                                Lớp học
                             </a>
                             <a class="dropdown-item pb-1" href="{{route('account.logout')}}">
                                 <div class="dropdown-icon">

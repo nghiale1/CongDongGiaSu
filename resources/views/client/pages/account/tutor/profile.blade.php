@@ -14,7 +14,7 @@ Giới thiệu
 @section('page')
 <div class="container pt-3">
     <div class="row ">
-        <div class="col-md-8">
+        <div class="col-md-9">
             <div class="white pad20">
                 <div class="row">
                     @include('client.pages.account.tutor.info')
@@ -33,8 +33,10 @@ Giới thiệu
                         <hr>
 
                         @include('client.pages.account.tutor.subject')
+                        @if ($tutor->gs_toado)
                         <hr>
-                        {{-- @include('client.pages.account.tutor.map') --}}
+                        @include('client.pages.account.tutor.map')
+                        @endif
                         <hr>
                         @include('client.pages.account.tutor.rating')
 
@@ -46,11 +48,16 @@ Giới thiệu
 
         </div>
         {{-- <div class="col1" style="    width: 2%;"></div> --}}
-        <div class="col-md-4">
+        <div class="col-md-3">
+            @if (\Auth::check())
+            @if (\Auth::user()->hasRole('HocVien'))
+
             <div class="white pad20 chat">
                 @include('client.pages.account.tutor.chat')
 
             </div>
+            @endif
+            @endif
         </div>
     </div>
 </div>

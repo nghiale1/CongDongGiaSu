@@ -96,7 +96,7 @@
     }
 
     .busy {
-        background-color: #dcdae2;
+        background-color: #05728f;
     }
 
     .rating-bar-container {

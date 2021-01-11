@@ -29,26 +29,35 @@ Cộng đồng gia sư
                         <div class="banner-info">
                             <div class="container">
                                 <div class="banner-info-bg mx-auto text-center">
-                                    <form class="position-relative my-2 my-lg-0" style="width: 83%;text-align:center"
-                                        method="get" action="{{route('search.step1')}}">
-                                        {{-- @csrf --}}
-                                        {{-- <select class="selectpicker form-control" data-live-search="true" name="search"
-                                            placeholder="Nhập môn học" data-width="100%">
-                                            @foreach ($linhvuc as $item)
 
-                                            <option data-tokens="{{$item->lv_id}}" value="{{$item->lv_ten}}">
-                                        {{$item->lv_ten}}</option>
+                                    <form class="position-relative my-2 my-lg-0" style="width: 83%;text-align:center"
+                                        method="get" action="{{route('search')}}">
+                                        <input class="form-control search" type="search" placeholder="Tìm kiếm..."
+                                            name="search" aria-label="Search" required="" style="height: 45px;">
+                                        {{-- @csrf --}}
+                                        {{-- <select class="selectpicker search" data-live-search="true" name="chuyen_mon"
+                                            placeholder="Nhập môn học" data-width="100%">
+                                            @foreach ($chuyenmon as $item)
+
+                                            <option data-tokens="{{$item->cm_id}}" value="{{$item->cm_ten}}">
+                                        {{$item->cm_ten}}</option>
                                         @endforeach
-                                        </select> --}}
-                                        <input class="form-control search" list="browsers" name="search"
+                                        </select>
+                                        <button class="btn btn-search position-absolute" type="submit" style="top: 0px;"
+                                            id="btnSearchSubject"><span class="fa fa-search"
+                                                aria-hidden="true"></span></button> --}}
+
+
+
+                                        {{-- <input class="form-control search" list="browsers" name="chuyen_mon"
                                             placeholder="Nhập môn học" aria-label="Search" required=""
                                             autocomplete="off" id="searchSubject" style="height: 45px;">
                                         <datalist id="browsers">
-                                            @foreach ($linhvuc as $item)
-                                            <option data-value="{{$item->lv_id}}" value="{{$item->lv_ten}}"></option>
-                                            @endforeach
+                                            @foreach ($chuyenmon as $item)
+                                            <option data-value="{{$item->cm_id}}" value="{{$item->cm_ten}}"></option>
+                                        @endforeach
                                         </datalist>
-                                        <input type="hidden" name="linh_vuc" id="linhvuc">
+                                        <input type="hidden" name="linh_vuc" id="linhvuc"> --}}
                                         <button class="btn btn-search position-absolute" type="submit" style="top: 0px;"
                                             id="btnSearchSubject"><span class="fa fa-search"
                                                 aria-hidden="true"></span></button>
@@ -56,9 +65,6 @@ Cộng đồng gia sư
 
                                     </form>
 
-
-                                    {{-- <h5>Vì thế hệ tương lai!</h5>
-                                    <a class="btn btn-secondary btn-theme2 mt-md-5 mt-4" href="">Xem thêm</a> --}}
                                 </div>
 
                             </div>
@@ -66,50 +72,7 @@ Cộng đồng gia sư
                     </div>
                 </li>
             </div>
-            <div class="item">
-                <li>
-                    <div class="slider-info  banner-view banner-top1 bg bg2" data-selector=".bg.bg2">
-                        <div class="banner-info">
-                            <div class="container">
-                                <div class="banner-info-bg mx-auto text-center">
-                                    <h5>Explore The World Of Our Graduates</h5>
-                                    <a class="btn btn-secondary btn-theme2 mt-md-5 mt-4" href="">Xem thêm</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-            </div>
-            <div class="item">
-                <li>
-                    <div class="slider-info banner-view banner-top2 bg bg2" data-selector=".bg.bg2">
-                        <div class="banner-info">
-                            <div class="container">
-                                <div class="banner-info-bg mx-auto text-center">
-                                    <h5>Exceptional People, Exceptional Care</h5>
-                                    <a class="btn btn-secondary btn-theme2 mt-md-5 mt-4" href="">Read
-                                        More</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-            </div>
-            <div class="item">
-                <li>
-                    <div class="slider-info banner-view banner-top3 bg bg2" data-selector=".bg.bg2">
-                        <div class="banner-info">
-                            <div class="container">
-                                <div class="banner-info-bg mx-auto text-center">
-                                    <h5>Explore The World Of Our Graduates</h5>
-                                    <a class="btn btn-secondary btn-theme2 mt-md-5 mt-4" href="">Read
-                                        More</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-            </div>
+
         </div>
     </div>
 
@@ -123,27 +86,12 @@ Cộng đồng gia sư
 <link rel="stylesheet" href="{{asset('bootstrap-select-1.13.14/css/bootstrap-select.min.css')}}">
 <script src="{{asset('bootstrap-select-1.13.14/js/bootstrap-select.min.js')}}"></script>
 <script src="{{asset('bootstrap-select-1.13.14/js/i18n/defaults-vi_VN.min.js')}}"></script>
-
+<!-- Latest compiled and minified CSS -->
 <script>
-    $(document).ready(function () {
-        
-        $('#searchSubject').keyup(function (e) { 
-            var value = $('#searchSubject').val();
-            $('#linhvuc').val($('#browsers [value="' + value + '"]').data('value'));
-            $('#btnSearchSubject').click();
-        });
-        var inp = document.querySelector('input');
-        inp.addEventListener('input', function() {
-        var value = this.value;
-        var opt = [].find.call(this.list.options, function(option) {
-            return option.value === value;
-        });
-        if(opt) {
-            this.value = opt.textContent;
-        }
-        });
-        
-    });
+    function modifications() {
+  $('.selectpicker option:selected').remove();
+  $('.selectpicker').selectpicker('refresh');
+}
 </script>
 <script>
     $(document).ready(function () {

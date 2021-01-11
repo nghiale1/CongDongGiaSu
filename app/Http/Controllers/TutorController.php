@@ -46,6 +46,38 @@ class TutorController extends Controller
             return response()->json($th, 500);
         }
     }
+    public function changeLatLng(Request $request)
+    {
+
+        try {
+            //code...
+            \DB::table('giasu')
+                ->where('gs_id', \Auth::user()->giasus[0]->gs_id)
+                ->update([
+                    'gs_toado' => $request->data,
+                ]);
+            return response()->json($request, 200);
+        } catch (\Throwable $th) {
+            //throw $th;
+            return response()->json($th, 500);
+        }
+    }
+    public function changeFee(Request $request)
+    {
+
+        try {
+            //code...
+            \DB::table('giasu')
+                ->where('gs_id', \Auth::user()->giasus[0]->gs_id)
+                ->update([
+                    'gs_mucluong' => intval(str_replace(',', '', str_replace('.', '', $request->data))),
+                ]);
+            return response()->json($request, 200);
+        } catch (\Throwable $th) {
+            //throw $th;
+            return response()->json($th, 500);
+        }
+    }
     public function changeDes(Request $request)
     {
 
@@ -276,28 +308,30 @@ class TutorController extends Controller
                     'l_daidien' => 'client/img/class/' . $request->type . '/' . $name_file,
                     'gs_id' => $id,
                     'ctcm_id' => $request->ctcm,
+                    'l_ngaytao' => Date('y/m/d h:i:s'),
+                    'l_ngaycapnhat' => Date('y/m/d h:i:s'),
                 ]);
                 // tạo thư mục môn học
-                $id_class = \DB::table('thumuclop')->insertGetId([
+                $thumuclop_id = \DB::table('thumuclop')->insertGetId([
                     'l_id' => $id_class,
                     'tml_ten' => $request->l_ten,
                     'tml_slug' => \Str::slug($request->l_ten) . '.' . $id_class,
                     'tml_duongdan' => 'tai-lieu-mon-hoc/' . $id_class . '/' . \Str::slug($request->l_ten),
                 ]);
-            }
-            foreach ($request->lich as $key => $value) {
-                \DB::table('loptgd')->insert([
-                    'l_id' => $id_class,
-                    'tgd_id' => $value,
-                ]);
-            }
-            foreach ($request->lich as $key => $value) {
-                \DB::table('chitietlichday')
-                    ->where('tgd_id', $value)
-                    ->where('gs_id', $id)
-                    ->update([
-                        'ctld_trangthai' => 'Ban',
+                foreach ($request->lich as $key => $value) {
+                    \DB::table('loptgd')->insert([
+                        'l_id' => $id_class,
+                        'tgd_id' => \intval($value),
                     ]);
+                }
+                foreach ($request->lich as $key => $value) {
+                    \DB::table('chitietlichday')
+                        ->where('tgd_id', $value)
+                        ->where('gs_id', $id)
+                        ->update([
+                            'ctld_trangthai' => 'Ban',
+                        ]);
+                }
             }
 
             \DB::commit();
@@ -369,39 +403,39 @@ class TutorController extends Controller
     }
     public function uploadVideo(Request $request)
     {
-
-        // dd($request);
         DB::beginTransaction();
         try {
             $gs = \DB::table('giasu')
                 ->join('lop', 'lop.gs_id', 'giasu.gs_id')
-                ->join('chuong', 'chuong.l_id', 'lop.l_id')
-                ->where('c_id', $request->lesson)
+                ->where('lop.l_id', $request->lop)
                 ->first();
             if ($request->hasFile('file')) {
-                //lưu file
-                $name = $request->file('file')->getClientOriginalName();
-                $type = $request->file('file')->getClientOriginalExtension();
-                // dd($request->file)
-                // dd($name);
-                $path = '/video/' . $gs->gs_id . '/' . $request->lesson . '/';
-                $request->file('file')->move(
-                    public_path($path), //nơi cần lưu
-                    $name);
-                $getID3 = new \getID3;
-                // dd(realpath(public_path(($path.''.$name))));
-                $duration = $getID3->analyze(realpath(public_path($path . '' . $name)))['playtime_string'];
+                foreach ($request->file('file') as $key => $value) {
+                    //lưu file
+                    $name = $value->getClientOriginalName();
+                    $type = $value->getClientOriginalExtension();
+                    // dd($request->file)
+                    // dd($name);
+                    $path = '/video/' . $gs->gs_id . '/' . $request->lesson . '/';
+                    $value->move(
+                        public_path($path), //nơi cần lưu
+                        $name);
+                    $getID3 = new \getID3;
+                    // dd(realpath(public_path(($path.''.$name))));
+                    $duration = $getID3->analyze(realpath(public_path($path . '' . $name)))['playtime_string'];
 
-                \DB::table('video')->insert([
-                    'v_duongdan' => '/video/' . $gs->gs_id . '/' . $request->lesson . '/' . $name,
-                    'v_ten' => $name,
-                    'v_dodai' => $duration,
-                    'v_theloai' => $type,
-                    'c_id' => $request->lesson,
-                ]);
+                    \DB::table('video')->insert([
+                        'v_duongdan' => '/video/' . $gs->gs_id . '/' . $request->lesson . '/' . $name,
+                        'v_ten' => $name,
+                        'v_dodai' => $duration,
+                        'v_theloai' => $type,
+                        'l_id' => $request->lop,
+                    ]);
+                }
             }
             \DB::commit();
-            return redirect()->route('course.intro', $request->lesson);
+            return redirect()->back()->with('success', 'Tải lên video thành công');
+            // return redirect()->route('course.intro', $request->lesson);
         } catch (\Exception $e) {
             \DB::rollback();
             throw $e;
@@ -409,5 +443,11 @@ class TutorController extends Controller
             \DB::rollback();
             throw $e;
         }
+    }
+    public function listClass($gs_id)
+    {
+        $list = \DB::table('lop')->where('gs_id', $gs_id)->get();
+        $tutor = \DB::table('giasu')->where('gs_id', $gs_id)->first();
+        return view('client.pages.account.tutor.listClass', compact('list', 'tutor'));
     }
 }

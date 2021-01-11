@@ -133,47 +133,59 @@
                 </tr>
             </tbody>
         </table>
-
+        @if(\Auth::check())
+        @if(\Auth::user()->kiemTraGiaSu($tutor->gs_id))
+        <a href="{{route('tutor.addClass')}}" class="btn btn-edit">Thêm khoá học</a>
+        @endif
+        @endif
+        <br>
+        <a class="btn btn-grey inline float-md-left save" href="{{route('listClass',$tutor->gs_id)}}">
+            <span style="font-weight: 600;">
+                Xem khoá học của gia
+                sư</span>
+        </a>
     </div>
 </div>
 @push('script')
+@if (\Auth::check())
+@if (\Auth::user()->kiemTraGiaSu($tutor->gs_id))
 <script>
-    $(document).ready(function () {
-        $('.square').click(function (e) { 
-            e.preventDefault();
-            let type=$(this).attr('data-type');
-            let id=$(this).attr('data-id');
-            // if(type=='busy'){
-            //     $(this).removeClass('busy');
-            //     $(this).html('<img src="{{asset("/client/svg/greenTick.svg")}}" alt="" class="green-tick">');
-            //     $(this).attr('data-type', 'free');
+    // $(document).ready(function () {
+    //     $('.square').click(function (e) { 
+    //         e.preventDefault();
+    //         let type=$(this).attr('data-type');
+    //         let id=$(this).attr('data-id');
+    //         // if(type=='busy'){
+    //         //     $(this).removeClass('busy');
+    //         //     $(this).html('<img src="{{asset("/client/svg/greenTick.svg")}}" alt="" class="green-tick">');
+    //         //     $(this).attr('data-type', 'free');
                 
-            // }
-            if(type=='free'){
-                $(this).attr('data-type', 'busy');
-                $(this).addClass('busy');
-                $(this).html('');
-            }
-            $.ajaxSetup({
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        }
-                    });
-            $.ajax({
-                type: "post",
-                url: "{!!route('changeStatusSchedule')!!}",
-                data: {id:id,type:type},
-                success: function (response) {
-                    // console.log(response);
-                },
-                error:function (e) {
-                    // console.log(e);
-                }
-            });
-                $.ajaxSetup({
-            }); 
-        });
-    });
+    //         // }
+    //         if(type=='free'){
+    //             $(this).attr('data-type', 'busy');
+    //             $(this).addClass('busy');
+    //             $(this).html('');
+    //         }
+    //         $.ajaxSetup({
+    //                     headers: {
+    //                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //                     }
+    //                 });
+    //         $.ajax({
+    //             type: "post",
+    //             url: "{!!route('changeStatusSchedule')!!}",
+    //             data: {id:id,type:type},
+    //             success: function (response) {
+    //                 console.log(response);
+    //             },
+    //             error:function (e) {
+    //                 console.log(e);
+    //             }
+    //         });
+    //             $.ajaxSetup({
+    //         }); 
+    //     });
+    // });
 </script>
 <script>
     // $(document).ready(function () {
@@ -184,4 +196,7 @@
     //     });
     // });
 </script>
+
+@endif
+@endif
 @endpush

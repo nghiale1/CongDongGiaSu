@@ -8,8 +8,10 @@
 <link rel="stylesheet" href="{{asset('admin/assets/css/style-starter.css')}}">
 
 <!-- google fonts -->
-<link href="//fonts.googleapis.com/css?family=Nunito:300,400,600,700,800,900&display=swap" rel="stylesheet">
-
+{{-- <link href="//fonts.googleapis.com/css?family=Nunito:300,400,600,700,800,900&display=swap" rel="stylesheet">
+@font-face{
+    font-family: Nunito;
+    src: url('reef-webfont.woff'), url('reef-webfont.woff') format('woff');} --}}
 {{-- font awesome --}}
 <link href="{{asset('admin/assets/vendor/fontawesome-5.14.0/css/all.css')}}" rel="stylesheet">
 <!--load all styles -->

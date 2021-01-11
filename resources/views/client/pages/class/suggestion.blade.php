@@ -15,8 +15,9 @@
     }
 </style>
 @endpush
-@if(\Auth::check())
-@if (\Auth::user()->kiemTraGiaoDich($lop->l_id)||\Auth::user()->kiemTraLopHoc($lop->l_id))
+<?php if (\Auth::check()): ?>
+<?php if (\Auth::user()->kiemTraGiaoDich($lop->l_id)||\Auth::user()->kiemTraLopHoc($lop->l_id)): ?>
+
 {{-- {{dd(\Auth::user()->giaodichs())}} --}}
 <div class="content pl-4 pr-4 white" style="border:1px solid #e5e6ec">
 
@@ -34,8 +35,7 @@
 </div>
 <br>
 @include('client.pages.class.chat')
-
-@else
+<?php else:?>
 <div class="sugg white">
     <img src="{{asset($lop->l_daidien)}}" alt="{{$lop->l_ten}}" load="lazy" class="suggestion-avatar rounded-top pb-1">
     {{-- {{dd(\Auth::user()->giaodichs())}} --}}
@@ -56,8 +56,32 @@
         <br>
     </div>
 </div>
-@endif
-@endif
+<?php endif ?>
+<?php endif ?>
+<?php if (!\Auth::check()): ?>
+
+<div class="sugg white">
+    <img src="{{asset($lop->l_daidien)}}" alt="{{$lop->l_ten}}" load="lazy" class="suggestion-avatar rounded-top pb-1">
+    {{-- {{dd(\Auth::user()->giaodichs())}} --}}
+    <div class="content pl-4 pr-4">
+
+        <strong>
+
+            <h4 class="pt-2" style="    font-family: Open Sans,sans-serif;">
+                {{number_format($lop->l_hocphi)}} đ
+            </h4>
+        </strong>
+        <br>
+        <form action="{{route('account.login_view')}}" method="post">
+            @csrf
+            <button type="submit" class="btn btn-danger" style="width: 100%">ĐĂNG KÝ</button>
+        </form>
+        <br>
+        <br>
+    </div>
+</div>
+<?php endif ?>
+
 <br>
 @foreach ($suggestion as $item)
 <div class="sugg white">

@@ -19,18 +19,19 @@ Gia sư / Tài liệu gia sư
 @endpush
 
 @section('page')
-
+<br>
 <div class="container">
-    <div class="row" style="margin-bottom: 20px;" id="right-click-bg">
-        <div class="col-md-12">
+    <div class="white p-4">
+        <div class="row" style="margin-bottom: 20px;" id="right-click-bg">
+            <div class="col-md-12">
 
-            <br>
-            <br>
+                <br>
+            </div>
+            @foreach ($doc as $item)
+
+            @include('client.pages.document.folder')
+            @endforeach
         </div>
-        @foreach ($doc as $item)
-
-        @include('client.pages.document.folder')
-        @endforeach
     </div>
 </div>
 

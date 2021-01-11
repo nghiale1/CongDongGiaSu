@@ -4,7 +4,7 @@
 </style>
 @endpush
 <div class="row">
-    <div class="col-md-3">Bằng cấp</div>
+    <div class="col-md-3">Chứng chỉ, chứng nhận</div>
     <div class="col-md-9">
         <div class="cont">
 
@@ -85,7 +85,6 @@
             e.preventDefault();
              //Lấy ra files
             var file_data = $('.bc_hinhanh').prop('files')[0];
-            console.log(file_data);
             //khởi tạo đối tượng form data
             var form_data = new FormData();
             //thêm files vào trong form data
@@ -97,7 +96,6 @@
             form_data.append('bc_hinhanh', $('.bc_hinhanh').prop('files')[0]);
             form_data.append('bc_tenbangcap', bc_tenbangcap);
             form_data.append('bc_ngaycap', bc_ngaycap);
-            console.log(form_data);
             $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -114,7 +112,6 @@
                     location.reload();
                 },
                 error:function(e){
-                    console.log(e);
                 }
             });
         return false;
@@ -137,12 +134,10 @@
                 data: {id:id},
                 type: 'post',
                 success: function (res) {
-                    console.log(res);
                     $('.bangcap-'+id).html('');
                     
                 },
                 error:function(e){
-                    console.log(e);
                 }
             });
         };

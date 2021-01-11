@@ -6,6 +6,16 @@
         display: contents;
     }
 
+    .content,
+    .input_msg_write {
+        padding-right: 2%;
+        padding-left: 2%;
+    }
+
+    .msg_send_btn {
+        margin-right: 2%;
+    }
+
     img {
         max-width: 100%;
     }
@@ -122,7 +132,8 @@
     }
 
     .incoming_msg_img {
-        display: inline-block;
+        margin-top: inherit;
+        s display: inline-block;
         width: 6%;
     }
 
@@ -281,7 +292,10 @@
         gs_id: "{!! $tutor->gs_id !!}",
         // time:Date.now(),
     }
+    let url='{{asset(":id")}}';
 
+    var name=$('.get-name').attr('data-data');
+    var avatar=$('.get-avatar').attr('data-data');
     function sendMessage() {
         $.ajaxSetup({
                 headers: {
@@ -289,7 +303,7 @@
                 }
             });
             $.ajax({
-                type: "post",
+                type: "get",
                 url: "{!!route('checkChatLop')!!}",
                 data: params,
                 dataType: "json",
@@ -303,12 +317,14 @@
                         "giasu" : params.gs_id,
                         "time" : Date.now(),
                         "message" : message,
+                        "hoten" : name,
+                        "avatar" : avatar,
                     });
                     var frm = document.getElementById('frmChat');
                     frm.reset();  // Reset all form data
-                    return false;
                 }
             });
+                    return false;
               
     }
     function formatTime(time) { 
@@ -325,18 +341,19 @@
     firebase.database().ref("messages").on("child_added", function (snapshot) {
         
         $(document).ready(function () {
+            
+
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
             $.ajax({
-                type: "post",
+                type: "get",
                 url: "{!!route('checkChatLop')!!}",
                 data: params,
                 dataType: "json",
                 success: function (response) {
-                    console.log(response);
                 if (snapshot.val().chatId==response.chatId) {
                 var html="";
                 if(snapshot.val().senderId == ID){
@@ -351,9 +368,10 @@
                     html+="</div>";
                 }
                 else{
+                    url = url.replace(':id', snapshot.val().avatar);
                     html+="<div class='incoming_msg'>";
                     html+= "<div class='incoming_msg_img'>";
-                    html+= "<img src='https://ptetutorials.com/images/user-profile.png' alt='sunil'>";
+                    html+= "<img src='"+url+"' alt='"+snapshot.val().name+"'>";
                     html+="</div>";
                     html+="<div class='received_msg'>";
                         if(snapshot.val().senderId==params.gs_id){
