@@ -1,5 +1,9 @@
 @push('css')
 <style>
+    .inp-fee {
+        display: contents;
+    }
+
     @include('client.pages.account.tutor.info-css');
 </style>
 @endpush
@@ -84,6 +88,20 @@
 
 </div>
 <div class="col-md-12 intro">
+    <h5>Phí dạy</h5>
+    <p class="inp-fee">
+        {!!number_format($tutor->gs_mucluong)!!}
+    </p>
+    <span>/ buổi</span>
+    <br>
+    @if(\Auth::check())
+    @if(\Auth::user()->kiemTraGiaSu($tutor->gs_id))
+    <button class="edit" data-for="inp-fee" data-text="Thêm thông tin về chi phí dạy" data-position="fee">Chỉnh
+        sửa</button>
+    @endif
+    @endif
+
+
     <h5>Giới thiệu</h5>
     <p class="inp-intro">
         {!!$tutor->gs_gioithieu!!}
@@ -117,6 +135,28 @@
                 $('.'+obj).append(btn);
                 var elem= $(this);
                 
+                $('.save-fee').click(function (e) { 
+                    e.preventDefault();
+                    var data=$('.tare-fee').val();
+                    // alert(data);
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+                    $.ajax({
+                        type: "post",
+                        url: "{!!route('changeFee')!!}",
+                        data: {data:data},
+                        success: function (response) {
+                            let dataNew=data;
+                            $(elem).show();
+                            $('.'+obj).html(dataNew);
+                        },
+                        error:function (e) {
+                        }
+                    });
+                });
                 $('.save-intro').click(function (e) { 
                     e.preventDefault();
                     var data=$('.tare-intro').val();
@@ -221,20 +261,20 @@
     });
     
 </script>
-<script
-    src="https://maps.google.com/maps/api/js?key=AIzaSyDxTV3a6oL6vAaRookXxpiJhynuUpSccjY&amp;libraries=places&amp;callback=initAutocomplete"
-    type="text/javascript">
-</script>
+{{-- <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAaaygZT7_LyyyK1fE9Wf9nsBHfJXgzXXY&region=VN&language=vi&libraries=places,geometry&callback=initMap">
+</script> --}}
 
 <script>
-    google.maps.event.addDomListener(window, 'load', initialize);
-    function initialize() {
-        var input = document.getElementById('autocomplete');
-        var autocomplete = new google.maps.places.Autocomplete(input);
-        autocomplete.addListener('place_changed', function() {
-            var place = autocomplete.getPlace();
-        });
-    }
+    // google.maps.event.addDomListener(window, 'load', initialize);
+    // function initialize() {
+    //     var input = document.getElementById('autocomplete');
+    //     var autocomplete = new google.maps.places.Autocomplete(input);
+    //     autocomplete.addListener('place_changed', function() {
+    //         var place = autocomplete.getPlace();
+    //         console.log(place);
+    //     });
+    // }
 </script>
 
 @endpush

@@ -133,6 +133,11 @@
                     </div>
                 </div>
                 <div class="card-body">
+                    @if($error = Session::get('error'))
+                    <div class="alert alert-danger" role="alert">
+                        <p>{{$error}}</p>
+                    </div>
+                    @endif
                     <form action="{{route('account.login')}}" method="post">
                         @csrf
                         <div class="input-group form-group">
@@ -188,40 +193,18 @@
         $(document).ready(function () {
                 $('#error').hide();
                 $('#signin').click(function (e) {
-                    
-                    e.preventDefault();
-                    var username = $("input[name='username']").val();
-                    var password = $("input[name='password']").val();
-                    var remember = $("input[name='remember']").val();
-                    
-                   
-                    $.ajax({
-                    type: "POST",
-                    url: "{!! route('account.login') !!}",
-                    headers: {
-                        'X-CSRF-TOKEN': $('input[name="_token"]').val()
-                    },
-                    data: {
-                        username : username,
-                        password : password,
-                        remember : remember
-                    },
-                    success: function (response) {
+                    if(username=='' || password==''){
+                    $('#error').text("Chưa điền tài khoản và mật khẩu");
+                    $('#error').show();
+                    return false;
 
-                        window.location = "{{ route('home') }}"
-    },
-    error: function(e) {
-    if(username=='' || password==''){
-    $('#error').text("Chưa điền tài khoản và mật khẩu");
-    $('#error').show();
-    }
-    else{
-    $('#error').text(e.responseJSON);
-    $('#error').show();
-    }
-    }
-    });
-    });
+                }
+                else{
+                    $('#error').text(e.responseJSON);
+                    $('#error').show();
+                    return false;
+                }
+                });
     });
     </script>
 </body>

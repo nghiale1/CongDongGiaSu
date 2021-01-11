@@ -54,6 +54,8 @@ Route::group(['middleware' => ['giaSu']], function () {
         Route::get('/nen/{id}', 'DocumentTutorController@zip')->name('document.tutor.zip');
     });
 
+    Route::post('/changeLatLng', 'TutorController@changeLatLng')->name('changeLatLng');
+    Route::post('/changeFee', 'TutorController@changeFee')->name('changeFee');
     Route::post('/changeStatusSchedule', 'TutorController@changeStatusSchedule')->name('changeStatusSchedule');
     Route::post('/changeIntro', 'TutorController@changeIntro')->name('changeIntro');
     Route::post('/changeDes', 'TutorController@changeDes')->name('changeDes');

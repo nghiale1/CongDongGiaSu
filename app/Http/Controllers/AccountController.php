@@ -23,25 +23,35 @@ class AccountController extends Controller
         if (Auth::attempt($arr, $remember)) {
             $role = \DB::table('taikhoan')
                 ->where('username', $arr['username'])->first();
-
+            // $location = '/';
             if ($role->tk_quyen == 'HocVien') {
+                $route = \DB::table('taikhoan')
+                    ->join('hocvien', 'hocvien.tk_id', 'taikhoan.tk_id')
+                    ->where('username', $arr['username'])->first();
+                // $location = '/';
+                return redirect()->route('student.profile', $route->hv_id);
 
-                return redirect()->route('home');
             }
+
             if ($role->tk_quyen == 'GiaSu') {
                 $route = \DB::table('taikhoan')
-                ->join('giasu','giasu.tk_id','taikhoan.tk_id')
-                ->where('username', $arr['username'])->first();
+                    ->join('giasu', 'giasu.tk_id', 'taikhoan.tk_id')
+                    ->where('username', $arr['username'])->first();
+                // $location = 'gia-su/' . $route->gs_id;
                 return redirect()->route('tutor.profile', $route->gs_id);
             }
-            if ($role->tk_quyen == 'Admin') {
 
+            if ($role->tk_quyen == 'Admin') {
                 return redirect()->route('dashboard.index');
+
+                // $location = '/dashboard';
             }
+            // return response()->json($location, 200);
 
         } else {
-            $alert = "Sai tên tài khoản hoặc mật khẩu";
-            return response()->json($alert, 400);
+            // $alert = "Sai tên tài khoản hoặc mật khẩu";
+            return back()->with('error', 'Sai tên tài khoản hoặc mật khẩu');
+            // return response()->json($alert, 400);
         }
     }
     public function logout(Request $request)

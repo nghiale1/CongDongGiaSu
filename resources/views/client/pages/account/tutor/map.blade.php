@@ -13,7 +13,11 @@
 @endpush
 
 
+
 <div id="map" style="width:100%;height:500px"></div>
+<br>
+<span>Tổng quảng đường là:</span>
+<span id="khoangcach"></span>
 
 @push('script')
 <script>
@@ -23,7 +27,7 @@ let map;
 
 function initMap() {
   //Lấy vị trí hiện tại
-
+  const service = new google.maps.DistanceMatrixService();
   var pune = {
     lat: 0,
     lng: 0
@@ -102,7 +106,12 @@ function initMap() {
 
 
           // đường đi
+          //Chỉ đường khi có sự kiện click
+         
+          //chi đường A va B
           const directionsService = new google.maps.DirectionsService();
+          const directionsRenderer = new google.maps.DirectionsRenderer();
+          const geocoder = new google.maps.Geocoder();
           directionsService.route(
             {
               origin:pos,
@@ -116,7 +125,34 @@ function initMap() {
                   directions:response,
                   map:map
                 });
-              } 
+                service.getDistanceMatrix(
+                {
+                    origins: [pos],
+                    destinations: [gs],
+                    travelMode: google.maps.TravelMode.DRIVING,
+                },
+                (response, status) => {
+                    if (status !== "OK") {
+                    alert("Error was: " + status);
+                    }
+                    else{
+                    var originList=response.originAddresses;
+                    var destinationAddresses=response.destinationAddresses;
+                    var dt ;
+                    for (let i = 0; i < originList.length; i++) {
+                        const results = response.rows[i].elements;
+                        for (let j = 0; j < results.length; j++) {
+                            var element = results[j];
+                            dt =element.distance.text;
+                        }
+                    } 
+                    document.getElementById('khoangcach').innerHTML  =dt;
+                   
+                    }
+                } 
+                );
+
+              }
             }
           );
         }
@@ -126,53 +162,39 @@ function initMap() {
     }
   }
   geoLocation();
-
-
-
-
-  // const autocomplete = new  google.maps.places.Autocomplete(document.getElementById('auto_search'));
-
-  // autocomplete.addListener('place_changed',function(){
-  //   const place = autocomplete.getPlace();
-  //   // map.setCenter(place.geometry.location);
-
-  //   map.fitBounds(place.geometry.viewport);
-  //   map.setZoom(16);
-  //   marker.setPosition(place.geometry.location);
-  //   // console.log(autocomplete.getPlace());
-
-  // });
-
-  const autocomplete = new google.maps.places.Autocomplete(document.getElementById('start'));
-
-  autocomplete.addListener('place_changed', function() {
-    const place = autocomplete.getPlace();
-    map.fitBounds(place.geometry.viewport);
-    map.setZoom(16);
-    marker.setPosition(place.geometry.location);
-
-
-  });
-
-  
-  google.maps.event.addDomListener(window, 'load', initialize);
-  function initialize() {
-      var input = document.getElementById('autocomplete');
-      var autocomplete = new google.maps.places.Autocomplete(input);
-      autocomplete.addListener('place_changed', function() {
-          var place = autocomplete.getPlace();
-          $('#latitude').val(place.geometry['location'].lat());
-          $('#longitude').val(place.geometry['location'].lng());
-          // --------- show lat and long ---------------
-          $("#lat_area").removeClass("d-none");
-          $("#long_area").removeClass("d-none");
-      });
-  }
+  const geocoder = new google.maps.Geocoder();
+  const autocomplete = new  google.maps.places.Autocomplete(document.getElementById('autocomplete'));
+        
+        autocomplete.addListener('place_changed',function(){
+          const place = autocomplete.getPlace();
+          // map.setCenter(place.geometry.location);
+         let data='['+place.geometry.location.lat()+','+place.geometry.location.lng()+']';
+         $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+          $.ajax({
+            type: "post",
+            url: "{{route('changeLatLng')}}",
+            data: {data:data},
+            dataType: "json",
+            success: function (response) {
+              console.log(response);
+            }
+          });
+          // map.fitBounds(place.geometry.viewport);
+          // map.setZoom(16);
+          // marker.setPosition(place.geometry.location);
+        });
 
 }
 
 </script>
-<script async defer
+{{-- <script async defer
   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAaaygZT7_LyyyK1fE9Wf9nsBHfJXgzXXY&region=VN&language=vi&libraries=places,geometry&callback=initMap">
+</script> --}}
+<script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAaaygZT7_LyyyK1fE9Wf9nsBHfJXgzXXY&language=vi&libraries=places&callback=initMap">
 </script>
 @endpush
