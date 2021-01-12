@@ -71,7 +71,7 @@ Gợi ý khoá học
                                 </div>
                                 <div class="col-md-8">
 
-                                    <span class=""> Lê Minh Nghĩa</span><br>
+                                    <span class=""> {{$item->gs_hoten}}</span><br>
                                     <span>
 
                                         {{number_format($item->l_hocphi)  }} đ
@@ -112,7 +112,7 @@ Gợi ý khoá học
                                 </div>
                                 <div class="col-md-8">
 
-                                    <span class=""> Lê Minh Nghĩa</span><br>
+                                    <span class=""> {{$item->gs_hoten}}</span><br>
                                     <span>
 
                                         {{number_format($item->l_hocphi)  }} đ

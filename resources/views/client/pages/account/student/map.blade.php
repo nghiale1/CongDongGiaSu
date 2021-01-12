@@ -64,6 +64,7 @@ function initMap() {
 
   })
   var loca = '{!!$loca!!}';
+  console.log(loca);
   loca = JSON.parse(loca);
   var markers = [];
   Object.entries(loca).forEach(([key,element]) => {

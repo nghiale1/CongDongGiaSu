@@ -41,7 +41,7 @@
     @include('client.pages.class.chat')
 
 </div>
-<?php elseif (!\Auth::user()->kiemTraGiaoDich($lop->l_id)): ?>
+<?php elseif (!\Auth::user()->kiemTraGiaoDich($lop->l_id) && $lop->l_ngayketthuc>Date('Y-m-d')): ?>
 
 <div class="sugg white">
     <img src="{{asset($lop->l_daidien)}}" alt="{{$lop->l_ten}}" load="lazy" class="suggestion-avatar rounded-top pb-1">
@@ -55,7 +55,10 @@
             </h4>
         </strong>
         <br>
-        <a href="{{route('VNPay',$lop->l_id)}}" class="btn btn-danger" style="width: 100%">ĐĂNG KÝ</a>
+        <form action="{{route('VNPay',$lop->l_id)}}" method="post">
+            @csrf
+            <button type="submit" class="btn btn-danger" style="width: 100%">ĐĂNG KÝ</button>
+        </form>
         <br>
         <br>
     </div>
@@ -63,7 +66,7 @@
 </div>
 <?php endif ?>
 <?php endif ?>
-<?php if (!\Auth::check()): ?>
+<?php if (!\Auth::check() && $lop->l_ngayketthuc<Date('Y-m-d')): ?>
 
 <div class="sugg white">
     <img src="{{asset($lop->l_daidien)}}" alt="{{$lop->l_ten}}" load="lazy" class="suggestion-avatar rounded-top pb-1">

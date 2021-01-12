@@ -18,18 +18,16 @@ class CourseController extends Controller
             ->take(8)
             ->get();
         // chưa đủ 5 khoá học
-        $getPlus = 8 - count($yeuthich);
-        if ($getPlus > 0) {
 
-            // lấy lớp khác
-            $goiy = \DB::table('lop')
-                ->join('giasu', 'giasu.gs_id', 'lop.gs_id')
-                ->join('chitietchuyenmon', 'giasu.gs_id', 'chitietchuyenmon.gs_id')
-                ->join('giaodich', 'giaodich.l_id', 'lop.l_id')
-                ->orderBy('lop.l_ngaybatdau', 'desc')
-                ->take($getPlus)
-                ->get();
-        }
+        // lấy lớp khác
+        $goiy = \DB::table('lop')
+            ->join('giasu', 'giasu.gs_id', 'lop.gs_id')
+        // ->join('chitietchuyenmon', 'giasu.gs_id', 'chitietchuyenmon.gs_id')
+        // ->orderBy('lop.l_ngaybatdau', 'desc')
+            ->take(8)
+            ->get();
+        // dd($goiy);
+
         $student = \DB::table('hocvien')->where('tk_id', \Auth::id())->first();
 
         return view('client.pages.account.student.suggestion', compact('yeuthich', 'goiy', 'student'));

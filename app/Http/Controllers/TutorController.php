@@ -46,6 +46,38 @@ class TutorController extends Controller
             return response()->json($th, 500);
         }
     }
+    public function changeVoice(Request $request)
+    {
+
+        try {
+            //code...
+            \DB::table('giasu')
+                ->where('gs_id', \Auth::user()->giasus[0]->gs_id)
+                ->update([
+                    'gs_giongnoi' => $request->data,
+                ]);
+            return response()->json($request, 200);
+        } catch (\Throwable $th) {
+            //throw $th;
+            return response()->json($th, 500);
+        }
+    }
+    public function changeBirth(Request $request)
+    {
+
+        try {
+            //code...
+            \DB::table('giasu')
+                ->where('gs_id', \Auth::user()->giasus[0]->gs_id)
+                ->update([
+                    'gs_namsinh' => $request->data,
+                ]);
+            return response()->json($request, 200);
+        } catch (\Throwable $th) {
+            //throw $th;
+            return response()->json($th, 500);
+        }
+    }
     public function changeLatLng(Request $request)
     {
 

@@ -82,7 +82,9 @@ class StudentController extends Controller
         $id = $this->hv_id();
         $student = \DB::table('hocvien')->where('hv_id', $id)->first();
         $level = \DB::table('doituongnguoihoc')->get();
-        $loca = \DB::table('giasu')->get();
+        $loca = \DB::table('giasu')
+            ->where('gs_toado', '!=', '[0,0]')
+            ->select('gs_id', 'gs_hoten', 'gs_toado')->get();
         return view('client.pages.account.student.map', compact('loca', 'student', 'level'));
     }
     public function store(Request $request, $gs_id)
