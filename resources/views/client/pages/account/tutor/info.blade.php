@@ -165,7 +165,7 @@
                 var data='<textarea placeholder="'+placeholder+'" class="tare-edit tare-'+position+'" style="height:'+(height+25)+'px;min-height:45px">'+value.trim()+'</textarea>';
                 var btn='<button class="btn-update  close-'+position+'" type="button">Hủy</button><button class="btn-update save-'+position+'" type="button">Lưu</button>'
                 if(type=='voice'){
-                var data='<select class="form-control tare-voice" name="tare-voice"><option value="Bắc">Miền Bắc</option><option value="Trung">Miền Trung</option><option value="Nam">Miền Nam</option></select>';
+                var data='<select class="form-control tare-voice" name="tare-voice"><option value="Miền Bắc">Miền Bắc</option><option value="Miền Trung">Miền Trung</option><option value="Miền Nam">Miền Nam</option></select>';
                 var btn='<button class="btn-update  close-'+position+'" type="button">Hủy</button><button class="btn-update save-'+position+'" type="button">Lưu</button>'
                 }
                 if(type=='birth'){

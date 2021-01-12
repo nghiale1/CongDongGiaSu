@@ -180,7 +180,7 @@
         color: #4c4c4c;
         font-size: 15px;
         min-height: 48px;
-        width: 100%;
+        width: 85%;
     }
 
     .type_msg {

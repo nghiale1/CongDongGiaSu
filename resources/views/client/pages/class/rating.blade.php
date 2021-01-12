@@ -106,7 +106,6 @@
 <div class="row">
     <div class="col-md-3">Đánh giá</div>
     <div class="col-md-9">
-
         <div class="review">
             <span class="star-white">
 

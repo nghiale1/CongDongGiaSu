@@ -487,7 +487,7 @@ class TutorController extends Controller
             ->join('lop', 'giaodich.l_id', 'lop.l_id')
             ->join('taikhoan', 'taikhoan.tk_id', 'giaodich.tk_id')
             ->join('hocvien', 'hocvien.tk_id', 'taikhoan.tk_id')
-            ->where('giaodich.gd_trangthai', 0)
+            ->where('giaodich.gd_trangthai', 1)
             ->where('lop.l_id', $l_id)
             ->get();
         $lop = \DB::table('lop')

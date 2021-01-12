@@ -138,13 +138,6 @@
                                 </div>
                                 Quản lý tài liệu
                             </a>
-                            <a class="dropdown-item pb-1" href="">
-                                <div class="dropdown-icon">
-
-                                    <i class="fa fa-graduation-cap" aria-hidden="true"></i>
-                                </div>
-                                Lớp học
-                            </a>
                             <a class="dropdown-item pb-1" href="{{route('account.logout')}}">
                                 <div class="dropdown-icon">
                                     <i class="fa fa-sign-out" aria-hidden="true"></i>

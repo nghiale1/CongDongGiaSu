@@ -173,7 +173,7 @@ class SearchController extends Controller
         $search = $request->search;
         $keySearch['gender'] = "";
         $keySearch['sort'] = 1;
-        $keySearch['voice'] = ['Bắc', 'Trung', 'Nam'];
+        $keySearch['voice'] = ['Miền Bắc', 'Miền Trung', 'Miền Nam'];
         $keySearch['schedule'] = [];
         $keySearch['level'] = [];
         $keyword = '%' . $request->search . '%';
