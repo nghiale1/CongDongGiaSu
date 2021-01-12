@@ -126,7 +126,7 @@ Trang cá nhân / Thêm lớp
                 <input type="number" min="0" name="l_sobuoi" id="" class="form-control" placeholder="Số buổi"
                     onKeyUp="if(this.value>100){this.value='100';}else if(this.value<0){this.value='0';}" required>
                 <br>
-                <input type="number" min="0" step="1000" name="l_hocphi" id="" class="form-control"
+                <input type="number" min="0" step="1000" name="l_hocphi" id="fee" class="form-control"
                     placeholder="Học phí"
                     onKeyUp="if(this.value>100000000){this.value='100000000';}else if(this.value<0){this.value='0';}"
                     required>
@@ -139,11 +139,17 @@ Trang cá nhân / Thêm lớp
                 <input type="text" name="l_diachi" id="autocomplete" class="form-control" placeholder="Địa chỉ">
                 <br>
                 <textarea name="l_gioithieu" id="" cols="30" rows="10" class="form-control tiny"
-                    placeholder="Giới thiệu khóa học" required></textarea>
+                    placeholder="Giới thiệu khóa học"></textarea>
                 <br>
                 <textarea name="l_mota" id="" cols="30" rows="10" class="form-control tiny" maxlength="191"
-                    placeholder="Mô tả khóa học" required></textarea>
+                    placeholder="Mô tả khóa học"></textarea>
                 <br>
+                <br>
+                <input type="checkbox" name="" id="isRule" required> <label for="isRule">Tôi đồng ý với các <a href="#"
+                        style="color: #fdc800">Điều khoản</a></label>
+                <br>
+                <br>
+
                 <button type="button" class="btn btn-secondary">Hủy</button>
                 <button type="submit" class="btn btn-success">Tạo</button>
                 <br>

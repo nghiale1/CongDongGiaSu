@@ -280,11 +280,10 @@ class TutorController extends Controller
     }
     public function addClassStore(Request $request)
     {
-        // dd($request );
         DB::beginTransaction();
         try {
             if ($request->hasFile('avatar')) {
-
+                if (!$request->lich) {return back()->with('error', 'Chưa chọn lịch dạy');}
                 $id = \Auth::user()->giasus[0]->gs_id;
 
                 //lưu file
@@ -449,5 +448,19 @@ class TutorController extends Controller
         $list = \DB::table('lop')->where('gs_id', $gs_id)->get();
         $tutor = \DB::table('giasu')->where('gs_id', $gs_id)->first();
         return view('client.pages.account.tutor.listClass', compact('list', 'tutor'));
+    }
+    public function listHV($l_id)
+    {
+        $list = \DB::table('giaodich')
+            ->join('lop', 'giaodich.l_id', 'lop.l_id')
+            ->join('taikhoan', 'taikhoan.tk_id', 'giaodich.tk_id')
+            ->join('hocvien', 'hocvien.tk_id', 'taikhoan.tk_id')
+            ->where('giaodich.gd_trangthai', 0)
+            ->where('lop.l_id', $l_id)
+            ->get();
+        $lop = \DB::table('lop')
+            ->where('lop.l_id', $l_id)
+            ->first();
+        return view('client.pages.class.listStudent', compact('list', 'lop'));
     }
 }

@@ -65,34 +65,35 @@ Trang chủ
                 <div class="col-lg-6 pr-lg-2 chart-grid">
                     <div class="card text-center card_border">
                         <div class="card-header chart-grid__header">
-                            Bar Chart
+                            Số gia sư trong năm
                         </div>
                         <div class="card-body">
-                            <!-- bar chart -->
-                            <div id="container">
-                                <canvas id="barchart"></canvas>
-                            </div>
-                            <!-- //bar chart -->
+                            <!-- line chart -->
+                            {{-- <div class="container"> --}}
+                            <canvas id="gs" width="400px" height=""></canvas>
+                            {{-- </div> --}}
+                            <!-- //line chart -->
                         </div>
                         <div class="card-footer text-muted chart-grid__footer">
-                            Updated 2 hours ago
+                            Cập nhật lần cuối: {{Date('H:i:s')}}
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-6 pl-lg-2 chart-grid">
                     <div class="card text-center card_border">
                         <div class="card-header chart-grid__header">
-                            Line Chart
+                            Số học viên trong năm
                         </div>
                         <div class="card-body">
                             <!-- line chart -->
-                            <div id="container">
-                                <canvas id="linechart"></canvas>
-                            </div>
+                            {{-- <div class="container"> --}}
+                            <canvas id="hv" width="400px" height=""></canvas>
+
+                            {{-- </div> --}}
                             <!-- //line chart -->
                         </div>
                         <div class="card-footer text-muted chart-grid__footer">
-                            Updated just now
+                            Cập nhật lần cuối: {{Date('H:i:s')}}
                         </div>
                     </div>
                 </div>
@@ -104,3 +105,87 @@ Trang chủ
 </div>
 <!-- main content end-->
 @endsection
+@push('script')
+{{-- gs --}}
+<script>
+    var gs = document.getElementById('gs');
+    var myChart = new Chart(gs, {
+        type: 'bar',
+        data: {
+            labels: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4','Tháng 5','Tháng 6','Tháng 7','Tháng 8','Tháng 9','Tháng 10','Tháng 11','Tháng 12'],
+            datasets: [{
+                label: 'Số lượng gia sư mới trong năm 2020',
+                data: ["{{$tkgs[1]}}","{{$tkgs[2]}}","{{$tkgs[3]}}","{{$tkgs[4]}}","{{$tkgs[5]}}","{{$tkgs[6]}}","{{$tkgs[7]}}","{{$tkgs[8]}}","{{$tkgs[9]}}","{{$tkgs[10]}}","{{$tkgs[11]}}","{{$tkgs[12]}}"],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+    gs.height = 337;
+</script>
+<script>
+    var hv = document.getElementById('hv');
+    var myChart = new Chart(hv, {
+        type: 'bar',
+        data: {
+            labels: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4','Tháng 5','Tháng 6','Tháng 7','Tháng 8','Tháng 9','Tháng 10','Tháng 11','Tháng 12'],
+            datasets: [{
+                label: 'Số lượng học viên mới trong năm 2020',
+                data: ["{{$tkhv[1]}}","{{$tkhv[2]}}","{{$tkhv[3]}}","{{$tkhv[4]}}","{{$tkhv[5]}}","{{$tkhv[6]}}","{{$tkhv[7]}}","{{$tkhv[8]}}","{{$tkhv[9]}}","{{$tkhv[10]}}","{{$tkhv[11]}}","{{$tkhv[12]}}"],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+    hv.defaults.global.legend.display = false;
+    hv.height = 337;
+</script>
+@endpush

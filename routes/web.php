@@ -12,7 +12,6 @@ Route::get('/dang-xuat', 'AccountController@logout')->name('account.logout');
 
 Route::group(['middleware' => ['hocVien']], function () {
     Route::post('/danh-gia/{gs_id}', 'StudentController@rating')->name('rating');
-    Route::get('/trang-ca-nhan/{id}', 'StudentController@profile')->name('student.profile');
 
     // update info student
     Route::post('/cap-nhat-uoc-muon', 'StudentController@updateWish')->name('updateWish');
@@ -68,6 +67,9 @@ Route::group(['middleware' => ['giaSu']], function () {
     Route::post('/removeDegree', 'TutorController@removeDegree')->name('removeDegree');
     Route::post('/addSubject', 'TutorController@addSubject')->name('addSubject');
     Route::get('/profiles/getSuggestCities', 'TutorController@getSuggestCities');
+
+    Route::get('/danh-sach-hoc-vien/{l_id}', 'TutorController@listHV')->name('listHV');
+
 });
 
 // tìm lớp
@@ -137,6 +139,8 @@ Route::group(['middleware' => ['admin']], function () {
 });
 
 Route::group(['middleware' => ['login']], function () {
+    Route::get('/trang-ca-nhan/{id}', 'StudentController@profile')->name('student.profile');
+
     Route::group(['prefix' => '/tai-lieu-hoc-vien'], function () {
         Route::get('/tai-lieu/{hv_id}', 'DocumentTutorController@studentIndex')->name('document.student.index');
         Route::get('/thu-muc/{hv_id}/{slug}', 'DocumentTutorController@studentInto')->name('document.student.into');

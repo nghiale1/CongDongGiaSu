@@ -13,6 +13,7 @@ class StudentController extends Controller
             ->join('giaodich', 'giaodich.l_id', 'lop.l_id')
             ->join('giasu', 'giasu.gs_id', 'lop.gs_id')
             ->where('giaodich.tk_id', $student->tk_id)
+            ->where('giaodich.gd_trangthai', 1)
             ->get();
         $student->danhSachKhoaHoc = $danhSachKhoaHoc;
         // dd($student);

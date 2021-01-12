@@ -25,7 +25,10 @@ class PageController extends Controller
             ->where('lop.l_id', $id)
             ->count();
         $tutor = Giasu::where('gs_id', $lop->gs_id)->first();
-
+        $buoihoc = \DB::table('loptgd')
+            ->join('thoigianday', 'thoigianday.tgd_id', 'loptgd.tgd_id')
+            ->where('loptgd.l_id', $id)
+            ->get();
         $tmlop = \DB::table('thumuclop')
             ->where('l_id', $id)
             ->where('tml_tmid', null)
@@ -130,7 +133,7 @@ class PageController extends Controller
         $tutor->danhgia = $this->getRatingGS($tutor->gs_id);
         $tutor->lopDaDay = $this->getClassTeached($tutor->gs_id);
         $suggestion = $this->suggestionClass($id, $tutor->gs_id);
-        return view('client.pages.class.intro', compact('lop', 'folder', 'countFilde', 'video', 'tutor', 'countHV', 'minute', 'second', 'countVideo', 'suggestion', 'danhgia'));
+        return view('client.pages.class.intro', compact('lop', 'folder', 'buoihoc', 'countFilde', 'video', 'tutor', 'countHV', 'minute', 'second', 'countVideo', 'suggestion', 'danhgia'));
     }
     public function suggestionClass($id, $gs_id)
     {

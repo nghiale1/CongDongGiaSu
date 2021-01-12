@@ -63,9 +63,14 @@
         <div class="collapse" id="collapse-{{$item->tml_slug}}">
             <br>
             @foreach ($item->taptin as $item2)
+            <?php if (\Auth::check()): ?>
+            <?php if (\Auth::user()->kiemTraLopHoc($lop->l_id) || \Auth::user()->hasRole('Admin') || \Auth::user()->kiemTraGiaoDich($lop->l_id)): ?>
 
             <a href="{{asset($item2->ttl_duongdan)}}" data-src="{{$item2->ttl_duongdan}}" class="right-click-file"
                 data-id="{{$item2->ttl_id}}" download>
+                <?php endif ?>
+                <?php endif ?>
+
                 <div class="chappter-lesson">
                     <div class="lesson-name-container">
 
@@ -75,7 +80,12 @@
                     <div class="lesson-timer">{{$item2->ttl_kichthuoc}}</div>
                 </div>
                 <div class="separate-line"></div>
+                <?php if (\Auth::check()): ?>
+                <?php if (\Auth::user()->kiemTraLopHoc($lop->l_id) || \Auth::user()->hasRole('Admin') || \Auth::user()->kiemTraGiaoDich($lop->l_id)): ?>
+
             </a>
+            <?php endif ?>
+            <?php endif ?>
             @endforeach
             @if(\Auth::check())
             @if(\Auth::user()->kiemTraLopHoc($lop->l_id))

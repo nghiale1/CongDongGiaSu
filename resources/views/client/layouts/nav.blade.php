@@ -75,7 +75,7 @@
                                 </div>
                                 Quản lý tài liệu
                             </a>
-                            <a class="dropdown-item pb-1" href="">
+                            <a class="dropdown-item pb-1" href="{{route('listClass',\Auth::user()->giasus[0]->gs_id)}}">
                                 <div class="dropdown-icon">
 
                                     <i class="fa fa-graduation-cap" aria-hidden="true"></i>

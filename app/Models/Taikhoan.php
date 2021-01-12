@@ -59,7 +59,9 @@ class Taikhoan extends Authenticatable
     public static function kiemTraGiaoDich($l_id)
     {
         $check = \DB::table('giaodich')->where('l_id', $l_id)
-            ->where('tk_id', \Auth::id())->first();
+            ->where('tk_id', \Auth::id())
+            ->where('gd_trangthai', 1)
+            ->first();
         return $check ? true : false;
     }
     public static function kiemTraLopHoc($l_id)

@@ -48,10 +48,10 @@
 
         <div class="collapse" id="collapse-container-1">
             <br>
-            @foreach ($video as $item2)
+            @foreach ($video as $key=>$item2)
 
-            <a href="#" class="playVideo right-click-video" data-id="{{$item2->v_id}}"
-                data-src="{{$item2->v_duongdan}}">
+            <a href="#" class="playVideo right-click-video" data-id="{{$item2->v_id}}" data-src="{{$item2->v_duongdan}}"
+                data-num="{{$key}}">
                 <div class="chappter-lesson">
                     <div class="lesson-name-container">
 

@@ -179,10 +179,13 @@ class SearchController extends Controller
         $keyword = '%' . $request->search . '%';
 
         $tutor = $tutor
-            ->join('giasu', 'giasu.gs_id', 'lop.l_id')
-            ->where('lop.l_ten', 'like', $keyword)
+            ->join('giasu', 'giasu.gs_id', 'lop.gs_id')
+            ->select('giasu.*', 'lop.*')
+            ->orwhere('lop.l_ten', 'like', $keyword)
             ->orwhere('giasu.gs_hoten', 'like', $keyword)
+            ->groupby('giasu.gs_id')
             ->get();
+        // dd($tutor);
         if ($request->voice) {
             $tutor = $tutor->whereIn('gs_giongnoi', $request->voice);
             $keySearch['voice'] = $request->voice;
