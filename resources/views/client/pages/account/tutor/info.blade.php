@@ -88,18 +88,52 @@
 
 </div>
 <div class="col-md-12 intro">
-    <h5>Phí dạy</h5>
-    <p class="inp-fee">
-        {!!number_format($tutor->gs_mucluong)!!}
-    </p>
-    <span>/ buổi</span>
-    <br>
-    @if(\Auth::check())
-    @if(\Auth::user()->kiemTraGiaSu($tutor->gs_id))
-    <button class="edit" data-for="inp-fee" data-text="Thêm thông tin về chi phí dạy" data-position="fee">Chỉnh
-        sửa</button>
-    @endif
-    @endif
+    <table class="table table-bordered">
+        <tr>
+            <td>Giọng nói</td>
+            <td>
+                <p class="inp-voice">
+                    {!!($tutor->gs_giongnoi)!!}
+                </p> @if(\Auth::check())
+                @if(\Auth::user()->kiemTraGiaSu($tutor->gs_id))
+                <button class="edit" data-for="inp-voice" data-text="Thêm thông tin về chi phí dạy" data-type="voice"
+                    data-position="voice">Chỉnh
+                    sửa</button>
+                @endif
+                @endif
+            </td>
+        </tr>
+        <tr>
+            <td>Năm sinh</td>
+            <td>
+                <p class="inp-birth">
+                    {!!($tutor->gs_namsinh)!!}
+                </p> @if(\Auth::check())
+                @if(\Auth::user()->kiemTraGiaSu($tutor->gs_id))
+                <button class="edit" data-for="inp-birth" data-text="Thêm thông tin về chi phí dạy" data-type="birth"
+                    data-position="birth">Chỉnh
+                    sửa</button>
+                @endif
+                @endif
+            </td>
+        </tr>
+        <tr>
+            <td>Phí dạy</td>
+            <td>
+                <p class="inp-fee">
+                    {!!number_format($tutor->gs_mucluong)!!}
+                </p>
+                <span>/ buổi</span> @if(\Auth::check())
+                @if(\Auth::user()->kiemTraGiaSu($tutor->gs_id))
+                <button class="edit" data-for="inp-fee" data-text="Thêm thông tin về chi phí dạy"
+                    data-position="fee">Chỉnh
+                    sửa</button>
+                @endif
+                @endif
+            </td>
+        </tr>
+    </table>
+
 
 
     <h5>Giới thiệu</h5>
@@ -118,6 +152,7 @@
     $(document).ready(function () {
             $('.edit').click(function (e) { 
                 e.preventDefault();
+                var type=$(this).attr('data-type');//thẻ p
                 // lấy đối tượng
                 var obj=$(this).attr('data-for');//thẻ p
                 var position=$(this).attr('data-position');
@@ -129,12 +164,63 @@
                 // thay thế
                 var data='<textarea placeholder="'+placeholder+'" class="tare-edit tare-'+position+'" style="height:'+(height+25)+'px;min-height:45px">'+value.trim()+'</textarea>';
                 var btn='<button class="btn-update  close-'+position+'" type="button">Hủy</button><button class="btn-update save-'+position+'" type="button">Lưu</button>'
-                
+                if(type=='voice'){
+                var data='<select class="form-control tare-voice" name="tare-voice"><option value="Miền Bắc">Miền Bắc</option><option value="Miền Trung">Miền Trung</option><option value="Miền Nam">Miền Nam</option></select>';
+                var btn='<button class="btn-update  close-'+position+'" type="button">Hủy</button><button class="btn-update save-'+position+'" type="button">Lưu</button>'
+                }
+                if(type=='birth'){
+                var data='<input type="date" class="form-control tare-birth">';
+                var btn='<button class="btn-update  close-'+position+'" type="button">Hủy</button><button class="btn-update save-'+position+'" type="button">Lưu</button>'
+                }
                 $('.'+obj).html(data);
                 $(this).hide();
                 $('.'+obj).append(btn);
                 var elem= $(this);
                 
+                $('.save-voice').click(function (e) { 
+                    e.preventDefault();
+                    var data=$('.tare-voice').val();
+                    // alert(data);
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+                    $.ajax({
+                        type: "post",
+                        url: "{!!route('changeVoice')!!}",
+                        data: {data:data},
+                        success: function (response) {
+                            let dataNew=data;
+                            $(elem).show();
+                            $('.'+obj).html(dataNew);
+                        },
+                        error:function (e) {
+                        }
+                    });
+                });
+                $('.save-birth').click(function (e) { 
+                    e.preventDefault();
+                    var data=$('.tare-birth').val();
+                    // alert(data);
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+                    $.ajax({
+                        type: "post",
+                        url: "{!!route('changeBirth')!!}",
+                        data: {data:data},
+                        success: function (response) {
+                            let dataNew=data;
+                            $(elem).show();
+                            $('.'+obj).html(dataNew);
+                        },
+                        error:function (e) {
+                        }
+                    });
+                });
                 $('.save-fee').click(function (e) { 
                     e.preventDefault();
                     var data=$('.tare-fee').val();

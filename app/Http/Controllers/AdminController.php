@@ -12,7 +12,15 @@ class AdminController extends Controller
         $countHV = \DB::table('hocvien')->count();
         $countLH = \DB::table('lop')->count();
         $countGD = \DB::table('giaodich')->count();
-        return view('admin.pages.index', compact('countGS', 'countGD', 'countLH', 'countHV'));
+        $tkgs = [];
+        $tkhv = [];
+        for ($i = 1; $i < 13; $i++) {
+            $data = \DB::table('giasu')->whereMonth('gs_ngaytao', $i)->whereYear('gs_ngaytao', Date('Y'))->count();
+            $data2 = \DB::table('hocvien')->whereMonth('hv_ngaytao', $i)->whereYear('hv_ngaytao', Date('Y'))->count();
+            $tkgs[$i] = $data;
+            $tkhv[$i] = $data2;
+        }
+        return view('admin.pages.index', compact('countGS', 'countGD', 'countLH', 'countHV', 'tkgs', 'tkhv'));
     }
     public function newReport()
     {

@@ -16,7 +16,7 @@
 </style>
 @endpush
 <?php if (\Auth::check()): ?>
-<?php if (\Auth::user()->kiemTraGiaoDich($lop->l_id)||\Auth::user()->kiemTraLopHoc($lop->l_id)): ?>
+<?php if (\Auth::user()->kiemTraLopHoc($lop->l_id)): ?>
 
 {{-- {{dd(\Auth::user()->giaodichs())}} --}}
 <div class="content pl-4 pr-4 white" style="border:1px solid #e5e6ec">
@@ -35,7 +35,14 @@
 </div>
 <br>
 @include('client.pages.class.chat')
-<?php else:?>
+<?php elseif (\Auth::user()->kiemTraGiaoDich($lop->l_id)): ?>
+
+<div class="sugg white">
+    @include('client.pages.class.chat')
+
+</div>
+<?php elseif (!\Auth::user()->kiemTraGiaoDich($lop->l_id) && $lop->l_ngayketthuc>Date('Y-m-d')): ?>
+
 <div class="sugg white">
     <img src="{{asset($lop->l_daidien)}}" alt="{{$lop->l_ten}}" load="lazy" class="suggestion-avatar rounded-top pb-1">
     {{-- {{dd(\Auth::user()->giaodichs())}} --}}
@@ -55,10 +62,11 @@
         <br>
         <br>
     </div>
+
 </div>
 <?php endif ?>
 <?php endif ?>
-<?php if (!\Auth::check()): ?>
+<?php if (!\Auth::check() && $lop->l_ngayketthuc<Date('Y-m-d')): ?>
 
 <div class="sugg white">
     <img src="{{asset($lop->l_daidien)}}" alt="{{$lop->l_ten}}" load="lazy" class="suggestion-avatar rounded-top pb-1">
@@ -72,14 +80,12 @@
             </h4>
         </strong>
         <br>
-        <form action="{{route('account.login_view')}}" method="post">
-            @csrf
-            <button type="submit" class="btn btn-danger" style="width: 100%">ĐĂNG KÝ</button>
-        </form>
+        <a href="{{route('account.login_view')}}" class="btn btn-danger" style="width: 100%">ĐĂNG KÝ</a>
         <br>
         <br>
     </div>
 </div>
+
 <?php endif ?>
 
 <br>

@@ -64,6 +64,7 @@ Công nghệ thông tin / {{$lop->l_ten}}
                     @endif
 
 
+
                     <div class="course-description">{!!$lop->l_mota!!}</div>
                     @if(\Auth::check())
                     @if(\Auth::user()->kiemTraLopHoc($lop->l_id))
@@ -117,9 +118,39 @@ Công nghệ thông tin / {{$lop->l_ten}}
                     <a href="#teacher" class="teacher">Giảng viên</a>
                 </div>
             </div>
+
             <br>
             <div class="white padding" id="info">
 
+                <table class="table table-bordered">
+                    <tr>
+                        <td style="width:30%">Ngày bắt đầu:</td>
+                        <td>{!!$lop->l_ngaybatdau !!}</td>
+                    </tr>
+                    <tr>
+                        <td>Ngày kết thúc:</td>
+                        <td>{!!$lop->l_ngayketthuc !!}</td>
+                    </tr>
+                    <tr>
+                        <td>Số lượng học viên:</td>
+                        <td>{{$lop->l_soluong}}</td>
+                    </tr>
+                    <tr>
+                        <td>Số buổi:</td>
+                        <td>{{$lop->l_sobuoi}}</td>
+                    </tr>
+                    <tr>
+                        <td>Buổi học:</td>
+                        <td>
+                            @foreach ($buoihoc as $key=>$item)
+                            {{$item->tgd_ten}}
+                            @if ($key+1 < count($buoihoc)) , @endif @endforeach </td> </tr> <tr>
+                        <td>Địa chỉ:</td>
+                        <td>{{$lop->l_diachi}}</td>
+                    </tr>
+                </table>
+            </div> <br>
+            <div class="white padding">
                 <p class="l_gioithieu">{!!$lop->l_gioithieu!!}</p>
                 @if(\Auth::check())
                 @if(\Auth::user()->kiemTraLopHoc($lop->l_id))
@@ -149,12 +180,18 @@ Công nghệ thông tin / {{$lop->l_ten}}
                 <div class="title">
                     Giáo trình
                 </div>
+                <?php if (\Auth::check()): ?>
+                <?php if (\Auth::user()->kiemTraGiaoDich($lop->l_id)): ?>
                 <span>
                     <button type="button" class="btn" data-toggle="modal" data-target="#report" style="color: red">
                         <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
                     </button>
 
                 </span>
+
+                <?php endif ?>
+                <?php endif ?>
+
                 <!-- Modal -->
                 <div class="modal fade" id="report" tabindex="-1" role="dialog" aria-labelledby="reportLabel"
                     aria-hidden="true">
@@ -175,7 +212,8 @@ Công nghệ thông tin / {{$lop->l_ten}}
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
-                                    <button type="submit" class="btn btn-primary">Gửi lên quản trị viên</button>
+                                    <button type="submit" class="btn btn-primary">Gửi lên quản trị
+                                        viên</button>
                                 </div>
                             </form>
                         </div>
@@ -194,6 +232,17 @@ Công nghệ thông tin / {{$lop->l_ten}}
                         </div>
                     </div>
                 </div>
+                <?php if (\Auth::check()): ?>
+
+                <?php if (\Auth::user()->kiemTraLopHoc($lop->l_id)): ?>
+                <a class="btn btn-grey inline float-md-left save" href="{{route('listHV',$lop->l_id)}}">
+                    <span style="font-weight: 600;">
+                        Xem danh sách học viên</span>
+                </a>
+                <br>
+                <br>
+                <?php endif ?>
+                <?php endif ?>
 
 
 
@@ -275,6 +324,8 @@ Công nghệ thông tin / {{$lop->l_ten}}
         });
     });
 </script>
+<?php if (\Auth::check()): ?>
+<?php if (\Auth::user()->kiemTraLopHoc($lop->l_id) || \Auth::user()->hasRole('Admin') || \Auth::user()->kiemTraGiaoDich($lop->l_id)): ?>
 <script>
     $(document).ready(function () {
         $('.playVideo').click(function (e) { 
@@ -295,5 +346,7 @@ Công nghệ thông tin / {{$lop->l_ten}}
         });
     });
 </script>
+<?php endif ?>
+<?php endif ?>
 
 @endpush

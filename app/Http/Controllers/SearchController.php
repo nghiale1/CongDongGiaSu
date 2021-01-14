@@ -173,16 +173,19 @@ class SearchController extends Controller
         $search = $request->search;
         $keySearch['gender'] = "";
         $keySearch['sort'] = 1;
-        $keySearch['voice'] = ['Bắc', 'Trung', 'Nam'];
+        $keySearch['voice'] = ['Miền Bắc', 'Miền Trung', 'Miền Nam'];
         $keySearch['schedule'] = [];
         $keySearch['level'] = [];
         $keyword = '%' . $request->search . '%';
 
         $tutor = $tutor
-            ->join('giasu', 'giasu.gs_id', 'lop.l_id')
-            ->where('lop.l_ten', 'like', $keyword)
+            ->join('giasu', 'giasu.gs_id', 'lop.gs_id')
+            ->select('giasu.*', 'lop.*')
+            ->orwhere('lop.l_ten', 'like', $keyword)
             ->orwhere('giasu.gs_hoten', 'like', $keyword)
+            ->groupby('giasu.gs_id')
             ->get();
+        // dd($tutor);
         if ($request->voice) {
             $tutor = $tutor->whereIn('gs_giongnoi', $request->voice);
             $keySearch['voice'] = $request->voice;
@@ -253,7 +256,7 @@ class SearchController extends Controller
                     break;
                 // đánh giá
                 case '4':
-                    $tutor = $tutor->sortBy(function ($item) {
+                    $tutor = $tutor->sortByDesc(function ($item) {
                         return $item->danhgia['dem']['trungbinh'];
                     })->values();
 
@@ -271,13 +274,12 @@ class SearchController extends Controller
 
     public function getRatingGS($gs_id)
     {
-        $danhgia = \DB::table('giasu')
-            ->join('lop', 'lop.gs_id', 'lop.gs_id')
+        // dd($gs_id);
+        $danhgia = \DB::table('lop')
             ->join('danhgia', 'danhgia.l_id', 'lop.l_id')
-            ->where('giasu.gs_id', $gs_id)
-            ->select('danhgia.*')
+            ->where('lop.gs_id', $gs_id)
+        // ->select('danhgia.*')
             ->get();
-        // dd($danhgia);
         $dem = [
             'tong' => 0,
             'dem' => [
@@ -331,7 +333,6 @@ class SearchController extends Controller
             $dem['phantram']['hai'] = $dem['dem']['hai'] * 100 / $dem['tong'];
             $dem['phantram']['mot'] = $dem['dem']['mot'] * 100 / $dem['tong'];
         }
-
         return $dem;
 
     }

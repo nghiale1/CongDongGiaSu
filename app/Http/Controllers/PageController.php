@@ -25,7 +25,10 @@ class PageController extends Controller
             ->where('lop.l_id', $id)
             ->count();
         $tutor = Giasu::where('gs_id', $lop->gs_id)->first();
-
+        $buoihoc = \DB::table('loptgd')
+            ->join('thoigianday', 'thoigianday.tgd_id', 'loptgd.tgd_id')
+            ->where('loptgd.l_id', $id)
+            ->get();
         $tmlop = \DB::table('thumuclop')
             ->where('l_id', $id)
             ->where('tml_tmid', null)
@@ -130,7 +133,7 @@ class PageController extends Controller
         $tutor->danhgia = $this->getRatingGS($tutor->gs_id);
         $tutor->lopDaDay = $this->getClassTeached($tutor->gs_id);
         $suggestion = $this->suggestionClass($id, $tutor->gs_id);
-        return view('client.pages.class.intro', compact('lop', 'folder', 'countFilde', 'video', 'tutor', 'countHV', 'minute', 'second', 'countVideo', 'suggestion', 'danhgia'));
+        return view('client.pages.class.intro', compact('lop', 'folder', 'buoihoc', 'countFilde', 'video', 'tutor', 'countHV', 'minute', 'second', 'countVideo', 'suggestion', 'danhgia'));
     }
     public function suggestionClass($id, $gs_id)
     {
@@ -228,13 +231,16 @@ class PageController extends Controller
                     $dem['dem']['nam']++;
                     break;
             }
-            $dem['dem']['trungbinh'] = (($dem['dem']['mot'] * 1) + ($dem['dem']['hai'] * 2) + ($dem['dem']['ba'] * 3) + ($dem['dem']['bon'] * 4) + ($dem['dem']['nam'] * 5)) / $dem['tong'];
+            if ($dem['tong'] > 0) {
 
-            $dem['phantram']['nam'] = $dem['dem']['mot'] * 100 / $dem['tong'];
-            $dem['phantram']['bon'] = $dem['dem']['bon'] * 100 / $dem['tong'];
-            $dem['phantram']['ba'] = $dem['dem']['ba'] * 100 / $dem['tong'];
-            $dem['phantram']['hai'] = $dem['dem']['hai'] * 100 / $dem['tong'];
-            $dem['phantram']['mot'] = $dem['dem']['mot'] * 100 / $dem['tong'];
+                $dem['dem']['trungbinh'] = (($dem['dem']['mot'] * 1) + ($dem['dem']['hai'] * 2) + ($dem['dem']['ba'] * 3) + ($dem['dem']['bon'] * 4) + ($dem['dem']['nam'] * 5)) / $dem['tong'];
+
+                $dem['phantram']['nam'] = $dem['dem']['nam'] * 100 / $dem['tong'];
+                $dem['phantram']['bon'] = $dem['dem']['bon'] * 100 / $dem['tong'];
+                $dem['phantram']['ba'] = $dem['dem']['ba'] * 100 / $dem['tong'];
+                $dem['phantram']['hai'] = $dem['dem']['hai'] * 100 / $dem['tong'];
+                $dem['phantram']['mot'] = $dem['dem']['mot'] * 100 / $dem['tong'];
+            }
         }
 
         return $dem;
